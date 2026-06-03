@@ -1,0 +1,45 @@
+@import './variables.css';
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#050505;
+  color:white;
+  font-family:'Segoe UI', sans-serif;
+  overflow-x:hidden;
+}
+
+.section{
+  padding:120px 10%;
+}
+
+h1,h2,h3{
+  font-weight:700;
+}
+
+img{
+  width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+}
+.reveal{
+  opacity:0;
+  transform:translateY(80px);
+  transition:1s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+html{
+  scroll-behavior:smooth;
+}
