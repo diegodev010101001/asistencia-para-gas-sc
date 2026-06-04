@@ -1,36 +1,84 @@
-import "./Navbar.css";
-import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { useState, useEffect } from 'react';
+import { FiMenu, FiX } from 'react-icons/fi';
+import './Navbar.css';
+
+const NAV_LINKS = [
+  { label: 'Inicio',    href: '#inicio' },
+  { label: 'Nosotros',  href: '#nosotros' },
+  { label: 'Seguros',   href: '#servicios' },
+  { label: 'FAQ',       href: '#faq' },
+  { label: 'Contacto',  href: '#contacto' },
+];
 
 const Navbar = () => {
+  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
-  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <nav className="navbar">
+    <>
+      <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`} aria-label="Navegación principal">
 
-      <div className="logo">
-        asistencia para gas <span>SC</span>
-      </div>
+        <a href="#inicio" className="navbar-logo" aria-label="Inicio">
+          <span className="navbar-logo-mark" aria-hidden="true">AG</span>
+          <span className="navbar-logo-text">
+            asistencia para gas <em>SC</em>
+          </span>
+        </a>
 
-      <ul className={menuOpen ? "nav-links active" : "nav-links"}>
+        <ul className="navbar-links" role="list">
+          {NAV_LINKS.map(({ label, href }) => (
+            <li key={href}>
+              <a href={href} className="navbar-link">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#nosotros">Sobre Nosotros</a></li>
-        <li><a href="#servicios">Seguros</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <a href="#contacto" className="btn btn-primary navbar-cta">
+          Cotizar
+        </a>
 
-      </ul>
+        <button
+          className="navbar-burger"
+          onClick={() => setMenuOpen(v => !v)}
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+        >
+          {menuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+        </button>
 
+      </nav>
+
+      {/* Mobile overlay */}
       <div
-        className="menu-icon"
-        onClick={() => setMenuOpen(!menuOpen)}
+        className={`mobile-overlay${menuOpen ? ' mobile-overlay--open' : ''}`}
+        aria-hidden={!menuOpen}
       >
-        {menuOpen ? <FaTimes /> : <FaBars />}
+        <nav className="mobile-nav">
+          <ul role="list">
+            {NAV_LINKS.map(({ label, href }, i) => (
+              <li key={href} style={{ '--i': i }}>
+                <a href={href} className="mobile-link" onClick={closeMenu}>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" className="btn btn-primary mobile-cta" onClick={closeMenu}>
+            Solicitar Cotización
+          </a>
+        </nav>
       </div>
-
-    </nav>
+    </>
   );
 };
 

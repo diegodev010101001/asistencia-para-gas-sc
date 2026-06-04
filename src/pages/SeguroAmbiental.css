@@ -1,7 +1,7 @@
-/* Si ya tienes definida --primary-blue en tu archivo global, esta línea actuará como respaldo */
+﻿/* Si ya tienes definida --primary-blue en tu archivo global, esta línea actuará como respaldo */
 :root {
-  --primary-blue: #007bff; /* Cambia esto al tono exacto de tu azul si no lo toma del global */
-  --bg-dark: #050505;
+  --primary-blue: #3b82f6; /* Cambia esto al tono exacto de tu azul si no lo toma del global */
+  --bg-dark: #060810;
   --text-main: #ffffff;
   --text-muted: #a0aab5;
   --border-light: rgba(255, 255, 255, 0.1);
@@ -56,7 +56,7 @@
 .hover-glow:hover {
   transform: translateY(-8px);
   border-color: var(--primary-blue);
-  box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2); /* Sombra azulada sutil */
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2); /* Sombra azulada sutil */
 }
 
 /* Animaciones de Entrada */
@@ -267,7 +267,7 @@
   border-radius: 50%;
   font-size: 1.2rem;
   font-weight: bold;
-  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
 }
 
 /* Ejemplo Práctico */
@@ -318,16 +318,16 @@
 }
 
 .ra-card-exclusion:hover .ra-exclusion-number {
-  color: rgba(0, 123, 255, 0.1);
+  color: rgba(59, 130, 246, 0.1);
 }
 
 .ra-exclusion-alert {
-  background: rgba(0, 123, 255, 0.1);
+  background: rgba(59, 130, 246, 0.1);
   padding: 0.8rem;
   border-radius: 6px;
   font-size: 0.85rem;
   color: #fff;
-  border: 1px solid rgba(0, 123, 255, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .ra-exclusion-alert strong {
@@ -367,8 +367,8 @@
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--primary-blue);
-  background: rgba(0, 123, 255, 0.1);
-  border: 1px solid rgba(0, 123, 255, 0.28);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.28);
   padding: 5px 14px;
   border-radius: 50px;
   margin-bottom: 1.2rem;
@@ -385,8 +385,8 @@
   position: relative;
   overflow: hidden;
   border-radius: 18px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 40px rgba(0, 123, 255, 0.1);
-  border: 1px solid rgba(0, 123, 255, 0.14);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 40px rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.14);
   cursor: default;
   width: 100%;
   height: 100%;
@@ -490,8 +490,8 @@
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--primary-blue);
-  background: rgba(0, 123, 255, 0.12);
-  border: 1px solid rgba(0, 123, 255, 0.3);
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   padding: 5px 14px;
   border-radius: 50px;
   margin-bottom: 1rem;
@@ -552,7 +552,7 @@
   font-style: italic;
   font-size: 0.86rem !important;
   color: var(--primary-blue) !important;
-  background: rgba(0, 123, 255, 0.08);
+  background: rgba(59, 130, 246, 0.08);
   padding: 0.85rem 1.1rem;
   border-radius: 8px;
   border-left: 3px solid var(--primary-blue);
@@ -638,12 +638,12 @@
 .back-home-btn:hover{
   transform: translateY(-4px);
 
-  background: rgba(0,191,255,.15);
+  background: rgba(59,130,246,.15);
 
   box-shadow:
-    0 0 30px rgba(0,191,255,.45);
+    0 0 30px rgba(59,130,246,.45);
 
-  border-color: #00bfff;
+  border-color: #3b82f6;
 }
 
 @media(max-width:768px){

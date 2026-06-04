@@ -1,15 +1,52 @@
-:root{
+:root {
+  /* ─── Backgrounds ─────────────────────────────────── */
+  --bg-base:     #060810;
+  --bg-elevated: #0b0e18;
+  --bg-surface:  #10141f;
+  --bg-card:     #141928;
 
-  --bg-black:#050505;
-  --bg-secondary:#0c0c0c;
+  /* ─── Borders ─────────────────────────────────────── */
+  --border-dim:    rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-mod:    rgba(255, 255, 255, 0.14);
 
-  --primary-blue:#00bfff;
-  --secondary-blue:#0077ff;
+  /* ─── Accent — professional blue ─────────────────── */
+  --accent:        #3b82f6;
+  --accent-light:  #60a5fa;
+  --accent-dark:   #2563eb;
+  --accent-dim:    rgba(59, 130, 246, 0.10);
+  --accent-glow:   rgba(59, 130, 246, 0.28);
+  --accent-border: rgba(59, 130, 246, 0.28);
 
-  --white:#ffffff;
-  --gray:#aaaaaa;
+  /* ─── Text ─────────────────────────────────────────── */
+  --text-primary:   #edf2f7;
+  --text-secondary: #8a9bb5;
+  --text-muted:     #4d606f;
+  --text-accent:    #60a5fa;
 
-  --glass:rgba(255,255,255,0.05);
+  /* ─── Typography — Geist ───────────────────────────── */
+  --font-display: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:    'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --transition:0.4s ease;
+  /* ─── Radius ───────────────────────────────────────── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* ─── Shadows ──────────────────────────────────────── */
+  --shadow-card:   0 2px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lift:   0 8px 40px rgba(0, 0, 0, 0.65);
+  --shadow-accent: 0 8px 32px rgba(59, 130, 246, 0.30);
+
+  /* ─── Transitions ──────────────────────────────────── */
+  --ease-fast:   0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-med:    0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-slow:   0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: 0.5s  cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─── Z-layers ─────────────────────────────────────── */
+  --z-navbar:  1000;
+  --z-overlay:  900;
+  --z-modal:   1100;
 }
