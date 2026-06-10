@@ -39,7 +39,7 @@ const SeguroAmbiental = () => {
             <p className="ra-subtitle">La cobertura debe incluir remediación, contención y restauración ambiental.</p>
 
             <div className="ra-limits-box glass-effect">
-              <h3>Límites Típicos</h3>
+              <h3>Límite de cobertura contratada</h3>
               <ul>
                 <li><strong>USD $2,000,000</strong> por evento y agregado.</li>
                 <li>Cobertura para contaminación súbita, accidental y gradual.</li>
@@ -90,7 +90,7 @@ const SeguroAmbiental = () => {
           <span className="ra-industry-label">Impacto Industrial</span>
           <h2>Emisiones y contaminación industrial: el riesgo más costoso sin cobertura adecuada</h2>
           <p>
-            Plantas industriales, chimeneas y operaciones de hidrocarburos generan pasivos
+            Las operaciones con hidrocarburos generan pasivos
             ambientales de millones de dólares. Un seguro insuficiente expone al permisionario
             a responsabilidad personal ilimitada.
           </p>
@@ -149,45 +149,33 @@ const SeguroAmbiental = () => {
       </section>
 
       {/* ══════════════ COBERTURAS Y CONDICIONES ══════════════ */}
-      <section className="ra-section animate-fade-in delay-2">
+      <section className="ra-section ra-asea-section animate-fade-in delay-2">
         <h2 className="ra-section-title">Coberturas y Condiciones Especiales: RA</h2>
-        <div className="ra-grid-3">
-          <div className="ra-card glass-effect hover-glow">
-            <h3>Remediación y Limpieza</h3>
-            <p>Costos de remoción de contaminantes, restauración de suelo/agua, caracterización
-            ambiental y monitoreo post-remediación.</p>
+        <p className="ra-asea-intro">
+          La responsabilidad por Daño Ambiental considera el cumplimiento a las disposiciones
+          solicitadas por <strong>ASEA</strong>:
+        </p>
+        <div className="ra-asea-grid">
+          <div className="ra-asea-card">
+            <div className="ra-asea-num">1</div>
+            <p>Atención de emergencias o ejecución de medidas inmediatas.</p>
           </div>
-          <div className="ra-card glass-effect hover-glow">
-            <h3>Atención de Emergencias</h3>
-            <p>Respuesta inmediata, contención de derrames, mitigación de impactos,
-            contratación de consultores especializados.</p>
+          <div className="ra-asea-card">
+            <div className="ra-asea-num">2</div>
+            <p>Contención y limpieza de sitios o mitigación de impactos y daños ambientales.</p>
           </div>
-          <div className="ra-card glass-effect hover-glow">
-            <h3>Gastos Legales</h3>
-            <p>Defensa ante demandas por daño ambiental, costos de peritos, honorarios
-            de abogados (incluidos en suma asegurada).</p>
+          <div className="ra-asea-card">
+            <div className="ra-asea-num">3</div>
+            <p>Restauración o compensación ambiental.</p>
           </div>
-        </div>
-
-        <div className="ra-unique-features glass-effect mt-4">
-          <h3>Características únicas de RA:</h3>
-          <ul>
-            <li>
-              <strong>Base Claims-Made:</strong> Cubre reclamaciones presentadas durante
-              vigencia (con retroactividad declarada).
-            </li>
-            <li>
-              <strong>Contaminación gradual:</strong> A diferencia de RC, cubre eventos
-              paulatinos detectados durante vigencia.
-            </li>
-            <li>
-              <strong>Retroactividad:</strong> Fecha desde la cual se reconocen condiciones
-              preexistentes.
-            </li>
-            <li>
-              <strong>Requisitos de reporte:</strong> Plazos estrictos para notificar incidentes.
-            </li>
-          </ul>
+          <div className="ra-asea-card">
+            <div className="ra-asea-num">4</div>
+            <p>Caracterización de sitios contaminados.</p>
+          </div>
+          <div className="ra-asea-card">
+            <div className="ra-asea-num">5</div>
+            <p>Remediación de sitios contaminados.</p>
+          </div>
         </div>
       </section>
 
@@ -204,7 +192,7 @@ const SeguroAmbiental = () => {
           <div className="ra-price-card glass-effect hover-glow">
             <h2>10%</h2>
             <h4>Deducible RA Transporte</h4>
-            <p>10% del siniestro, mínimo USD $15,000 = USD $20,000 por evento en unidades móviles</p>
+            <p>10% del siniestro, mínimo USD $15,000</p>
           </div>
         </div>
 
@@ -239,8 +227,7 @@ const SeguroAmbiental = () => {
               límites básicos de cobertura, dejando expuesto al permisionario.
             </p>
             <div className="ra-transport-note">
-              Deducible RA en transporte: 10% del siniestro con mínimo de USD $15,000
-              (equivalente a USD $20,000 por evento).
+              Deducible RA en transporte: 10% del siniestro con mínimo de USD $15,000.
             </div>
           </div>
         </motion.div>
@@ -279,16 +266,16 @@ const SeguroAmbiental = () => {
               <span> USD $200,000</span>
             </li>
             <li>
-              <strong>Deducible RA transporte:</strong> 10% mínimo USD $15,000 =
-              <span> USD $20,000</span>
+              <strong>Deducible RA transporte:</strong> 10% mínimo
+              <span> USD $15,000</span>
             </li>
             <li>
               <strong>Pago del permisionario:</strong>
-              <span className="highlight-blue"> USD $20,000</span>
+              <span className="highlight-blue"> Deducible aplicado</span>
             </li>
             <li>
               <strong>Pago de aseguradora:</strong>
-              <span className="highlight-green"> USD $180,000</span>
+              <span className="highlight-green"> Diferencia hasta límite contratado</span>
             </li>
           </ul>
           <p className="ra-example-footer">Aviso oportuno puede reducir deducible en algunos casos.</p>
@@ -330,7 +317,7 @@ const SeguroAmbiental = () => {
           <div className="ra-card ra-card-exclusion glass-effect hover-glow">
             <div className="ra-exclusion-number">4</div>
             <h3>Daños Punitivos o Multas</h3>
-            <p>Sanciones administrativas de ASEA o CRE por incumplimiento.</p>
+            <p>Sanciones administrativas de ASEA o CNE por incumplimiento.</p>
             <div className="ra-exclusion-alert">
               <strong>Exclusión estándar:</strong> multas, sanciones y daños punitivos.
             </div>

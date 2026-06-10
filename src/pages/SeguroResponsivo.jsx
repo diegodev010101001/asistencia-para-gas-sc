@@ -52,7 +52,7 @@ const coberturas = [
 ];
 
 const normativo = [
-  { icon: FaCertificate,   label: 'Permisos CRE',                 desc: 'Comisión Reguladora de Energía' },
+  { icon: FaCertificate,   label: 'Permisos CNE',                 desc: 'Comisión Nacional de Energía' },
   { icon: FaLeaf,          label: 'Regulaciones ASEA',            desc: 'Agencia de Seguridad Energética' },
   { icon: FaFileContract,  label: 'Normas Oficiales Mexicanas',   desc: 'NOM aplicables al sector' },
   { icon: FaTruck,         label: 'Transporte y Expendio',        desc: 'Obligaciones operativas federales' },
@@ -81,7 +81,7 @@ const exclusiones = [
 
 const beneficios = [
   { icon: FaDollarSign,  title: 'Protección Financiera',    desc: 'Resguarda el patrimonio empresarial ante reclamaciones mayores.' },
-  { icon: FaCertificate, title: 'Cumplimiento Regulatorio', desc: 'Satisface requisitos de CRE, ASEA y normativas federales.' },
+  { icon: FaCertificate, title: 'Cumplimiento Regulatorio', desc: 'Satisface requisitos de CNE, ASEA y normativas federales.' },
   { icon: FaHandshake,   title: 'Confianza Comercial',      desc: 'Fortalece relaciones con clientes, socios y proveedores.' },
   { icon: FaGlobe,       title: 'Cobertura Adaptable',      desc: 'Ajustable a operaciones locales, regionales o nacionales.' },
   { icon: FaGavel,       title: 'Protección Jurídica',      desc: 'Incluye defensa legal y pago de fianzas.' },

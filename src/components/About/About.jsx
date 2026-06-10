@@ -29,7 +29,7 @@ const About = () => (
         </motion.h2>
 
         <motion.p className="about-body" {...fadeUp(0.14)}>
-          En <strong>asistencia para gas SC</strong> diseñamos soluciones aseguradoras
+          En <strong>ASISTENCIA PARA GAS SC</strong> diseñamos soluciones aseguradoras
           especializadas para la cadena energética: desde plantas de almacenamiento
           y autotanques hasta operaciones de transporte y comercialización de gas LP e
           hidrocarburos.

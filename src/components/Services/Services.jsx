@@ -9,8 +9,7 @@ const SERVICES = [
   {
     num:   '01',
     icon:  FiShield,
-    title: 'Seguro Responsivo',
-    label: 'Responsabilidad Civil',
+    title: 'Seguro de Responsabilidad Civil',
     desc:  'Protección integral ante daños a terceros —personas, propiedades e instalaciones— durante toda la cadena de operación del gas LP e hidrocarburos.',
     href:  '/seguro-responsivo',
     tags:  ['RC Operación', 'Carga y Descarga', 'Transporte'],
@@ -18,8 +17,7 @@ const SERVICES = [
   {
     num:   '02',
     icon:  FiDroplet,
-    title: 'Seguro Ambiental',
-    label: 'Responsabilidad Ambiental',
+    title: 'Seguro de Responsabilidad Ambiental',
     desc:  'Cobertura para remediación, contención y restauración ambiental ante derrames, fugas y contaminación de suelo o agua en operaciones energéticas.',
     href:  '/seguro-ambiental',
     tags:  ['Remediación', 'Contaminación Gradual', 'Claims-Made'],
@@ -27,8 +25,7 @@ const SERVICES = [
   {
     num:   '03',
     icon:  FiActivity,
-    title: 'Gastos Médicos',
-    label: 'Protección al Personal',
+    title: 'Seguro de Gastos Médicos Mayores',
     desc:  'Cobertura médica para trabajadores expuestos a riesgos industriales, incluyendo accidentes en instalaciones de gas, transporte y operaciones de campo.',
     href:  '/gastos-medicos',
     tags:  ['Accidentes Laborales', 'Hospitalización', 'Rehabilitación'],
@@ -73,7 +70,7 @@ const Services = () => (
       </div>
 
       <div className="services-grid">
-        {SERVICES.map(({ num, icon: Icon, title, label, desc, href, tags }, i) => (
+        {SERVICES.map(({ num, icon: Icon, title, desc, href, tags }, i) => (
           <motion.div
             key={num}
             initial={{ opacity: 0, y: 36 }}
@@ -90,7 +87,6 @@ const Services = () => (
                 </div>
               </div>
 
-              <span className="service-label">{label}</span>
               <h3 className="service-title">{title}</h3>
               <p className="service-desc">{desc}</p>
 

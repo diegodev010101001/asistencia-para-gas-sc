@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './GastosMedicos.css';
 import {
   FiArrowLeft, FiActivity, FiHeart, FiShield,
-  FiTruck, FiAlertCircle, FiCheckCircle, FiUser,
+  FiTruck, FiAlertCircle, FiUser,
 } from 'react-icons/fi';
 import './GastosMedicos.css';
 
@@ -39,18 +39,8 @@ const COVERAGES = [
   },
 ];
 
-const TARGETS = [
-  'Operadores de plantas de Gas LP',
-  'Choferes de autotanques y pipas',
-  'Técnicos de instalación y mantenimiento',
-  'Personal de estaciones de servicio',
-  'Operadores de carga y descarga',
-  'Inspectores y supervisores de campo',
-];
-
 const EXCLUSIONS = [
   'Enfermedades preexistentes no declaradas',
-  'Accidentes fuera del horario laboral (salvo cobertura extendida)',
   'Accidentes bajo influencia de alcohol o sustancias',
   'Lesiones autoinfligidas',
   'Tratamientos estéticos o electivos no relacionados con el accidente',
@@ -146,21 +136,6 @@ const GastosMedicos = () => (
             </div>
             <h3>{title}</h3>
             <p>{desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-
-    {/* ─── Target workers ──────────────────────────────── */}
-    <section className="gm-section gm-section--alt">
-      <motion.p className="eyebrow" {...fadeUp(0)}>Personal Asegurado</motion.p>
-      <motion.h2 className="section-title" {...fadeUp(0.08)}>¿A quién protege?</motion.h2>
-
-      <div className="gm-targets-grid">
-        {TARGETS.map((item, i) => (
-          <motion.div key={item} className="gm-target-item glass-card" {...fadeUp(i * 0.07)}>
-            <FiCheckCircle size={16} className="gm-check-icon" aria-hidden="true" />
-            <span>{item}</span>
           </motion.div>
         ))}
       </div>

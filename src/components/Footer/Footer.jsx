@@ -1,5 +1,6 @@
 import { FaWhatsapp, FaFacebook, FaInstagram } from 'react-icons/fa';
 import { FiShield } from 'react-icons/fi';
+import logoImg from '../../assets/logo.png';
 import './Footer.css';
 
 const NAV = [
@@ -11,9 +12,9 @@ const NAV = [
 ];
 
 const SERVICES = [
-  { label: 'Seguro Responsivo',   href: '/seguro-responsivo' },
-  { label: 'Seguro Ambiental',    href: '/seguro-ambiental' },
-  { label: 'Gastos Médicos',      href: '/gastos-medicos' },
+  { label: 'Seguro de Responsabilidad Civil',   href: '/seguro-responsivo' },
+  { label: 'Seguro de Responsabilidad Ambiental', href: '/seguro-ambiental' },
+  { label: 'Gastos Médicos Mayores',              href: '/gastos-medicos' },
 ];
 
 const SOCIAL = [
@@ -29,8 +30,8 @@ const Footer = () => (
       {/* Brand column */}
       <div className="footer-brand">
         <div className="footer-logo">
-          <div className="footer-logo-mark" aria-hidden="true">AG</div>
-          <span className="footer-logo-text">asistencia para gas <em>SC</em></span>
+          <img src={logoImg} alt="ASISTENCIA PARA GAS SC" className="footer-logo-img" aria-hidden="true" />
+          <span className="footer-logo-text">ASISTENCIA PARA GAS SC</span>
         </div>
         <p className="footer-tagline">
           Seguros especializados para la industria del gas e hidrocarburos en México.
@@ -79,7 +80,7 @@ const Footer = () => (
       <div className="footer-col">
         <p className="footer-col-title">Regulación</p>
         <ul className="footer-compliance">
-          {['CRE', 'ASEA', 'NOM Aplicables', 'Gas LP', 'Hidrocarburos'].map(item => (
+          {['CNE', 'ASEA', 'NOM Aplicables', 'Gas LP', 'Hidrocarburos'].map(item => (
             <li key={item} className="footer-compliance-item">
               <FiShield size={11} aria-hidden="true" />
               <span>{item}</span>
@@ -94,7 +95,7 @@ const Footer = () => (
       <hr className="h-divider" />
       <div className="footer-bottom-inner">
         <p className="footer-copy">
-          © {new Date().getFullYear()} asistencia para gas SC. Todos los derechos reservados.
+          © {new Date().getFullYear()} ASISTENCIA PARA GAS SC. Todos los derechos reservados.
         </p>
         <p className="footer-disclaimer">
           Seguros especializados para el sector energético de México.

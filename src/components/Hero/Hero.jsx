@@ -1,108 +1,97 @@
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiShield } from 'react-icons/fi';
-import imgPlanta from '../../assets/RC_plantagaslp.jpg.jpeg';
+import imgTanque from '../../assets/tanque.png';
 import './Hero.css';
 
-const ease = [0.25, 0.46, 0.45, 0.94];
+const ease = [0.22, 1, 0.36, 1];
 
-const fadeSlideUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 36 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.72, ease, delay },
+  transition: { duration: 0.85, ease, delay },
 });
 
 const STATS = [
-  { value: '500+', label: 'Empresas protegidas' },
-  { value: '10+',  label: 'Años de experiencia' },
-  { value: '3',    label: 'Seguros especializados' },
+  { value: '500+', label: 'Empresas\nprotegidas' },
+  { value: '10+',  label: 'Años de\nexperiencia' },
+  { value: '3',    label: 'Seguros\nespecializados' },
 ];
 
 const Hero = () => (
-  <section className="hero noise-overlay" id="inicio" aria-label="Portada principal">
+  <section className="hero" id="inicio" aria-label="Portada principal">
 
-    {/* Ambient background orbs */}
+    {/* ─── Background ─────────────────────────────── */}
     <div className="hero-bg" aria-hidden="true">
-      <div className="hero-orb hero-orb--a" />
-      <div className="hero-orb hero-orb--b" />
-      <div className="hero-grid" />
+      <img
+        src={imgTanque}
+        alt=""
+        className="hero-bg-img"
+        loading="eager"
+      />
+      <div className="hero-vignette" />
+      <div className="hero-noise" />
     </div>
 
-    <div className="hero-inner">
-
-      {/* ─── Left column ──────────────────────────────── */}
-      <div className="hero-content">
-
-        <motion.div className="hero-badge" {...fadeSlideUp(0)}>
-          <FiShield size={13} />
-          <span>Especialistas en el Sector Energético</span>
-        </motion.div>
-
-        <motion.h1 className="hero-heading" {...fadeSlideUp(0.1)}>
-          Protección inteligente para la industria del{' '}
-          <span className="gradient-text">gas</span>
-        </motion.h1>
-
-        <motion.p className="hero-subheading" {...fadeSlideUp(0.18)}>
-          Soluciones aseguradoras de alto nivel para plantas, autotanques,
-          transporte y operaciones energéticas en México.
-        </motion.p>
-
-        <motion.div className="hero-actions" {...fadeSlideUp(0.26)}>
-          <a href="#contacto" className="btn btn-primary">
-            Solicitar Cotización
-            <FiArrowRight size={16} />
-          </a>
-          <a href="#servicios" className="btn btn-ghost">
-            Ver Seguros
-          </a>
-        </motion.div>
-
-        <motion.div className="hero-stats" {...fadeSlideUp(0.34)}>
-          {STATS.map(({ value, label }, i) => (
-            <div key={label} className="hero-stat">
-              {i > 0 && <div className="hero-stat-divider" aria-hidden="true" />}
-              <strong className="hero-stat-value">{value}</strong>
-              <span className="hero-stat-label">{label}</span>
-            </div>
-          ))}
-        </motion.div>
-
+    {/* ─── Compliance badge (top-right) ────────────── */}
+    <motion.div
+      className="hero-compliance"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, ease, delay: 0.7 }}
+      aria-label="Cumplimiento CNE y ASEA"
+    >
+      <span className="hero-compliance-dot" aria-hidden="true" />
+      <div>
+        <p className="hero-compliance-title">CNE · ASEA</p>
+        <p className="hero-compliance-sub">Cumplimiento regulatorio</p>
       </div>
+    </motion.div>
 
-      {/* ─── Right column — image ──────────────────── */}
-      <motion.div
-        className="hero-visual"
-        initial={{ opacity: 0, x: 48, scale: 0.97 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        transition={{ duration: 0.9, ease, delay: 0.15 }}
-      >
-        <div className="hero-image-frame">
-          <img
-            src={imgPlanta}
-            alt="Planta de almacenamiento de Gas LP con sistema de tuberías industriales asegurada por responsabilidad civil"
-            className="hero-image"
-            loading="eager"
-          />
-          <div className="hero-image-overlay" aria-hidden="true" />
+    {/* ─── Main content (bottom-left) ──────────────── */}
+    <div className="hero-body">
 
-          <div className="hero-floating-chip" aria-label="Regulación CRE y ASEA">
-            <div className="hero-chip-dot" aria-hidden="true" />
-            <div>
-              <div className="hero-chip-title">CRE · ASEA</div>
-              <div className="hero-chip-sub">Cumplimiento regulatorio</div>
-            </div>
+      <motion.div className="hero-eyebrow" {...fadeUp(0)}>
+        <FiShield size={11} aria-hidden="true" />
+        <span>Especialistas en el Sector Energético</span>
+      </motion.div>
+
+      <motion.h1 className="hero-title" {...fadeUp(0.08)}>
+        Protección inteligente<br />
+        para la industria del{' '}
+        <span className="hero-accent">GAS LP</span>
+      </motion.h1>
+
+      <motion.span className="hero-rule" {...fadeUp(0.15)} aria-hidden="true" />
+
+      <motion.p className="hero-sub" {...fadeUp(0.21)}>
+        Soluciones aseguradoras de alto nivel para plantas, autotanques,
+        transporte y operaciones energéticas en México.
+      </motion.p>
+
+      <motion.div className="hero-cta" {...fadeUp(0.28)}>
+        <a href="#contacto" className="hero-btn-primary">
+          Solicitar Cotización
+          <FiArrowRight size={15} aria-hidden="true" />
+        </a>
+        <a href="#servicios" className="hero-btn-ghost">
+          Ver Seguros
+        </a>
+      </motion.div>
+
+      <motion.div className="hero-metrics" {...fadeUp(0.35)}>
+        {STATS.map(({ value, label }, i) => (
+          <div key={value} className="hero-metric">
+            {i > 0 && <div className="hero-metric-sep" aria-hidden="true" />}
+            <strong className="hero-metric-val">{value}</strong>
+            <span className="hero-metric-label">{label}</span>
           </div>
-        </div>
-
-        <div className="hero-corner-label" aria-hidden="true">
-          Cobertura RC Especializada
-        </div>
+        ))}
       </motion.div>
 
     </div>
 
-    {/* Scroll hint */}
-    <div className="hero-scroll-hint" aria-hidden="true">
+    {/* ─── Scroll indicator ────────────────────────── */}
+    <div className="hero-scroll" aria-hidden="true">
       <span className="hero-scroll-line" />
     </div>
 

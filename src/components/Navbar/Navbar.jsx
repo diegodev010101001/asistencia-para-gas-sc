@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
+import logoImg from '../../assets/logo.png';
 import './Navbar.css';
 
 const NAV_LINKS = [
@@ -27,9 +28,9 @@ const Navbar = () => {
       <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`} aria-label="Navegación principal">
 
         <a href="#inicio" className="navbar-logo" aria-label="Inicio">
-          <span className="navbar-logo-mark" aria-hidden="true">AG</span>
+          <img src={logoImg} alt="ASISTENCIA PARA GAS SC" className="navbar-logo-img" aria-hidden="true" />
           <span className="navbar-logo-text">
-            asistencia para gas <em>SC</em>
+            ASISTENCIA PARA GAS SC
           </span>
         </a>
 

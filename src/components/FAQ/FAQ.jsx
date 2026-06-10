@@ -11,16 +11,16 @@ const FAQS = [
     a: 'Cualquier empresa dentro de la cadena energética: plantas de almacenamiento de Gas LP, estaciones de servicio, distribuidoras, transportistas especializados, estaciones de carburación, operadores logísticos y empresas industriales con operaciones en hidrocarburos.',
   },
   {
-    q: '¿Cuál es la diferencia entre el Seguro Responsivo y el Seguro Ambiental?',
-    a: 'El Seguro Responsivo (RC) cubre daños a terceros —personas y propiedades— producto de la operación normal de tu empresa. El Seguro Ambiental (RA) cubre específicamente los costos de remediación, limpieza y restauración ambiental por contaminación de suelo o agua, incluyendo eventos graduales.',
+    q: '¿Cuál es la diferencia entre el Seguro de Responsabilidad Civil y el Seguro Ambiental?',
+    a: 'El Seguro de Responsabilidad Civil (RC) cubre daños a terceros —personas y propiedades— producto de la operación normal de tu empresa. El Seguro Ambiental (RA) cubre específicamente los costos de remediación, limpieza y restauración ambiental por contaminación de suelo o agua, incluyendo eventos graduales.',
   },
   {
     q: '¿La cotización tiene algún costo?',
     a: 'No. La cotización es completamente gratuita y personalizada a la operación específica de tu empresa. Contáctanos con los detalles de tu actividad y te preparamos una propuesta sin compromiso.',
   },
   {
-    q: '¿Los seguros cumplen con los requisitos de CRE y ASEA?',
-    a: 'Sí. Nuestras pólizas están diseñadas para satisfacer las disposiciones regulatorias de la Comisión Reguladora de Energía (CRE), la Agencia de Seguridad Energética Ambiental y Nuclear (ASEA) y las Normas Oficiales Mexicanas aplicables al sector hidrocarburos.',
+    q: '¿Los seguros cumplen con los requisitos de CNE y ASEA?',
+    a: 'Sí. Nuestras pólizas están diseñadas para satisfacer las disposiciones regulatorias de la Comisión Nacional de Energía (CNE), la Agencia de Seguridad Energética Ambiental y Nuclear (ASEA) y las Normas Oficiales Mexicanas aplicables al sector hidrocarburos.',
   },
   {
     q: '¿Cuánto tiempo tarda en emitirse una póliza?',

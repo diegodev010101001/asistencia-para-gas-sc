@@ -10,19 +10,19 @@
   --border-subtle: rgba(255, 255, 255, 0.09);
   --border-mod:    rgba(255, 255, 255, 0.14);
 
-  /* ─── Accent — professional blue ─────────────────── */
-  --accent:        #3b82f6;
-  --accent-light:  #60a5fa;
-  --accent-dark:   #2563eb;
-  --accent-dim:    rgba(59, 130, 246, 0.10);
-  --accent-glow:   rgba(59, 130, 246, 0.28);
-  --accent-border: rgba(59, 130, 246, 0.28);
+  /* ─── Accent — orange brand ──────────────────────── */
+  --accent:        #F7941D;
+  --accent-light:  #FFAA33;
+  --accent-dark:   #D4780D;
+  --accent-dim:    rgba(247, 148, 29, 0.10);
+  --accent-glow:   rgba(247, 148, 29, 0.28);
+  --accent-border: rgba(247, 148, 29, 0.28);
 
   /* ─── Text ─────────────────────────────────────────── */
   --text-primary:   #edf2f7;
   --text-secondary: #8a9bb5;
   --text-muted:     #4d606f;
-  --text-accent:    #60a5fa;
+  --text-accent:    #FFAA33;
 
   /* ─── Typography — Geist ───────────────────────────── */
   --font-display: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -37,7 +37,7 @@
   /* ─── Shadows ──────────────────────────────────────── */
   --shadow-card:   0 2px 20px rgba(0, 0, 0, 0.45);
   --shadow-lift:   0 8px 40px rgba(0, 0, 0, 0.65);
-  --shadow-accent: 0 8px 32px rgba(59, 130, 246, 0.30);
+  --shadow-accent: 0 8px 32px rgba(247, 148, 29, 0.30);
 
   /* ─── Transitions ──────────────────────────────────── */
   --ease-fast:   0.15s cubic-bezier(0.4, 0, 0.2, 1);

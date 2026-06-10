@@ -8,7 +8,7 @@
   align-items: center;
   gap: 2rem;
   padding: 0 clamp(20px, 6vw, 80px);
-  height: 68px;
+  height: 74px;
   transition: background var(--ease-med), border-color var(--ease-med), box-shadow var(--ease-med);
   border-bottom: 1px solid transparent;
 }
@@ -29,19 +29,11 @@
   flex-shrink: 0;
 }
 
-.navbar-logo-mark {
-  width: 36px;
-  height: 36px;
+.navbar-logo-img {
+  width: 55px;
+  height: 55px;
   border-radius: 10px;
-  background: var(--accent);
-  color: #000;
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0.02em;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
@@ -54,9 +46,8 @@
   white-space: nowrap;
 }
 
-.navbar-logo-text em {
-  font-style: normal;
-  color: var(--accent);
+.navbar-logo-text {
+  letter-spacing: 0.03em;
 }
 
 /* ─── Desktop links ───────────────────────────────────────── */
@@ -192,9 +183,10 @@
 }
 
 /* ─── Responsive ──────────────────────────────────────────── */
+
+/* Tablet / mobile — oculta links, muestra hamburguesa */
 @media (max-width: 800px) {
-  .navbar-links,
-  .navbar-cta {
+  .navbar-links {
     display: none;
   }
 
@@ -204,7 +196,14 @@
   }
 }
 
+/* Móvil pequeño — oculta también el botón Cotizar y el texto del logo.
+   Se usa .navbar .navbar-cta (especificidad 0,2,0) para ganar sobre
+   .btn (especificidad 0,1,0) de global.css sin importar el orden del bundle. */
 @media (max-width: 480px) {
+  .navbar .navbar-cta {
+    display: none;
+  }
+
   .navbar-logo-text {
     display: none;
   }
