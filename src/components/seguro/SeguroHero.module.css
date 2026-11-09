@@ -1,0 +1,224 @@
+.hero {
+  position: relative;
+  padding-top: calc(var(--header-h) + var(--space-l));
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+@media (min-width: 64em) {
+  .inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-2xl);
+    align-items: stretch;
+  }
+}
+
+.copy {
+  display: grid;
+  align-content: start;
+  gap: var(--space-m);
+  container-type: inline-size;
+}
+
+.label {
+  color: var(--color-text-soft);
+}
+
+.icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent);
+}
+
+/* Acotado al ancho de la columna: la palabra más larga («RESPONSABILIDAD»,
+   15 caracteres en ancho expandido) debe caber sin partirse. */
+.title {
+  font-size: min(var(--step-5), 7.6cqi);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .title,
+  .lead,
+  .temas,
+  .actions {
+    animation: rise var(--dur-slower) var(--ease-out-expo) both;
+  }
+
+  .lead {
+    animation-delay: 80ms;
+  }
+
+  .temas {
+    animation-delay: 140ms;
+  }
+
+  .actions {
+    animation-delay: 200ms;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lead {
+  max-width: 56ch;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--color-text-soft);
+}
+
+.temas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.temas li {
+  padding: 0.3rem 0.65rem;
+  border: var(--hairline-strong);
+  border-radius: var(--radius-s);
+  background-color: var(--color-paper-raised);
+  font-size: var(--step--1);
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+@media (max-width: 29.99em) {
+  .actions > * {
+    flex: 1 1 100%;
+  }
+}
+
+/* ─── Imagen (destino del morph desde la tarjeta) ─────────────────────── */
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-l);
+  background-color: var(--color-paper-sunken);
+}
+
+@media (min-width: 64em) {
+  .media {
+    aspect-ratio: auto;
+    min-height: 26rem;
+  }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06);
+}
+
+.corners {
+  position: absolute;
+  inset: var(--space-xs);
+  pointer-events: none;
+  --c: color-mix(in srgb, var(--color-paper) 85%, transparent);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 14px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 1px 14px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 14px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 1px 14px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 14px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px 14px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 14px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px 14px no-repeat;
+}
+
+/* ─── Índice de la ficha ──────────────────────────────────────────────── */
+.index {
+  border-top: 2px solid var(--color-ink);
+}
+
+.indexList {
+  display: flex;
+  gap: var(--space-m);
+  overflow-x: auto;
+  padding: 0;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.indexList::-webkit-scrollbar {
+  display: none;
+}
+
+.indexLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 3.25rem;
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 500;
+  font-stretch: var(--stretch-semi);
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--color-text-soft);
+}
+
+.indexLink::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0.6rem;
+  height: 1px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .indexLink:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.indexNum {
+  font-size: var(--step--2);
+  color: var(--color-accent);
+}

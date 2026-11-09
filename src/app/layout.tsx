@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import { ScrollSentinel } from '@/components/layout/ScrollSentinel';
@@ -8,9 +7,6 @@ import { SiteHeader } from '@/components/layout/SiteHeader';
 import skip from '@/components/layout/SkipLink.module.css';
 import { fontVariables } from '@/lib/fonts';
 import './globals.css';
-
-// TEMPORAL: fuente del código heredado (src/legacy). Se elimina en la fase 5.
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap', preload: false });
 
 export const metadata: Metadata = {
   title: 'ASISTENCIA PARA GAS SC | Seguros Especializados',
@@ -24,7 +20,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es-MX" data-scroll-behavior="smooth" className={`${fontVariables} ${geist.variable}`}>
+    <html lang="es-MX" data-scroll-behavior="smooth" className={fontVariables}>
       <body>
         <a href="#contenido" className={skip.skip}>
           Saltar al contenido

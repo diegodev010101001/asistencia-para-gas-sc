@@ -1,28 +1,55 @@
-import type { ComponentType } from 'react';
 import { notFound } from 'next/navigation';
 
-import { SEGUROS, isSeguroSlug, type SeguroSlug } from '@/data/seguros';
-// TEMPORAL (fase 1): páginas heredadas. Se sustituyen por la plantilla única en la fase 5.
-import SeguroResponsivo from '@/legacy/pages/SeguroResponsivo';
-import SeguroAmbiental from '@/legacy/pages/SeguroAmbiental';
-import GastosMedicos from '@/legacy/pages/GastosMedicos';
+import { ContactSection } from '@/components/home/ContactSection';
+import { FaqSection } from '@/components/home/FaqSection';
+import { SeguroHero } from '@/components/seguro/SeguroHero';
+import {
+  AudienceSection,
+  CoverageSection,
+  ExtraSections,
+  IntroSection,
+  OtherSeguros,
+  ScenariosSection,
+} from '@/components/seguro/SeguroSections';
+import { SEGUROS, getSeguro, otherSeguros } from '@/data/seguros';
 
-const LEGACY_PAGES: Record<SeguroSlug, ComponentType> = {
-  'responsabilidad-civil': SeguroResponsivo,
-  'responsabilidad-ambiental': SeguroAmbiental,
-  'gastos-medicos-mayores': GastosMedicos,
-};
-
+/** Solo existen los slugs de src/data/seguros.ts; cualquier otro es 404 estático. */
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return SEGUROS.map(({ slug }) => ({ slug }));
 }
 
+/** Plantilla única para los tres seguros, alimentada por src/data/seguros.ts. */
 export default async function SeguroPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!isSeguroSlug(slug)) notFound();
+  const seguro = getSeguro(slug);
+  if (!seguro) notFound();
 
-  const LegacyPage = LEGACY_PAGES[slug];
-  return <LegacyPage />;
+  const extrasCount = seguro.extras.filter((e) => e.tipo !== 'datos').length;
+  const pad = (n: number) => String(n).padStart(2, '0');
+
+  return (
+    <>
+      <SeguroHero seguro={seguro} />
+      <IntroSection seguro={seguro} index="01" />
+      <CoverageSection seguro={seguro} index="02" />
+      <AudienceSection seguro={seguro} index="03" />
+      <ScenariosSection seguro={seguro} index="04" />
+      <ExtraSections seguro={seguro} startIndex={5} />
+      <FaqSection
+        items={seguro.faqs}
+        index={pad(5 + extrasCount)}
+        title={`Preguntas sobre ${seguro.nombreCorto.toLowerCase()}`}
+        lead={`Dudas frecuentes sobre el ${seguro.nombre.toLowerCase()}.`}
+        group={`faq-${seguro.slug}`}
+      />
+      <ContactSection
+        index={pad(6 + extrasCount)}
+        defaultSeguro={seguro.slug}
+        title={`Cotiza tu ${seguro.nombre.toLowerCase()}`}
+      />
+      <OtherSeguros seguros={otherSeguros(seguro.slug)} />
+    </>
+  );
 }
