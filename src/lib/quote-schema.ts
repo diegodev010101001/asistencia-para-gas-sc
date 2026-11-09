@@ -1,100 +1,111 @@
 /**
- * Validación del formulario de cotización.
- * Se usa en el cliente (validación en vivo) y en el servidor (Server Action),
- * así las reglas y los mensajes son siempre los mismos.
+ * Esquema único del formulario de cotización (zod).
+ * Lo usan el cliente (validación en vivo, campo por campo) y la Server Action
+ * (validación definitiva), así nunca hay dos reglas distintas.
+ *
+ * Importante: este módulo se incluye en el bundle del navegador. No debe
+ * importar nada de servidor ni el contenido pesado de src/data/seguros.ts.
  */
-import { SEGURO_META } from '@/data/seguros-meta';
+import { z } from 'zod';
 
-export const SEGURO_OPTIONS = [
-  ...Object.values(SEGURO_META).map(({ slug, nombreCorto }) => ({ value: slug, label: nombreCorto })),
-  { value: 'varios', label: 'Más de uno / no estoy seguro' },
-] as const;
-
-export const OPERACION_OPTIONS = [
-  'Planta de almacenamiento',
-  'Autotanques y pipas',
-  'Transporte de hidrocarburos',
-  'Estación de carburación',
-  'Estación de servicio',
-  'Distribución de cilindros',
-  'Instalación y mantenimiento',
-  'Otra operación industrial',
-] as const;
-
-export const QUOTE_FIELDS = ['nombre', 'empresa', 'correo', 'telefono', 'seguro', 'operacion', 'mensaje', 'privacidad'] as const;
-
-export type QuoteField = (typeof QUOTE_FIELDS)[number];
-export type QuoteValues = Record<QuoteField, string>;
-export type QuoteErrors = Partial<Record<QuoteField, string>>;
-
-export const EMPTY_QUOTE: QuoteValues = {
-  nombre: '',
-  empresa: '',
-  correo: '',
-  telefono: '',
-  seguro: '',
-  operacion: '',
-  mensaje: '',
-  privacidad: '',
-};
+import { SEGURO_META, SEGURO_SLUGS, type SeguroSlug } from '@/data/seguros-meta';
 
 export const LIMITS = {
   nombre: { min: 2, max: 80 },
   empresa: { max: 120 },
+  email: { max: 254 },
+  telefono: { max: 20 },
   mensaje: { min: 10, max: 1500 },
 } as const;
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const SEGURO_VALUES = new Set<string>(SEGURO_OPTIONS.map((o) => o.value));
-const OPERACION_VALUES = new Set<string>(OPERACION_OPTIONS);
-
-export function validateField(field: QuoteField, raw: string): string | undefined {
-  const value = raw.trim();
-  switch (field) {
-    case 'nombre':
-      if (!value) return 'Escribe tu nombre.';
-      if (value.length < LIMITS.nombre.min) return 'El nombre es demasiado corto.';
-      if (value.length > LIMITS.nombre.max) return `Máximo ${LIMITS.nombre.max} caracteres.`;
-      return undefined;
-    case 'empresa':
-      if (value.length > LIMITS.empresa.max) return `Máximo ${LIMITS.empresa.max} caracteres.`;
-      return undefined;
-    case 'correo':
-      if (!value) return 'Escribe tu correo electrónico.';
-      if (!EMAIL_RE.test(value)) return 'Revisa el formato del correo (ejemplo: nombre@empresa.mx).';
-      return undefined;
-    case 'telefono': {
-      if (!value) return undefined; // opcional
-      const digits = value.replace(/\D/g, '');
-      if (digits.length < 10 || digits.length > 13) return 'Usa un teléfono de 10 dígitos (con lada).';
-      return undefined;
-    }
-    case 'seguro':
-      if (!SEGURO_VALUES.has(value)) return 'Elige el seguro que te interesa.';
-      return undefined;
-    case 'operacion':
-      if (!OPERACION_VALUES.has(value)) return 'Elige el tipo de operación.';
-      return undefined;
-    case 'mensaje':
-      if (!value) return 'Cuéntanos brevemente sobre tu operación.';
-      if (value.length < LIMITS.mensaje.min) return 'Agrega un poco más de detalle.';
-      if (value.length > LIMITS.mensaje.max) return `Máximo ${LIMITS.mensaje.max} caracteres.`;
-      return undefined;
-    case 'privacidad':
-      if (value !== 'on') return 'Necesitamos tu autorización para responderte.';
-      return undefined;
-  }
+/**
+ * Teléfono de México: 10 dígitos. Acepta espacios, guiones, paréntesis y el
+ * prefijo internacional (+52 o el antiguo +52 1 de celulares), que se eliminan.
+ */
+export function normalizeMxPhone(value: string): string {
+  const digits = value.replace(/\D/g, '');
+  if (digits.length === 13 && digits.startsWith('521')) return digits.slice(3);
+  if (digits.length === 12 && digits.startsWith('52')) return digits.slice(2);
+  return digits;
 }
 
-export function validateQuote(values: QuoteValues): QuoteErrors {
+export const quoteSchema = z.object({
+  nombre: z
+    .string()
+    .trim()
+    .min(1, { error: 'Escribe tu nombre.' })
+    .min(LIMITS.nombre.min, { error: 'El nombre es demasiado corto.' })
+    .max(LIMITS.nombre.max, { error: `Máximo ${LIMITS.nombre.max} caracteres.` }),
+  empresa: z
+    .string()
+    .trim()
+    .max(LIMITS.empresa.max, { error: `Máximo ${LIMITS.empresa.max} caracteres.` }),
+  email: z
+    .string()
+    .trim()
+    .min(1, { error: 'Escribe tu correo electrónico.' })
+    .max(LIMITS.email.max, { error: 'El correo es demasiado largo.' })
+    .pipe(z.email({ error: 'Revisa el formato del correo (ejemplo: nombre@empresa.mx).' })),
+  telefono: z
+    .string()
+    .trim()
+    .min(1, { error: 'Escribe tu teléfono.' })
+    .max(LIMITS.telefono.max, { error: 'Usa un teléfono de 10 dígitos (con lada).' })
+    .transform(normalizeMxPhone)
+    .refine((v) => /^\d{10}$/.test(v), { error: 'Usa un teléfono de 10 dígitos (con lada).' }),
+  seguro: z.enum(SEGURO_SLUGS, { error: 'Elige el seguro que te interesa.' }),
+  mensaje: z
+    .string()
+    .trim()
+    .min(1, { error: 'Cuéntanos brevemente sobre tu operación.' })
+    .min(LIMITS.mensaje.min, { error: 'Agrega un poco más de detalle.' })
+    .max(LIMITS.mensaje.max, { error: `Máximo ${LIMITS.mensaje.max} caracteres.` }),
+  privacidad: z.literal('on', { error: 'Necesitamos tu autorización para responderte.' }),
+});
+
+export type QuoteInput = z.input<typeof quoteSchema>;
+export type QuoteData = z.output<typeof quoteSchema>;
+export type QuoteField = keyof QuoteInput;
+/** Valores crudos del formulario (siempre texto). */
+export type QuoteValues = Record<QuoteField, string>;
+export type QuoteErrors = Partial<Record<QuoteField, string>>;
+
+export const QUOTE_FIELDS = Object.keys(quoteSchema.shape) as QuoteField[];
+
+export const EMPTY_QUOTE: QuoteValues = {
+  nombre: '',
+  empresa: '',
+  email: '',
+  telefono: '',
+  seguro: '',
+  mensaje: '',
+  privacidad: '',
+};
+
+export const SEGURO_OPTIONS = SEGURO_SLUGS.map((slug) => ({ value: slug, label: SEGURO_META[slug].nombreCorto }));
+
+export function seguroNombre(slug: SeguroSlug): string {
+  return SEGURO_META[slug].nombre;
+}
+
+/** Validación de un solo campo (en vivo, en el cliente). Devuelve el primer error. */
+export function validateField(field: QuoteField, value: string): string | undefined {
+  const result = quoteSchema.shape[field].safeParse(value);
+  return result.success ? undefined : result.error.issues[0]?.message;
+}
+
+/** Primer mensaje de error por campo. */
+export function toFieldErrors(error: z.ZodError<QuoteInput>): QuoteErrors {
+  const flat = z.flattenError(error).fieldErrors as Partial<Record<QuoteField, string[]>>;
   const errors: QuoteErrors = {};
   for (const field of QUOTE_FIELDS) {
-    const error = validateField(field, values[field]);
-    if (error) errors[field] = error;
+    const first = flat[field]?.[0];
+    if (first) errors[field] = first;
   }
   return errors;
 }
 
+/** Lee solo los campos conocidos del FormData, siempre como texto. */
 export function readQuote(formData: FormData): QuoteValues {
   const values = { ...EMPTY_QUOTE };
   for (const field of QUOTE_FIELDS) {
@@ -112,5 +123,5 @@ export type QuoteState =
 
 export const INITIAL_QUOTE_STATE: QuoteState = { status: 'idle' };
 
-/** Campo trampa para bots: los humanos no lo ven ni lo llenan. */
+/** Campo trampa para bots: invisible para personas; si llega lleno, se finge éxito. */
 export const HONEYPOT_FIELD = 'sitio_web';

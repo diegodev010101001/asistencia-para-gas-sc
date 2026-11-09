@@ -39,7 +39,7 @@ src/
     site.ts                 Nombre, dominio y datos de contacto
     navigation.ts           Menú
   components/               UI (Server Components por defecto; islas cliente en motion/, forms/ y MobileMenu)
-  lib/                      SEO, JSON-LD, Open Graph, validación del formulario, adaptador de correo
+  lib/                      SEO, JSON-LD, Open Graph, esquema zod del formulario; lib/server/: EmailJS, env, rate limit (solo servidor)
   styles/                   tokens.css (único lugar con colores), base, motion, view-transitions
 ```
 
@@ -48,24 +48,42 @@ src/
 - **Seguros:** `src/data/seguros.ts`. Rutas, metadatos, JSON-LD, sitemap y tarjetas del inicio salen de aquí.
 - **Contacto:** `src/data/site.ts`. Mientras un valor sea un marcador como `[TELÉFONO]`, se muestra como texto y su enlace (`tel:`, `mailto:`, `wa.me`) queda desactivado; el JSON-LD lo omite.
 
-## Formulario de cotización
+## Formulario de cotización (EmailJS desde el servidor)
 
-`src/components/forms/QuoteForm.tsx` valida en vivo con las mismas reglas que el servidor
-(`src/lib/quote-schema.ts`) y envía con la Server Action `src/app/actions/submit-quote.ts`.
+- **Cliente:** `src/components/forms/QuoteForm.tsx` valida en vivo con el esquema zod de
+  `src/lib/quote-schema.ts` y envía con `useActionState`.
+- **Servidor:** la Server Action `src/app/actions/submit-quote.ts` aplica, en orden:
+  honeypot (`sitio_web` lleno → éxito fingido, sin envío) → validación con el mismo esquema →
+  rate limit por IP (3 envíos / 10 min, `src/lib/server/rate-limit.ts`) → envío con
+  `@emailjs/nodejs` (`src/lib/server/emailjs.ts`).
+- **Llaves:** `src/lib/server/env.ts` (con `import "server-only"`) lee y valida
+  `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY` y `EMAILJS_PRIVATE_KEY`.
+  No llevan `NEXT_PUBLIC_`, así que nunca entran al bundle del navegador. Si falta alguna, el
+  log del servidor dice cuál (sin mostrar valores) y el usuario ve un mensaje amable.
+- **Template de EmailJS:** variables `{{nombre}}`, `{{empresa}}`, `{{email}}`, `{{telefono}}`,
+  `{{seguro}}` (nombre legible del seguro) y `{{mensaje}}`.
+- El rate limit vive en memoria: en Vercel es por instancia y se reinicia en arranques en frío
+  (ver comentario en el módulo para cambiarlo por Upstash/Vercel KV).
 
-**Punto de conexión:** `src/lib/mail.ts`. Configura una opción con variables de entorno (ver `.env.example`):
+### Probar un envío real en local
 
-- `QUOTE_WEBHOOK_URL`: POST JSON a cualquier webhook (Zapier, Make, n8n, Formspree, endpoint propio).
-- `RESEND_API_KEY` + `QUOTE_TO_EMAIL` + `QUOTE_FROM_EMAIL`: correo vía Resend.
-
-Sin configuración: en desarrollo la solicitud se imprime en la consola del servidor y se responde éxito;
-en producción se muestra un error que invita a escribir por WhatsApp o correo.
+1. En EmailJS → **Account → Security**, activa **«Allow EmailJS API for non-browser
+   applications»** (sin esto la API responde 403 a los envíos desde servidor) y, recomendado,
+   **«Use Private Key»**.
+2. Completa `.env.local` con Service ID, Template ID, Public Key y Private Key.
+3. Reinicia el servidor (`npm run dev`): las variables de entorno solo se leen al arrancar.
+4. Envía el formulario. El correo llega a la dirección configurada en el template;
+   cualquier error aparece en la terminal como `[EmailJS] …`.
+5. El rate limit permite 3 envíos cada 10 minutos por IP; reinicia el servidor para limpiarlo.
 
 ## Despliegue en Vercel
 
 1. Importa el repositorio con el preset **Next.js** (sin configuración extra).
-2. Define `NEXT_PUBLIC_SITE_URL` y las variables del formulario.
-3. Las rutas antiguas (`/seguro-responsivo`, `/seguro-ambiental`, `/gastos-medicos`) redirigen con 308
+2. En **Settings → Environment Variables** agrega, para *Production* (y *Preview* si quieres
+   probar en ramas): `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY`,
+   `EMAILJS_PRIVATE_KEY` y `NEXT_PUBLIC_SITE_URL`. Marca las de EmailJS como **Sensitive**.
+3. Vuelve a desplegar (Deployments → Redeploy): las variables se aplican en el siguiente deploy.
+4. Las rutas antiguas (`/seguro-responsivo`, `/seguro-ambiental`, `/gastos-medicos`) redirigen con 308
    a las nuevas (`next.config.ts`).
 
 ## Pendientes (TODO)
@@ -75,7 +93,7 @@ Búscalos con `grep -rn "TODO" src`. Resumen:
 - Teléfono, correo, WhatsApp, dirección/ciudad (`src/data/site.ts`).
 - Dominio final (`NEXT_PUBLIC_SITE_URL`).
 - URL del aviso de privacidad y redes sociales (`src/data/site.ts`).
-- Proveedor de correo y llaves del formulario.
+- Llaves de EmailJS en `.env.local` y en Vercel.
 - Confirmar cifras heredadas: límite USD 2,000,000; deducibles USD 30,000 / 10 % mín. USD 15,000;
   aviso de siniestro 24–72 h; emisión 3–7 días hábiles; respuesta en 48 h hábiles.
 - Suma asegurada de Gastos Médicos Mayores.

@@ -1,46 +1,50 @@
 'use server';
 
-import { deliverQuote } from '@/lib/mail';
-import {
-  HONEYPOT_FIELD,
-  readQuote,
-  validateQuote,
-  type QuoteState,
-} from '@/lib/quote-schema';
+import { HONEYPOT_FIELD, quoteSchema, readQuote, toFieldErrors, type QuoteState } from '@/lib/quote-schema';
+import { sendQuoteEmail } from '@/lib/server/emailjs';
+import { checkRateLimit, getClientIp } from '@/lib/server/rate-limit';
+
+const GENERIC_ERROR =
+  'No pudimos enviar tu solicitud en este momento. Inténtalo de nuevo en unos minutos o escríbenos por WhatsApp o correo.';
 
 /**
  * Server Action del formulario de cotización.
- * Vuelve a validar en el servidor (nunca se confía en el cliente) y delega el
- * envío al adaptador de src/lib/mail.ts. No vuelve dinámicas las páginas:
- * siguen prerenderizadas y la acción se ejecuta como función aparte.
+ * Orden: honeypot → validación (zod, mismo esquema que el cliente) →
+ * rate limit por IP → envío con EmailJS en el servidor.
+ * Al cliente nunca llegan detalles internos: solo mensajes amables.
  */
 export async function submitQuote(_prev: QuoteState, formData: FormData): Promise<QuoteState> {
-  // Bot: se responde éxito sin enviar nada.
+  // 1. Honeypot: un bot llenó el campo oculto. Se finge éxito sin enviar nada.
   const trap = formData.get(HONEYPOT_FIELD);
   if (typeof trap === 'string' && trap.trim() !== '') {
-    return { status: 'success', message: 'Recibimos tu solicitud.' };
+    console.info('[cotización] Honeypot activado: envío descartado.');
+    return { status: 'success', message: 'Recibimos tu solicitud. Te contactaremos en menos de 48 horas hábiles.' };
   }
 
+  // 2. Validación en el servidor (nunca se confía en el cliente).
   const values = readQuote(formData);
-  const errors = validateQuote(values);
-  if (Object.keys(errors).length > 0) {
-    return { status: 'invalid', message: 'Revisa los campos marcados.', errors, values };
+  const parsed = quoteSchema.safeParse(values);
+  if (!parsed.success) {
+    return { status: 'invalid', message: 'Revisa los campos marcados.', errors: toFieldErrors(parsed.error), values };
   }
 
-  const result = await deliverQuote(values);
-  if (!result.ok) {
+  // 3. Rate limiting básico por IP (ver limitaciones en src/lib/server/rate-limit.ts).
+  const limit = checkRateLimit(await getClientIp());
+  if (!limit.ok) {
+    const minutes = Math.max(1, Math.ceil(limit.retryAfterMs / 60_000));
+    console.warn('[cotización] Rate limit alcanzado.');
     return {
       status: 'error',
-      message:
-        result.reason === 'not-configured'
-          ? 'El envío en línea no está disponible por ahora. Escríbenos por WhatsApp o correo y te respondemos.'
-          : 'No pudimos enviar tu solicitud. Inténtalo de nuevo en un momento.',
+      message: `Recibimos varias solicitudes desde tu conexión. Espera ${minutes} min antes de enviar otra, o escríbenos por WhatsApp.`,
       values,
     };
   }
 
-  return {
-    status: 'success',
-    message: 'Recibimos tu solicitud. Te contactaremos en menos de 48 horas hábiles.',
-  };
+  // 4. Envío. El detalle de cualquier fallo queda en el log del servidor.
+  const result = await sendQuoteEmail(parsed.data);
+  if (!result.ok) {
+    return { status: 'error', message: GENERIC_ERROR, values };
+  }
+
+  return { status: 'success', message: 'Recibimos tu solicitud. Te contactaremos en menos de 48 horas hábiles.' };
 }

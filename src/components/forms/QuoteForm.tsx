@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useId, useRef, useState, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
+import { startTransition, useActionState, useEffect, useId, useRef, useState, type ChangeEvent, type SubmitEvent, type ReactNode } from 'react';
 import { AlertCircle, ArrowRight, Check, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 import { submitQuote } from '@/app/actions/submit-quote';
@@ -9,11 +9,11 @@ import {
   HONEYPOT_FIELD,
   INITIAL_QUOTE_STATE,
   LIMITS,
-  OPERACION_OPTIONS,
   QUOTE_FIELDS,
   SEGURO_OPTIONS,
+  quoteSchema,
+  toFieldErrors,
   validateField,
-  validateQuote,
   type QuoteErrors,
   type QuoteField,
   type QuoteValues,
@@ -29,7 +29,12 @@ interface QuoteFormProps {
   privacyUrl?: string | null;
 }
 
-/** Contenedor: al pedir «enviar otra solicitud» se remonta el formulario y se reinicia su estado. */
+const VALID_SEGUROS = new Set<string>(SEGURO_OPTIONS.map((o) => o.value));
+
+/**
+ * Contenedor: tras un envío exitoso, «Enviar otra solicitud» remonta el
+ * formulario, lo que deja los campos limpios y reinicia useActionState.
+ */
 export function QuoteForm(props: QuoteFormProps) {
   const [round, setRound] = useState(0);
   return <QuoteFormInner key={round} {...props} onReset={() => setRound((r) => r + 1)} />;
@@ -42,48 +47,70 @@ function QuoteFormInner({
   onReset,
 }: QuoteFormProps & { onReset: () => void }) {
   const [state, formAction, isPending] = useActionState(submitQuote, INITIAL_QUOTE_STATE);
-  const [values, setValues] = useState<QuoteValues>(() => ({ ...EMPTY_QUOTE, seguro: defaultSeguro }));
+  // Campos controlados: conservan lo escrito si el envío falla.
+  const [values, setValues] = useState<QuoteValues>(() => ({
+    ...EMPTY_QUOTE,
+    seguro: VALID_SEGUROS.has(defaultSeguro) ? defaultSeguro : '',
+  }));
   const [touched, setTouched] = useState<Partial<Record<QuoteField, boolean>>>({});
   const [clientErrors, setClientErrors] = useState<QuoteErrors>({});
   const formRef = useRef<HTMLFormElement>(null);
   const uid = useId();
 
-  // Errores del servidor (p. ej. sin JS o validación remota) se muestran hasta que el campo cambie.
+  // Un campo validado en el cliente manda; si no, se muestra lo que respondió el servidor.
   const serverErrors: QuoteErrors = state.status === 'invalid' ? state.errors : {};
-  const errorFor = (field: QuoteField) => clientErrors[field] ?? (touched[field] ? undefined : serverErrors[field]);
+  const errorFor = (field: QuoteField) => (field in clientErrors ? clientErrors[field] : serverErrors[field]);
 
-  function update(field: QuoteField, value: string) {
-    setValues((v) => ({ ...v, [field]: value }));
-    if (touched[field]) {
-      setClientErrors((e) => ({ ...e, [field]: validateField(field, value) }));
-    }
+  const focusField = (field: QuoteField) => formRef.current?.querySelector<HTMLElement>(`[name="${field}"]`)?.focus();
+
+  // Si el servidor rechaza la validación, el foco va al primer campo con error.
+  useEffect(() => {
+    if (state.status !== 'invalid') return;
+    const first = QUOTE_FIELDS.find((f) => state.errors[f]);
+    if (first) formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+  }, [state]);
+
+  function setFieldError(field: QuoteField, value: string) {
+    setClientErrors((e) => ({ ...e, [field]: validateField(field, value) }));
   }
 
   function onChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
-    const { name, value, type } = event.currentTarget;
-    const field = name as QuoteField;
-    const next = type === 'checkbox' ? ((event.currentTarget as HTMLInputElement).checked ? 'on' : '') : value;
-    update(field, next);
-    // Selects y checkbox: se valida al elegir.
-    if (type === 'checkbox' || event.currentTarget.tagName === 'SELECT') {
-      setTouched((t) => ({ ...t, [field]: true }));
-      setClientErrors((e) => ({ ...e, [field]: validateField(field, next) }));
-    }
+    const target = event.currentTarget;
+    const field = target.name as QuoteField;
+    const isChoice = target instanceof HTMLSelectElement || (target instanceof HTMLInputElement && target.type === 'checkbox');
+    const next = target instanceof HTMLInputElement && target.type === 'checkbox' ? (target.checked ? 'on' : '') : target.value;
+
+    setValues((v) => ({ ...v, [field]: next }));
+    // Texto: valida en vivo después del primer blur. Selects y casillas: al elegir.
+    if (isChoice) setTouched((t) => ({ ...t, [field]: true }));
+    if (isChoice || touched[field]) setFieldError(field, next);
   }
 
   function onBlur(field: QuoteField) {
     setTouched((t) => ({ ...t, [field]: true }));
-    setClientErrors((e) => ({ ...e, [field]: validateField(field, values[field]) }));
+    setFieldError(field, values[field]);
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    const errors = validateQuote(values);
-    if (Object.keys(errors).length === 0) return; // continúa con la Server Action
+  /**
+   * Con JavaScript, el envío se despacha a mano dentro de startTransition.
+   * Así React no aplica el reinicio automático del <form action>, que
+   * devolvería casillas y selects a su valor por defecto en el DOM mientras el
+   * estado conserva lo elegido (el servidor recibiría datos incompletos).
+   * Sin JavaScript, el atributo action envía el formulario de forma nativa.
+   */
+  function onSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    setClientErrors(errors);
+    const parsed = quoteSchema.safeParse(values);
+    if (parsed.success) {
+      const formData = new FormData(event.currentTarget);
+      startTransition(() => formAction(formData));
+      return;
+    }
+    const errors = toFieldErrors(parsed.error);
+    setClientErrors(Object.fromEntries(QUOTE_FIELDS.map((f) => [f, errors[f]])));
     setTouched(Object.fromEntries(QUOTE_FIELDS.map((f) => [f, true])));
     const first = QUOTE_FIELDS.find((f) => errors[f]);
-    if (first) formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+    if (first) focusField(first);
   }
 
   if (state.status === 'success') {
@@ -99,8 +126,8 @@ function QuoteFormInner({
     );
   }
 
-  const id = (field: string) => `${uid}-${field}`;
-  const isValid = (field: QuoteField) => touched[field] && !errorFor(field) && values[field].trim() !== '';
+  const id = (name: string) => `${uid}-${name}`;
+  const isValid = (field: QuoteField) => Boolean(touched[field]) && !errorFor(field) && values[field].trim() !== '';
 
   const fieldProps = (field: QuoteField, hint?: boolean) => {
     const error = errorFor(field);
@@ -116,6 +143,13 @@ function QuoteFormInner({
     } as const;
   };
 
+  const fieldState = (field: QuoteField) => ({
+    id: id(field),
+    errorId: id(`${field}-error`),
+    error: errorFor(field),
+    valid: isValid(field),
+  });
+
   return (
     <form ref={formRef} action={formAction} onSubmit={onSubmit} noValidate className={styles.form} aria-describedby={id('required')}>
       <p id={id('required')} className={styles.required}>
@@ -123,106 +157,103 @@ function QuoteFormInner({
         <span className="visually-hidden">asterisco</span> son obligatorios.
       </p>
 
-      <div className={styles.grid}>
-        <Field label="Nombre" required id={id('nombre')} error={errorFor('nombre')} valid={isValid('nombre')} errorId={id('nombre-error')}>
-          <input {...fieldProps('nombre')} type="text" autoComplete="name" maxLength={LIMITS.nombre.max} required className={styles.input} />
-        </Field>
+      <fieldset className={styles.fieldset} disabled={isPending}>
+        <legend className="visually-hidden">Datos de contacto y de la operación</legend>
+        <div className={styles.grid}>
+          <Field label="Nombre" required {...fieldState('nombre')}>
+            <input {...fieldProps('nombre')} type="text" autoComplete="name" maxLength={LIMITS.nombre.max} required className={styles.input} />
+          </Field>
 
-        <Field label="Empresa" id={id('empresa')} error={errorFor('empresa')} valid={isValid('empresa')} errorId={id('empresa-error')}>
-          <input {...fieldProps('empresa')} type="text" autoComplete="organization" maxLength={LIMITS.empresa.max} className={styles.input} />
-        </Field>
+          <Field label="Empresa" {...fieldState('empresa')}>
+            <input {...fieldProps('empresa')} type="text" autoComplete="organization" maxLength={LIMITS.empresa.max} className={styles.input} />
+          </Field>
 
-        <Field label="Correo electrónico" required id={id('correo')} error={errorFor('correo')} valid={isValid('correo')} errorId={id('correo-error')}>
-          <input {...fieldProps('correo')} type="email" inputMode="email" autoComplete="email" required className={styles.input} />
-        </Field>
+          <Field label="Correo electrónico" required {...fieldState('email')}>
+            <input
+              {...fieldProps('email')}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              maxLength={LIMITS.email.max}
+              required
+              className={styles.input}
+            />
+          </Field>
 
-        <Field
-          label="Teléfono"
-         
-          id={id('telefono')}
-          error={errorFor('telefono')}
-          valid={isValid('telefono')}
-          errorId={id('telefono-error')}
-          hint={{ id: id('telefono-hint'), text: '10 dígitos, con lada.' }}
-        >
-          <input {...fieldProps('telefono', true)} type="tel" inputMode="tel" autoComplete="tel" className={styles.input} />
-        </Field>
+          <Field label="Teléfono" required hint={{ id: id('telefono-hint'), text: '10 dígitos, con lada.' }} {...fieldState('telefono')}>
+            <input
+              {...fieldProps('telefono', true)}
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel-national"
+              maxLength={LIMITS.telefono.max}
+              required
+              className={styles.input}
+            />
+          </Field>
 
-        <Field label="Seguro de interés" required id={id('seguro')} error={errorFor('seguro')} valid={isValid('seguro')} errorId={id('seguro-error')}>
-          <select {...fieldProps('seguro')} required className={`${styles.input} ${styles.select}`}>
-            <option value="" disabled>
-              Selecciona una opción
-            </option>
-            {SEGURO_OPTIONS.map((o) => (
-              <option key={o.value} value={o.value}>
-                {o.label}
+          <Field label="Seguro de interés" required wide {...fieldState('seguro')}>
+            <select {...fieldProps('seguro')} required className={`${styles.input} ${styles.select}`}>
+              <option value="" disabled>
+                Selecciona una opción
               </option>
-            ))}
-          </select>
-        </Field>
+              {SEGURO_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          </Field>
 
-        <Field label="Tipo de operación" required id={id('operacion')} error={errorFor('operacion')} valid={isValid('operacion')} errorId={id('operacion-error')}>
-          <select {...fieldProps('operacion')} required className={`${styles.input} ${styles.select}`}>
-            <option value="" disabled>
-              Selecciona una opción
-            </option>
-            {OPERACION_OPTIONS.map((o) => (
-              <option key={o} value={o}>
-                {o}
-              </option>
-            ))}
-          </select>
-        </Field>
+          <Field
+            label="Cuéntanos sobre tu operación"
+            required
+            wide
+            hint={{
+              id: id('mensaje-hint'),
+              text: `Tipo de operación, ubicación, flota, capacidad de almacenamiento… (${values.mensaje.length}/${LIMITS.mensaje.max})`,
+            }}
+            {...fieldState('mensaje')}
+          >
+            <textarea {...fieldProps('mensaje', true)} rows={5} maxLength={LIMITS.mensaje.max} required className={`${styles.input} ${styles.textarea}`} />
+          </Field>
+        </div>
 
-        <Field
-          label="Cuéntanos sobre tu operación"
-          required
-          wide
-         
-          id={id('mensaje')}
-          error={errorFor('mensaje')}
-          valid={isValid('mensaje')}
-          errorId={id('mensaje-error')}
-          hint={{ id: id('mensaje-hint'), text: `Ubicación, flota, capacidad de almacenamiento… (${values.mensaje.length}/${LIMITS.mensaje.max})` }}
-        >
-          <textarea {...fieldProps('mensaje', true)} rows={5} maxLength={LIMITS.mensaje.max} required className={`${styles.input} ${styles.textarea}`} />
-        </Field>
-      </div>
+        {/* Trampa para bots: invisible para personas y tecnologías de asistencia. */}
+        <div className={styles.honeypot} aria-hidden="true">
+          <label htmlFor={id(HONEYPOT_FIELD)}>No llenar este campo</label>
+          <input id={id(HONEYPOT_FIELD)} type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" defaultValue="" />
+        </div>
 
-      {/* Trampa para bots: invisible para personas y tecnologías de asistencia. */}
-      <div className={styles.honeypot} aria-hidden="true">
-        <label htmlFor={id(HONEYPOT_FIELD)}>No llenar este campo</label>
-        <input id={id(HONEYPOT_FIELD)} type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" defaultValue="" />
-      </div>
-
-      <div className={styles.consent}>
-        <input
-          id={id('privacidad')}
-          name="privacidad"
-          type="checkbox"
-          checked={values.privacidad === 'on'}
-          onChange={onChange}
-          aria-invalid={errorFor('privacidad') ? true : undefined}
-          aria-describedby={errorFor('privacidad') ? id('privacidad-error') : undefined}
-          className={styles.checkbox}
-        />
-        <label htmlFor={id('privacidad')} className={styles.consentLabel}>
-          Acepto que mis datos se usen para responder esta solicitud, según el{' '}
-          {privacyUrl ? (
-            <a href={privacyUrl} target="_blank" rel="noopener">
-              aviso de privacidad
-            </a>
-          ) : (
-            <span>aviso de privacidad [URL pendiente]</span>
-          )}
-          . <span aria-hidden="true">*</span>
-        </label>
-        {errorFor('privacidad') ? (
-          <p id={id('privacidad-error')} className={styles.error}>
-            <AlertCircle size={14} aria-hidden="true" /> {errorFor('privacidad')}
-          </p>
-        ) : null}
-      </div>
+        <div className={styles.consent}>
+          <input
+            id={id('privacidad')}
+            name="privacidad"
+            type="checkbox"
+            checked={values.privacidad === 'on'}
+            onChange={onChange}
+            aria-invalid={errorFor('privacidad') ? true : undefined}
+            aria-describedby={errorFor('privacidad') ? id('privacidad-error') : undefined}
+            className={styles.checkbox}
+          />
+          <label htmlFor={id('privacidad')} className={styles.consentLabel}>
+            Acepto que mis datos se usen para responder esta solicitud, según el{' '}
+            {privacyUrl ? (
+              <a href={privacyUrl} target="_blank" rel="noopener">
+                aviso de privacidad
+              </a>
+            ) : (
+              <span>aviso de privacidad [URL pendiente]</span>
+            )}
+            . <span aria-hidden="true">*</span>
+          </label>
+          {errorFor('privacidad') ? (
+            <p id={id('privacidad-error')} className={styles.error}>
+              <AlertCircle size={14} aria-hidden="true" /> {errorFor('privacidad')}
+            </p>
+          ) : null}
+        </div>
+      </fieldset>
 
       <div aria-live="polite" className={styles.status}>
         {state.status === 'error' ? (
@@ -241,7 +272,7 @@ function QuoteFormInner({
             </p>
           </div>
         ) : null}
-        {state.status === 'invalid' && Object.keys(clientErrors).length === 0 ? (
+        {state.status === 'invalid' ? (
           <div className={styles.alert} role="alert">
             <AlertCircle size={18} strokeWidth={1.75} aria-hidden="true" />
             <p>{state.message}</p>
@@ -249,7 +280,7 @@ function QuoteFormInner({
         ) : null}
       </div>
 
-      <button type="submit" className={styles.submit} disabled={isPending} aria-disabled={isPending}>
+      <button type="submit" className={styles.submit} disabled={isPending} aria-busy={isPending || undefined}>
         {isPending ? (
           <>
             <LoaderCircle size={18} className={styles.spinner} aria-hidden="true" />
