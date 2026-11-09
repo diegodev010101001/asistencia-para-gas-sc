@@ -1,0 +1,129 @@
+.section {
+  padding-block: var(--space-section);
+  border-top: var(--hairline);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 64em) {
+  .inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-2xl);
+  }
+
+  .reasons {
+    grid-column: 1 / -1;
+  }
+}
+
+.copy {
+  display: grid;
+  align-content: start;
+  gap: var(--space-m);
+}
+
+.copy > header {
+  margin-bottom: var(--space-2xs);
+}
+
+.paragraph {
+  max-width: 60ch;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--color-text-soft);
+}
+
+.paragraph:first-of-type::first-line {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.media {
+  align-self: start;
+}
+
+@media (max-width: 63.99em) {
+  .media {
+    max-width: 30rem;
+  }
+}
+
+/* ─── Por qué elegirnos ───────────────────────────────────────────────── */
+.reasons {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.reasonList {
+  display: grid;
+  border-top: 2px solid var(--color-ink);
+}
+
+@media (min-width: 40em) {
+  .reasonList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64em) {
+  .reasonList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.reason {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2xs);
+  padding: var(--space-m) var(--space-m) var(--space-m) 0;
+  border-bottom: var(--hairline);
+}
+
+@media (min-width: 40em) {
+  .reason {
+    padding-left: var(--space-m);
+    border-left: var(--hairline);
+  }
+
+  .reason:nth-child(2n + 1) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (min-width: 64em) {
+  .reason {
+    border-bottom: 0;
+  }
+
+  .reason:nth-child(2n + 1) {
+    padding-left: var(--space-m);
+    border-left: var(--hairline);
+  }
+
+  .reason:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+.reasonNum {
+  font-family: var(--ff-display);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-accent);
+}
+
+.reasonTitle {
+  font-size: var(--step-1);
+  font-stretch: var(--stretch-semi);
+}
+
+.reasonText {
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+}

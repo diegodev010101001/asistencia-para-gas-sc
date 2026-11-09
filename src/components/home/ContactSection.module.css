@@ -1,0 +1,84 @@
+.section {
+  padding-block: var(--space-section);
+  background-color: var(--color-ink);
+  color: var(--color-text-inverse);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 64em) {
+  .inner {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-2xl);
+    align-items: start;
+  }
+}
+
+.info {
+  display: grid;
+  border-top: 1px solid var(--color-line-inverse);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-s);
+  padding-block: var(--space-s);
+  border-bottom: 1px solid var(--color-line-inverse);
+}
+
+.rowIcon {
+  display: inline-flex;
+  margin-top: 0.15rem;
+  color: var(--color-accent-on-ink);
+}
+
+.rowBody {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.rowLabel {
+  font-family: var(--ff-display);
+  font-size: var(--step--2);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-inverse-muted);
+}
+
+.rowValue {
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+a.rowValue {
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-inverse);
+}
+
+@media (hover: hover) {
+  a.rowValue:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+.formCard {
+  display: grid;
+  gap: var(--space-m);
+  padding: clamp(var(--space-m), 4vw, var(--space-xl));
+  border-radius: var(--radius-l);
+  background-color: var(--color-paper);
+  color: var(--color-text);
+  scroll-margin-top: calc(var(--header-h) + var(--space-m));
+}
+
+.formTitle {
+  font-size: var(--step-2);
+  font-stretch: var(--stretch-semi);
+}

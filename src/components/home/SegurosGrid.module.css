@@ -1,0 +1,178 @@
+.section {
+  padding-block: var(--space-section);
+  background-color: var(--color-paper-sunken);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-s);
+}
+
+@media (min-width: 40em) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64em) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.item {
+  position: relative;
+  display: grid;
+}
+
+/* Sombra en una capa propia: en hover solo se anima su opacidad. */
+.item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-3);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out-expo);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .item:hover::before {
+    opacity: 1;
+  }
+}
+
+.card {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  gap: var(--space-s);
+  padding: var(--space-m);
+  border: var(--hairline-strong);
+  border-radius: var(--radius-l);
+  background-color: var(--color-paper-raised);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+/* Borde de acento que se traza en hover (scaleX). */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .card:hover::after {
+    transform: scaleX(1);
+  }
+
+  .card:hover .image {
+    transform: scale(1.04);
+  }
+
+  .card:hover .moreIcon {
+    transform: translate(3px, -3px);
+  }
+}
+
+.card:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code {
+  font-family: var(--ff-display);
+  font-size: var(--step--2);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent);
+}
+
+.media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  background-color: var(--color-paper-sunken);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06);
+  transition: transform var(--dur-slower) var(--ease-out-expo);
+}
+
+.title {
+  font-size: var(--step-2);
+  font-stretch: var(--stretch-semi);
+  line-height: 1.1;
+}
+
+.summary {
+  color: var(--color-text-muted);
+  font-size: var(--step--1);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+}
+
+.tags li {
+  padding: 0.2rem 0.5rem;
+  border: var(--hairline-strong);
+  border-radius: var(--radius-s);
+  font-size: var(--step--2);
+  font-weight: 500;
+  color: var(--color-text-soft);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  padding-top: var(--space-s);
+  border-top: var(--hairline);
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.moreIcon {
+  color: var(--color-accent);
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}

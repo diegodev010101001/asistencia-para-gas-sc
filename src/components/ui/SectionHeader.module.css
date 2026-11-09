@@ -1,0 +1,64 @@
+.header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-xl);
+}
+
+.label {
+  gap: var(--space-xs);
+}
+
+.index {
+  color: var(--color-accent);
+}
+
+.rule {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.title {
+  max-width: 22ch;
+  font-size: var(--step-4);
+  font-weight: 650;
+  font-stretch: var(--stretch-semi);
+  line-height: 1.05;
+}
+
+.lead {
+  max-width: 58ch;
+  color: var(--color-text-muted);
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+@media (min-width: 64em) {
+  .split {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: var(--space-2xl);
+    align-items: end;
+  }
+
+  .split .label {
+    grid-column: 1 / -1;
+  }
+
+  .split .lead {
+    justify-self: end;
+  }
+}
+
+/* ─── Sobre fondo de tinta ────────────────────────────────────────────── */
+.inverse .label {
+  color: var(--color-text-inverse-muted);
+}
+
+.inverse .index {
+  color: var(--color-accent-on-ink);
+}
+
+.inverse .lead {
+  color: var(--color-text-inverse-muted);
+}

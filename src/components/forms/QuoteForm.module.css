@@ -1,0 +1,323 @@
+.form {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.required {
+  font-size: var(--step--1);
+  color: var(--color-text-muted);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-m) var(--space-s);
+}
+
+@media (min-width: 40em) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2xs);
+  align-content: start;
+}
+
+.label {
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+}
+
+.control {
+  position: relative;
+}
+
+/* Barra inferior que se traza al enfocar (microinteracción con transform). */
+.control::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.control:focus-within::after {
+  transform: scaleX(1);
+}
+
+.input {
+  width: 100%;
+  min-height: 3rem;
+  padding: var(--space-xs) var(--space-s);
+  padding-right: 2.5rem;
+  border: var(--hairline-strong);
+  border-radius: var(--radius-m);
+  background-color: var(--color-paper-raised);
+  color: var(--color-text);
+  font-size: 1rem; /* ≥16px: evita el zoom automático en iOS */
+  line-height: 1.4;
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: var(--color-ink);
+}
+
+.select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-text-muted) 50%),
+    linear-gradient(135deg, var(--color-text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.15rem) 50%,
+    calc(100% - 0.8rem) 50%;
+  background-size: 0.35rem 0.35rem;
+  background-repeat: no-repeat;
+}
+
+.textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.field[data-state='error'] .input {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-soft);
+}
+
+.validIcon {
+  position: absolute;
+  top: 0.95rem;
+  right: 0.9rem;
+  display: inline-flex;
+  color: var(--color-success);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--dur-fast) var(--ease-out-quart),
+    transform var(--dur-base) var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.field[data-state='valid'] .validIcon {
+  opacity: 1;
+  transform: none;
+}
+
+/* El select ya tiene su flecha: el check se desplaza. */
+.field:has(select) .validIcon {
+  right: 2rem;
+}
+
+.hint {
+  font-size: var(--step--2);
+  color: var(--color-text-muted);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--color-danger);
+  animation: shake-in var(--dur-base) var(--ease-out-quart);
+}
+
+@keyframes shake-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  60% {
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Aceptación ──────────────────────────────────────────────────────── */
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2xs) var(--space-xs);
+  align-items: start;
+}
+
+.consent .error {
+  grid-column: 2;
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  accent-color: var(--color-accent);
+}
+
+.consentLabel {
+  font-size: var(--step--1);
+  color: var(--color-text-soft);
+}
+
+.consentLabel a {
+  color: var(--color-text);
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ─── Estados ─────────────────────────────────────────────────────────── */
+.status:empty {
+  display: none;
+}
+
+.alert {
+  display: flex;
+  gap: var(--space-xs);
+  padding: var(--space-s);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-m);
+  background-color: var(--color-danger-soft);
+  color: var(--color-danger);
+  font-size: var(--step--1);
+}
+
+.alert svg {
+  flex: none;
+  margin-top: 0.15rem;
+}
+
+.alert a {
+  color: inherit;
+  font-weight: 600;
+}
+
+.submit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 3.375rem;
+  padding-inline: var(--space-l);
+  border-radius: var(--radius-m);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-family: var(--ff-display);
+  font-size: var(--step-0);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--dur-fast) var(--ease-out-quart);
+}
+
+.submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-accent-hover);
+  transform: translateY(101%);
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .submit:hover::before {
+    transform: none;
+  }
+
+  .submit:hover .submitArrow {
+    transform: translateX(4px);
+  }
+}
+
+.submit:active {
+  transform: scale(0.98);
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.85;
+}
+
+.submitArrow {
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+@media (min-width: 40em) {
+  .submit {
+    justify-self: start;
+  }
+}
+
+.spinner {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.success {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-s);
+  padding: var(--space-l);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-l);
+  background-color: var(--color-success-soft);
+  animation: success-in var(--dur-slow) var(--ease-out-expo) both;
+}
+
+@keyframes success-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.successIcon {
+  color: var(--color-success);
+}
+
+.successTitle {
+  font-size: var(--step-2);
+}
+
+.linkButton {
+  min-height: 44px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
