@@ -13,6 +13,11 @@ node_modules
 # Build
 dist
 dist-ssr
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.vercel
 
 # Variables de entorno (MUY IMPORTANTE)
 .env
