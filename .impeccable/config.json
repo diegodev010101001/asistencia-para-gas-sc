@@ -1,0 +1,21 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "cream-palette"
+    ],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "src/app/not-found.module.css",
+          "src/components/home/Hero.module.css",
+          "src/components/seguro/SeguroHero.module.css"
+        ],
+        "createdAt": "2026-11-09T23:47:03.325Z",
+        "reason": "user confirmed: retícula de plano de la dirección aprobada «Ficha técnica» (DESIGN.md)"
+      }
+    ]
+  }
+}
