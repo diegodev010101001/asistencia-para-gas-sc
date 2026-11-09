@@ -22,11 +22,24 @@ export interface SocialLink {
   href: string;
 }
 
+const FALLBACK_URL = 'https://DOMINIO.com';
+
+/** Acepta solo una URL absoluta válida; vacía o mal formada → dominio provisional. */
+function resolveSiteUrl(value: string | undefined): string {
+  const candidate = value?.trim();
+  if (!candidate) return FALLBACK_URL;
+  try {
+    return new URL(candidate).origin;
+  } catch {
+    return FALLBACK_URL;
+  }
+}
+
 export const SITE = {
   name: 'ASISTENCIA PARA GAS SC',
   shortName: 'Asistencia para Gas',
   /** TODO: dominio final. En Vercel se define con NEXT_PUBLIC_SITE_URL. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://DOMINIO.com',
+  url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: 'es_MX',
   description:
     'Seguros especializados para la industria del gas LP e hidrocarburos en México: responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas, autotanques y transportistas.',

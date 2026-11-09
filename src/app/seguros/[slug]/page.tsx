@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ViewTransition } from 'react';
 
@@ -14,13 +15,28 @@ import {
   OtherSeguros,
   ScenariosSection,
 } from '@/components/seguro/SeguroSections';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { SEGUROS, getSeguro, otherSeguros } from '@/data/seguros';
+import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from '@/lib/jsonld';
+import { buildMetadata } from '@/lib/seo';
 
 /** Solo existen los slugs de src/data/seguros.ts; cualquier otro es 404 estático. */
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return SEGUROS.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const seguro = getSeguro(slug);
+  if (!seguro) return {};
+  return buildMetadata({
+    title: seguro.seo.title,
+    description: seguro.seo.description,
+    path: `/seguros/${seguro.slug}`,
+    keywords: seguro.seo.keywords,
+  });
 }
 
 /** Plantilla única para los tres seguros, alimentada por src/data/seguros.ts. */
@@ -33,28 +49,40 @@ export default async function SeguroPage({ params }: { params: Promise<{ slug: s
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <DirectionalTransition>
-      {/* Navegación lateral entre seguros (misma ruta, otro slug): crossfade sin dirección. */}
-      <ViewTransition key={seguro.slug} name="seguro-content" share="auto" enter="auto" default="none">
-        <div>
-          <ReadingProgress />
-          <SeguroHero seguro={seguro} />
-          <IntroSection seguro={seguro} index="01" />
-          <CoverageSection seguro={seguro} index="02" />
-          <AudienceSection seguro={seguro} index="03" />
-          <ScenariosSection seguro={seguro} index="04" />
-          <ExtraSections seguro={seguro} startIndex={5} />
-          <FaqSection
-            items={seguro.faqs}
-            index={pad(5 + extrasCount)}
-            title={`Preguntas sobre ${seguro.nombreCorto.toLowerCase()}`}
-            lead={`Dudas frecuentes sobre el ${seguro.nombre.toLowerCase()}.`}
-            group={`faq-${seguro.slug}`}
-          />
-          <ContactSection index={pad(6 + extrasCount)} defaultSeguro={seguro.slug} title={`Cotiza tu ${seguro.nombre.toLowerCase()}`} />
-          <OtherSeguros seguros={otherSeguros(seguro.slug)} />
-        </div>
-      </ViewTransition>
-    </DirectionalTransition>
+    <>
+      <JsonLd
+        data={[
+          serviceJsonLd(seguro),
+          faqJsonLd(seguro.faqs, `/seguros/${seguro.slug}`),
+          breadcrumbJsonLd([
+            { name: 'Inicio', path: '/' },
+            { name: seguro.nombre, path: `/seguros/${seguro.slug}` },
+          ]),
+        ]}
+      />
+      <DirectionalTransition>
+        {/* Navegación lateral entre seguros (misma ruta, otro slug): crossfade sin dirección. */}
+        <ViewTransition key={seguro.slug} name="seguro-content" share="auto" enter="auto" default="none">
+          <div>
+            <ReadingProgress />
+            <SeguroHero seguro={seguro} />
+            <IntroSection seguro={seguro} index="01" />
+            <CoverageSection seguro={seguro} index="02" />
+            <AudienceSection seguro={seguro} index="03" />
+            <ScenariosSection seguro={seguro} index="04" />
+            <ExtraSections seguro={seguro} startIndex={5} />
+            <FaqSection
+              items={seguro.faqs}
+              index={pad(5 + extrasCount)}
+              title={`Preguntas sobre ${seguro.nombreCorto.toLowerCase()}`}
+              lead={`Dudas frecuentes sobre el ${seguro.nombre.toLowerCase()}.`}
+              group={`faq-${seguro.slug}`}
+            />
+            <ContactSection index={pad(6 + extrasCount)} defaultSeguro={seguro.slug} title={`Cotiza tu ${seguro.nombre.toLowerCase()}`} />
+            <OtherSeguros seguros={otherSeguros(seguro.slug)} />
+          </div>
+        </ViewTransition>
+      </DirectionalTransition>
+    </>
   );
 }
