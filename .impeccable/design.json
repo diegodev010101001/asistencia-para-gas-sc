@@ -1,0 +1,413 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T23:46:45.128Z",
+  "title": "Design System: ASISTENCIA PARA GAS SC",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel Técnico",
+        "canonical": "oklch(96.2% 0.006 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.002 84.6)",
+          "oklch(25% 0.004 84.6)",
+          "oklch(35% 0.006 84.6)",
+          "oklch(45% 0.006 84.6)",
+          "oklch(55% 0.006 84.6)",
+          "oklch(65% 0.006 84.6)",
+          "oklch(80% 0.003 84.6)",
+          "oklch(95% 0.001 84.6)"
+        ]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Papel Elevado",
+        "canonical": "oklch(98.5% 0.003 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.001 84.6)",
+          "oklch(25% 0.002 84.6)",
+          "oklch(35% 0.003 84.6)",
+          "oklch(45% 0.003 84.6)",
+          "oklch(55% 0.003 84.6)",
+          "oklch(65% 0.003 84.6)",
+          "oklch(80% 0.002 84.6)",
+          "oklch(95% 0.001 84.6)"
+        ]
+      },
+      "paper-sunken": {
+        "role": "neutral",
+        "displayName": "Papel Hundido",
+        "canonical": "oklch(93.2% 0.009 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.004 84.6)",
+          "oklch(25% 0.006 84.6)",
+          "oklch(35% 0.009 84.6)",
+          "oklch(45% 0.009 84.6)",
+          "oklch(55% 0.009 84.6)",
+          "oklch(65% 0.009 84.6)",
+          "oklch(80% 0.005 84.6)",
+          "oklch(95% 0.002 84.6)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta Grafito",
+        "canonical": "oklch(20.8% 0.007 258.4)",
+        "tonalRamp": [
+          "oklch(15% 0.003 258.4)",
+          "oklch(25% 0.005 258.4)",
+          "oklch(35% 0.007 258.4)",
+          "oklch(45% 0.007 258.4)",
+          "oklch(55% 0.007 258.4)",
+          "oklch(65% 0.007 258.4)",
+          "oklch(80% 0.004 258.4)",
+          "oklch(95% 0.002 258.4)"
+        ]
+      },
+      "ink-raised": {
+        "role": "neutral",
+        "displayName": "Tinta Elevada",
+        "canonical": "oklch(26.4% 0.010 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.004 260.7)",
+          "oklch(25% 0.007 260.7)",
+          "oklch(35% 0.010 260.7)",
+          "oklch(45% 0.010 260.7)",
+          "oklch(55% 0.010 260.7)",
+          "oklch(65% 0.010 260.7)",
+          "oklch(80% 0.006 260.7)",
+          "oklch(95% 0.003 260.7)"
+        ]
+      },
+      "text-soft": {
+        "role": "neutral",
+        "displayName": "Grafito Suave",
+        "canonical": "oklch(36.2% 0.012 258.4)",
+        "tonalRamp": [
+          "oklch(15% 0.005 258.4)",
+          "oklch(25% 0.008 258.4)",
+          "oklch(35% 0.012 258.4)",
+          "oklch(45% 0.012 258.4)",
+          "oklch(55% 0.012 258.4)",
+          "oklch(65% 0.012 258.4)",
+          "oklch(80% 0.007 258.4)",
+          "oklch(95% 0.003 258.4)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Gris Técnico",
+        "canonical": "oklch(48.7% 0.011 252.9)",
+        "tonalRamp": [
+          "oklch(15% 0.005 252.9)",
+          "oklch(25% 0.008 252.9)",
+          "oklch(35% 0.011 252.9)",
+          "oklch(45% 0.011 252.9)",
+          "oklch(55% 0.011 252.9)",
+          "oklch(65% 0.011 252.9)",
+          "oklch(80% 0.007 252.9)",
+          "oklch(95% 0.003 252.9)"
+        ]
+      },
+      "text-inverse-muted": {
+        "role": "neutral",
+        "displayName": "Gris sobre Tinta",
+        "canonical": "oklch(73.7% 0.010 258.3)",
+        "tonalRamp": [
+          "oklch(15% 0.004 258.3)",
+          "oklch(25% 0.007 258.3)",
+          "oklch(35% 0.010 258.3)",
+          "oklch(45% 0.010 258.3)",
+          "oklch(55% 0.010 258.3)",
+          "oklch(65% 0.010 258.3)",
+          "oklch(80% 0.006 258.3)",
+          "oklch(95% 0.002 258.3)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Línea",
+        "canonical": "oklch(87.4% 0.010 81.8)",
+        "tonalRamp": [
+          "oklch(15% 0.004 81.8)",
+          "oklch(25% 0.007 81.8)",
+          "oklch(35% 0.010 81.8)",
+          "oklch(45% 0.010 81.8)",
+          "oklch(55% 0.010 81.8)",
+          "oklch(65% 0.010 81.8)",
+          "oklch(80% 0.006 81.8)",
+          "oklch(95% 0.003 81.8)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Línea Marcada",
+        "canonical": "oklch(77.1% 0.014 82.4)",
+        "tonalRamp": [
+          "oklch(15% 0.006 82.4)",
+          "oklch(25% 0.010 82.4)",
+          "oklch(35% 0.014 82.4)",
+          "oklch(45% 0.014 82.4)",
+          "oklch(55% 0.014 82.4)",
+          "oklch(65% 0.014 82.4)",
+          "oklch(80% 0.008 82.4)",
+          "oklch(95% 0.003 82.4)"
+        ]
+      },
+      "signal-orange": {
+        "role": "primary",
+        "displayName": "Naranja Señal",
+        "canonical": "oklch(55.3% 0.174 38.4)",
+        "tonalRamp": [
+          "oklch(15% 0.075 38.4)",
+          "oklch(25% 0.124 38.4)",
+          "oklch(35% 0.174 38.4)",
+          "oklch(45% 0.174 38.4)",
+          "oklch(55% 0.174 38.4)",
+          "oklch(65% 0.174 38.4)",
+          "oklch(80% 0.099 38.4)",
+          "oklch(95% 0.043 38.4)"
+        ]
+      },
+      "signal-orange-deep": {
+        "role": "primary",
+        "displayName": "Naranja Señal Profundo",
+        "canonical": "oklch(49.4% 0.154 38.6)",
+        "tonalRamp": [
+          "oklch(15% 0.066 38.6)",
+          "oklch(25% 0.110 38.6)",
+          "oklch(35% 0.154 38.6)",
+          "oklch(45% 0.154 38.6)",
+          "oklch(55% 0.154 38.6)",
+          "oklch(65% 0.154 38.6)",
+          "oklch(80% 0.088 38.6)",
+          "oklch(95% 0.039 38.6)"
+        ]
+      },
+      "signal-orange-on-ink": {
+        "role": "primary",
+        "displayName": "Naranja Señal sobre Tinta",
+        "canonical": "oklch(69.6% 0.168 42.8)",
+        "tonalRamp": [
+          "oklch(15% 0.072 42.8)",
+          "oklch(25% 0.120 42.8)",
+          "oklch(35% 0.168 42.8)",
+          "oklch(45% 0.168 42.8)",
+          "oklch(55% 0.168 42.8)",
+          "oklch(65% 0.168 42.8)",
+          "oklch(80% 0.096 42.8)",
+          "oklch(95% 0.042 42.8)"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Peligro",
+        "canonical": "oklch(50.0% 0.182 29.5)",
+        "tonalRamp": [
+          "oklch(15% 0.078 29.5)",
+          "oklch(25% 0.130 29.5)",
+          "oklch(35% 0.182 29.5)",
+          "oklch(45% 0.182 29.5)",
+          "oklch(55% 0.182 29.5)",
+          "oklch(65% 0.182 29.5)",
+          "oklch(80% 0.104 29.5)",
+          "oklch(95% 0.046 29.5)"
+        ]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Correcto",
+        "canonical": "oklch(47.1% 0.097 157.6)",
+        "tonalRamp": [
+          "oklch(15% 0.042 157.6)",
+          "oklch(25% 0.069 157.6)",
+          "oklch(35% 0.097 157.6)",
+          "oklch(45% 0.097 157.6)",
+          "oklch(55% 0.097 157.6)",
+          "oklch(65% 0.097 157.6)",
+          "oklch(80% 0.056 157.6)",
+          "oklch(95% 0.024 157.6)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Solo el h1 de cada hero y el 404; mayúsculas, ancho 125 %."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de sección (h2)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Títulos de tarjetas, pasos y preguntas."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Párrafos y texto de lectura."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Etiquetas técnicas en mayúsculas, códigos de ficha, encabezados de columna."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hairline-lift",
+        "value": "0 1px 0 rgb(22 24 27 / .04), 0 1px 2px rgb(22 24 27 / .06)",
+        "purpose": "Hojas de datos."
+      },
+      {
+        "name": "state-lift",
+        "value": "0 1px 2px rgb(22 24 27 / .05), 0 12px 32px -14px rgb(22 24 27 / .22)",
+        "purpose": "Elementos fijos o destacados."
+      },
+      {
+        "name": "hover-lift",
+        "value": "0 2px 4px rgb(22 24 27 / .06), 0 28px 60px -24px rgb(22 24 27 / .32)",
+        "purpose": "Tarjetas en hover y dock flotante."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entradas, trazos de línea, barrido de la aguja."
+      },
+      {
+        "name": "ease-out-quart",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Cambios de opacidad y estados cortos."
+      },
+      {
+        "name": "durations",
+        "value": "120 / 180 / 280 / 480 / 720 ms",
+        "purpose": "instant / fast / base / slow / slower."
+      },
+      {
+        "name": "stagger",
+        "value": "70ms",
+        "purpose": "Retardo por elemento en revelados escalonados."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet",
+        "value": "40em"
+      },
+      {
+        "name": "desktop",
+        "value": "64em"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal (cotizar).",
+      "html": "<button class=\"ds-btn-primary\"><span>Solicitar cotización</span> →</button>",
+      "css": ".ds-btn-primary{position:relative;display:inline-flex;align-items:center;gap:.5rem;min-height:2.875rem;padding:0 1.5rem;border:0;border-radius:4px;background:var(--color-accent,#c2410c);color:#fff;font-family:var(--ff-display);font-weight:600;font-stretch:112%;letter-spacing:.04em;text-transform:uppercase;font-size:.9rem;overflow:hidden;isolation:isolate;cursor:pointer;transition:transform 180ms cubic-bezier(.25,1,.5,1)}.ds-btn-primary::before{content:\"\";position:absolute;inset:0;z-index:-1;background:var(--color-accent-hover,#a63709);transform:translateY(101%);transition:transform 280ms cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover::before{transform:none}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:2px solid var(--color-accent,#c2410c);outline-offset:3px}"
+    },
+    {
+      "name": "Botón secundario",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Acción alternativa (WhatsApp, ver cobertura).",
+      "html": "<button class=\"ds-btn-secondary\">Hablar por WhatsApp</button>",
+      "css": ".ds-btn-secondary{position:relative;display:inline-flex;align-items:center;min-height:2.875rem;padding:0 1.5rem;border:1px solid var(--color-ink,#16181b);border-radius:4px;background:transparent;color:var(--color-ink,#16181b);font-family:var(--ff-display);font-weight:600;font-stretch:112%;letter-spacing:.04em;text-transform:uppercase;font-size:.9rem;overflow:hidden;isolation:isolate;cursor:pointer}.ds-btn-secondary::before{content:\"\";position:absolute;inset:0;z-index:-1;background:var(--color-paper-sunken,#ebe8e2);transform:translateY(101%);transition:transform 280ms cubic-bezier(.16,1,.3,1)}.ds-btn-secondary:hover::before{transform:none}.ds-btn-secondary:focus-visible{outline:2px solid var(--color-accent,#c2410c);outline-offset:3px}"
+    },
+    {
+      "name": "Campo de texto",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo del formulario de cotización.",
+      "html": "<label class=\"ds-field\"><span>Nombre *</span><input class=\"ds-input\"></label>",
+      "css": ".ds-field{display:grid;gap:.5rem;font-family:var(--ff-display);font-weight:600;font-stretch:112%;font-size:.9rem}.ds-input{min-height:3rem;padding:.75rem 1rem;border:1px solid var(--color-line-strong,#b9b4ab);border-radius:4px;background:var(--color-paper-raised,#fbfaf8);color:var(--color-ink,#16181b);font:400 1rem var(--ff-body,system-ui)}.ds-input:focus-visible{outline:2px solid var(--color-accent,#c2410c);outline-offset:1px;border-color:var(--color-ink,#16181b)}"
+    },
+    {
+      "name": "Etiqueta técnica",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Rol Label: códigos de ficha y etiquetas de sección.",
+      "html": "<span class=\"ds-label\"><b>02</b> — Cobertura</span>",
+      "css": ".ds-label{display:inline-flex;gap:.5rem;font-family:var(--ff-display);font-size:.75rem;font-weight:600;font-stretch:112%;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted,#5b6066)}.ds-label b{color:var(--color-accent,#c2410c)}"
+    },
+    {
+      "name": "Ficha de seguro",
+      "kind": "card",
+      "refersTo": "card-ficha",
+      "description": "Tarjeta navegable de cada seguro.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-card-code\">Ficha 01</span><strong>Seguro de Responsabilidad Civil</strong><span>Daños a terceros en toda la cadena del gas LP.</span></a>",
+      "css": ".ds-card{position:relative;display:grid;gap:.75rem;padding:1.5rem;border:1px solid var(--color-line-strong,#b9b4ab);border-radius:8px;background:var(--color-paper-raised,#fbfaf8);color:var(--color-ink,#16181b);text-decoration:none;overflow:hidden}.ds-card::after{content:\"\";position:absolute;inset:0 0 auto;height:3px;background:var(--color-accent,#c2410c);transform:scaleX(0);transform-origin:left;transition:transform 480ms cubic-bezier(.16,1,.3,1)}.ds-card:hover::after,.ds-card:focus-visible::after{transform:scaleX(1)}.ds-card-code{font-family:var(--ff-display);font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted,#5b6066)}.ds-card strong{font-family:var(--ff-display);font-size:1.4rem;font-stretch:112%}"
+    },
+    {
+      "name": "Escenario de riesgo",
+      "kind": "custom",
+      "refersTo": "scenario-card",
+      "description": "Caso con resultado cubierto/excluido sobre tinta.",
+      "html": "<div class=\"ds-scn\"><span class=\"ds-scn-res\">✓ Cubierto</span><strong>Derrame en maniobra de carga</strong><p>Contención, limpieza y remediación del sitio.</p></div>",
+      "css": ".ds-scn{display:grid;gap:1rem;padding:1.5rem;border:1px solid var(--color-line-inverse,#3a3e44);border-radius:8px;background:var(--color-ink-raised,#22252a);color:var(--color-paper,#f4f2ee)}.ds-scn-res{justify-self:start;padding:.2rem .55rem;border-radius:999px;background:var(--color-accent-on-ink,#f0743d);color:var(--color-ink,#16181b);font-family:var(--ff-display);font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}.ds-scn p{color:var(--color-text-inverse-muted,#a6aab0);font-size:.9rem}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Ficha Técnica",
+    "overview": "Cada página se lee como la hoja de especificaciones de un equipo industrial: datos exactos, etiquetas técnicas, una retícula de plano de fondo y un solo color de señal que marca lo importante. Plano por defecto; la profundidad aparece solo como respuesta a un estado.",
+    "keyCharacteristics": [
+      "Papel claro (paper) con tinta grafito (ink) y un único acento naranja señal.",
+      "Archivo expandido en mayúsculas para titulares y etiquetas; Public Sans para leer.",
+      "Retícula de plano de 64 px que se desvanece, solo en los héroes y en el 404.",
+      "Líneas finas de 1 px como estructura; reglas de 2 px en tinta para abrir listas.",
+      "Fotografía en escala de grises con marcas de esquina.",
+      "Movimiento con transform/opacity y ease-out-expo; alternativas con movimiento reducido."
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "El naranja es la única voz de color. Se reserva para la acción principal, la señal activa y la posición (índice, foco). Nunca se introduce un segundo acento.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Floor Rule",
+        "body": "Texto naranja de menos de 18.66 px (o 14 px bold) solo sobre paper o paper-raised; sobre paper-sunken se usa signal-orange-deep.",
+        "section": "colors"
+      },
+      {
+        "name": "The Spec Label Rule",
+        "body": "Toda micro-etiqueta en mayúsculas usa el rol Label; no se redefine en cada componente.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Wrap Display Rule",
+        "body": "El display nunca parte palabras: su tamaño se deriva del ancho de su contenedor.",
+        "section": "typography"
+      },
+      {
+        "name": "The Spec Sheet Rule",
+        "body": "La información comparable (datos, coberturas, pasos) se presenta en filas o columnas con líneas finas, como una ficha; las tarjetas se reservan para objetos navegables (seguros) o casos (escenarios).",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "Ninguna tarjeta tiene sombra en reposo. Si algo necesita separarse, primero se intenta una línea o un cambio de superficie.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar signal-orange solo para acción principal, señal activa y foco.",
+      "Do presentar datos comparables como ficha: filas con líneas finas y etiquetas Label.",
+      "Do desaturar todas las fotografías y enmarcarlas con marcas de esquina.",
+      "Do animar solo transform y opacity, con ease-out-expo, entre 180 y 720 ms, y dar una alternativa con prefers-reduced-motion.",
+      "Do dar alternativa táctil a todo efecto de cursor (hover: none)."
+    ],
+    "donts": [
+      "Don't introducir un segundo color de acento ni degradados decorativos (la retícula de plano y la luz radial del hero son las únicas excepciones).",
+      "Don't usar radios mayores a 8 px fuera del dock y los puntos de estado.",
+      "Don't poner sombras en reposo ni bordes laterales gruesos de color como acento.",
+      "Don't usar fotografía a color ni imágenes que no correspondan a la operación descrita.",
+      "Don't usar texto naranja pequeño sobre paper-sunken."
+    ]
+  }
+}
