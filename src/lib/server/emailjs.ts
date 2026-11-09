@@ -40,13 +40,15 @@ export async function sendQuoteEmail(data: QuoteData): Promise<SendResult> {
     return { ok: false, reason: 'config' };
   }
 
+  // El tipo de operación viaja al inicio de {{mensaje}}: el template de EmailJS
+  // conserva sus seis variables (nombre, empresa, email, telefono, seguro, mensaje).
   const templateParams = {
     nombre: data.nombre,
     empresa: data.empresa || '—',
     email: data.email,
     telefono: formatPhone(data.telefono),
     seguro: seguroNombre(data.seguro),
-    mensaje: data.mensaje,
+    mensaje: `Tipo de operación: ${data.operacion}\n\n${data.mensaje}`,
   };
 
   try {

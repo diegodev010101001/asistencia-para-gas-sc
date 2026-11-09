@@ -149,7 +149,7 @@ export function AudienceSection({ seguro, index }: { seguro: Seguro; index: stri
   return (
     <section className={styles.section} id="dirigido" aria-labelledby="dirigido-title">
       <div className="container">
-        <SectionHeader index={index} label="A quién va dirigido" title="Pensado para estas operaciones" id="dirigido-title" />
+        <SectionHeader index={index} label="A quién va dirigido" title={seguro.dirigidoTitulo ?? 'Pensado para estas operaciones'} id="dirigido-title" />
         <ul role="list" className={styles.audience}>
           {seguro.dirigidoA.map(({ titulo, texto }, i) => (
             <li key={titulo} className={styles.audienceItem} data-reveal style={cssVars({ '--i': i })}>

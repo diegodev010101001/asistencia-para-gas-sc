@@ -19,8 +19,10 @@ export const STATS: readonly Stat[] = [
 export const HERO = {
   label: 'Seguros para gas LP e hidrocarburos',
   titleLines: ['Seguros para', 'la industria', 'del gas LP'],
-  lead: 'Responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas de almacenamiento, autotanques, transportistas y operaciones energéticas en México.',
-  compliance: { title: 'CNE · ASEA', text: 'Cumplimiento regulatorio' },
+  // Posicionamiento confirmado (PRODUCT.md): agente/intermediario, no aseguradora.
+  lead: 'Somos agentes de seguros especializados en gas LP: analizamos tu operación y colocamos tu póliza con la aseguradora. Para plantas, autotanques y transportistas.',
+  // Dato verificable en lugar de una afirmación genérica de cumplimiento.
+  compliance: { title: 'Todo México', text: 'Oficina en Aguascalientes' },
   imageAlt: 'Tanque horizontal de almacenamiento de gas LP con escalera y plataforma de servicio en una planta',
 } as const;
 
@@ -28,8 +30,8 @@ export const ABOUT = {
   label: 'Quiénes somos',
   title: 'Protegemos lo que mueve a México',
   paragraphs: [
-    'En ASISTENCIA PARA GAS SC diseñamos soluciones de seguro para toda la cadena energética: desde plantas de almacenamiento y autotanques hasta el transporte y la comercialización de gas LP e hidrocarburos.',
-    'Nuestro objetivo es reducir la exposición al riesgo de cada cliente con coberturas pensadas para entornos de alta exigencia operativa, que den continuidad al negocio, cumplimiento regulatorio y tranquilidad financiera.',
+    'ASISTENCIA PARA GAS SC es un agente de seguros dedicado a la cadena del gas LP e hidrocarburos: plantas de almacenamiento, autotanques, transporte y comercialización. No emitimos pólizas: analizamos tu operación, cotizamos y colocamos la póliza con aseguradoras.',
+    'Nuestro trabajo es reducir tu exposición al riesgo con coberturas pensadas para entornos de alta exigencia operativa, que den continuidad al negocio, cumplimiento regulatorio y tranquilidad financiera.',
   ],
   imageAlt: 'Válvulas y tuberías amarillas de gas LP con etiquetas de cierre en una planta de distribución',
 } as const;

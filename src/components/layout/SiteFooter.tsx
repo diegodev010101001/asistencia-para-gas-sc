@@ -88,13 +88,12 @@ export function SiteFooter() {
         <p>
           © {YEAR} {SITE.name}. Todos los derechos reservados.
         </p>
+        {/* TODO: el enlace aparece en cuanto exista SITE.privacyUrl. */}
         {SITE.privacyUrl ? (
           <Link href={SITE.privacyUrl} className={styles.link}>
             Aviso de privacidad
           </Link>
-        ) : (
-          <p>Aviso de privacidad: [URL pendiente]</p>
-        )}
+        ) : null}
       </div>
     </footer>
   );

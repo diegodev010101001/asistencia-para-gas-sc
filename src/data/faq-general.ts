@@ -6,6 +6,12 @@ export interface Faq {
 /** Preguntas frecuentes generales (inicio). Respuestas del sitio anterior, con redacción revisada. */
 export const FAQ_GENERAL: readonly Faq[] = [
   {
+    // Posicionamiento confirmado por el cliente (PRODUCT.md).
+    question: '¿Ustedes son la aseguradora?',
+    answer:
+      'No. Somos agentes de seguros: analizamos tu operación, cotizamos y colocamos la póliza con aseguradoras. La póliza la emite la aseguradora; nosotros te asesoramos para que la cobertura responda a tu operación real.',
+  },
+  {
     question: '¿Qué tipo de empresas pueden contratar estos seguros?',
     answer:
       'Cualquier empresa de la cadena energética: plantas de almacenamiento de gas LP, estaciones de servicio y de carburación, distribuidoras, transportistas especializados, operadores logísticos y empresas industriales que manejan hidrocarburos.',

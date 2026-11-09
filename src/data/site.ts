@@ -49,7 +49,7 @@ export const SITE = {
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: 'es_MX',
   description:
-    'Seguros especializados para la industria del gas LP e hidrocarburos en México: responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas, autotanques y transportistas.',
+    'Agentes de seguros especializados en la industria del gas LP e hidrocarburos en México: responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas, autotanques y transportistas.',
   contact: {
     phone: '+52 449 239 3813',
     email: 'asisgassc@gmail.com',

@@ -9,6 +9,7 @@ import {
   HONEYPOT_FIELD,
   INITIAL_QUOTE_STATE,
   LIMITS,
+  OPERACION_OPTIONS,
   QUOTE_FIELDS,
   SEGURO_OPTIONS,
   quoteSchema,
@@ -192,7 +193,7 @@ function QuoteFormInner({
             />
           </Field>
 
-          <Field label="Seguro de interés" required wide {...fieldState('seguro')}>
+          <Field label="Seguro de interés" required {...fieldState('seguro')}>
             <select {...fieldProps('seguro')} required className={`${styles.input} ${styles.select}`}>
               <option value="" disabled>
                 Selecciona una opción
@@ -205,13 +206,26 @@ function QuoteFormInner({
             </select>
           </Field>
 
+          <Field label="Tipo de operación" required {...fieldState('operacion')}>
+            <select {...fieldProps('operacion')} required className={`${styles.input} ${styles.select}`}>
+              <option value="" disabled>
+                Selecciona una opción
+              </option>
+              {OPERACION_OPTIONS.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
+          </Field>
+
           <Field
             label="Cuéntanos sobre tu operación"
             required
             wide
             hint={{
               id: id('mensaje-hint'),
-              text: `Tipo de operación, ubicación, flota, capacidad de almacenamiento… (${values.mensaje.length}/${LIMITS.mensaje.max})`,
+              text: `Ubicación, flota, capacidad de almacenamiento… (${values.mensaje.length}/${LIMITS.mensaje.max})`,
             }}
             {...fieldState('mensaje')}
           >
@@ -237,15 +251,19 @@ function QuoteFormInner({
             className={styles.checkbox}
           />
           <label htmlFor={id('privacidad')} className={styles.consentLabel}>
-            Acepto que mis datos se usen para responder esta solicitud, según el{' '}
+            {/* TODO: publicar el aviso de privacidad (SITE.privacyUrl); es obligatorio antes de recabar datos en producción. */}
             {privacyUrl ? (
-              <a href={privacyUrl} target="_blank" rel="noopener">
-                aviso de privacidad
-              </a>
+              <>
+                Acepto que mis datos se usen para responder esta solicitud, según el{' '}
+                <a href={privacyUrl} target="_blank" rel="noopener">
+                  aviso de privacidad
+                </a>
+                .
+              </>
             ) : (
-              <span>aviso de privacidad [URL pendiente]</span>
-            )}
-            . <span aria-hidden="true">*</span>
+              'Acepto que mis datos se usen únicamente para responder esta solicitud.'
+            )}{' '}
+            <span aria-hidden="true">*</span>
           </label>
           {errorFor('privacidad') ? (
             <p id={id('privacidad-error')} className={styles.error}>

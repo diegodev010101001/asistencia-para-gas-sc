@@ -8,7 +8,24 @@
  */
 import { z } from 'zod';
 
-import { SEGURO_META, SEGURO_SLUGS, type SeguroSlug } from '@/data/seguros-meta';
+import { SEGURO_META, SEGURO_SLUGS } from '@/data/seguros-meta';
+
+/** Opción para quien necesita más de un seguro o aún no sabe cuál (RC y RA se contratan juntos a menudo). */
+export const SEGURO_VARIOS = 'varios';
+const SEGURO_VALUES = [...SEGURO_SLUGS, SEGURO_VARIOS] as const;
+export type SeguroValue = (typeof SEGURO_VALUES)[number];
+
+/** Tipos de operación del público del sitio (mismos perfiles de «A quién va dirigido»). */
+export const OPERACION_OPTIONS = [
+  'Planta de almacenamiento',
+  'Autotanques y pipas',
+  'Transporte de hidrocarburos',
+  'Estación de carburación',
+  'Estación de servicio',
+  'Distribución de cilindros',
+  'Instalación y mantenimiento',
+  'Otra operación industrial',
+] as const;
 
 export const LIMITS = {
   nombre: { min: 2, max: 80 },
@@ -53,7 +70,8 @@ export const quoteSchema = z.object({
     .max(LIMITS.telefono.max, { error: 'Usa un teléfono de 10 dígitos (con lada).' })
     .transform(normalizeMxPhone)
     .refine((v) => /^\d{10}$/.test(v), { error: 'Usa un teléfono de 10 dígitos (con lada).' }),
-  seguro: z.enum(SEGURO_SLUGS, { error: 'Elige el seguro que te interesa.' }),
+  seguro: z.enum(SEGURO_VALUES, { error: 'Elige el seguro que te interesa (o «Más de uno / no estoy seguro»).' }),
+  operacion: z.enum(OPERACION_OPTIONS, { error: 'Elige el tipo de operación.' }),
   mensaje: z
     .string()
     .trim()
@@ -78,14 +96,19 @@ export const EMPTY_QUOTE: QuoteValues = {
   email: '',
   telefono: '',
   seguro: '',
+  operacion: '',
   mensaje: '',
   privacidad: '',
 };
 
-export const SEGURO_OPTIONS = SEGURO_SLUGS.map((slug) => ({ value: slug, label: SEGURO_META[slug].nombreCorto }));
+export const SEGURO_OPTIONS: readonly { value: SeguroValue; label: string }[] = [
+  ...SEGURO_SLUGS.map((slug) => ({ value: slug, label: SEGURO_META[slug].nombreCorto })),
+  { value: SEGURO_VARIOS, label: 'Más de uno / no estoy seguro' },
+];
 
-export function seguroNombre(slug: SeguroSlug): string {
-  return SEGURO_META[slug].nombre;
+/** Nombre legible del seguro elegido (para el correo). */
+export function seguroNombre(value: SeguroValue): string {
+  return value === SEGURO_VARIOS ? 'Más de uno o aún no sabe cuál' : SEGURO_META[value].nombre;
 }
 
 /** Validación de un solo campo (en vivo, en el cliente). Devuelve el primer error. */

@@ -68,6 +68,8 @@ export interface Seguro extends SeguroMeta {
   noCubreImagen?: SeguroImage;
   notaExclusiones: string;
   dirigidoA: readonly Punto[];
+  /** Título de «A quién va dirigido» (por defecto habla de operaciones). */
+  dirigidoTitulo?: string;
   notaDirigido?: string;
   escenarios: readonly Escenario[];
   extras: readonly BloqueExtra[];
@@ -88,7 +90,7 @@ export const SEGUROS: readonly Seguro[] = [
     icono: 'shield',
     resumen:
       'Protección ante daños a terceros —personas, propiedades e instalaciones— en toda la cadena de operación del gas LP e hidrocarburos.',
-    temas: ['RC Operación', 'Carga y Descarga', 'Transporte'],
+    temas: ['RC de operación', 'Carga y descarga', 'Transporte'],
     imagen: {
       src: imgCargaDescarga,
       alt: 'Manguera de llenado conectada a la válvula de un cilindro de gas LP durante una maniobra de carga',
@@ -108,7 +110,7 @@ export const SEGUROS: readonly Seguro[] = [
       { titulo: 'RC por transporte', texto: 'Daños ocasionados por la carga transportada.' },
       { titulo: 'Contaminación súbita y accidental', texto: 'Eventos ambientales repentinos derivados de la operación.' },
       { titulo: 'RC vehicular en exceso', texto: 'Cobertura complementaria para flotillas.' },
-      { titulo: 'RC cruzada', texto: 'Protección entre empresas relacionadas.' },
+      { titulo: 'RC cruzada', texto: 'Daños que se causan entre sí empresas relacionadas aseguradas en la misma póliza.' },
       { titulo: 'RC arrendatario', texto: 'Daños a inmuebles arrendados.' },
       { titulo: 'Trabajos terminados', texto: 'Daños derivados de trabajos ya ejecutados.' },
       { titulo: 'Defensa jurídica y fianzas', texto: 'Gastos de defensa legal y pago de fianzas relacionadas con reclamaciones cubiertas.' },
@@ -126,7 +128,7 @@ export const SEGUROS: readonly Seguro[] = [
       { titulo: 'Actos intencionales', texto: 'Daños causados deliberadamente.' },
       { titulo: 'Guerra o terrorismo', texto: 'Conflictos armados y actos de terrorismo.' },
       { titulo: 'Responsabilidad profesional', texto: 'Errores en asesoría o servicios especializados.' },
-      { titulo: 'Negligencia grave', texto: 'Fallas deliberadas o negligencia grave comprobada.' },
+      { titulo: 'Negligencia grave', texto: 'Daños por descuido grave comprobado o por fallas provocadas a propósito.' },
       { titulo: 'Daños cibernéticos', texto: 'Ataques informáticos o fallas digitales.' },
       { titulo: 'Multas administrativas', texto: 'Sanciones impuestas por autoridades regulatorias.' },
       { titulo: 'Operaciones fuera del giro', texto: 'Actividades no declaradas en la póliza.' },
@@ -188,11 +190,24 @@ export const SEGUROS: readonly Seguro[] = [
         titulo: 'Cumplimiento normativo y regulatorio',
         intro: 'La póliza se estructura para responder a las obligaciones del sector.',
         items: [
-          { titulo: 'Permisos CNE', texto: 'Comisión Nacional de Energía.' },
-          { titulo: 'Regulaciones ASEA', texto: 'Agencia de Seguridad, Energía y Ambiente.' },
-          { titulo: 'Normas Oficiales Mexicanas', texto: 'NOM aplicables al sector hidrocarburos.' },
-          { titulo: 'Transporte y expendio', texto: 'Obligaciones operativas federales.' },
-          { titulo: 'Contratos gaseros', texto: 'Requisitos de grupos gaseros y concesionarios.' },
+          // TODO: el cliente puede aportar las referencias exactas (disposición, NOM) que pide cada permiso.
+          {
+            titulo: 'Permisos CNE',
+            texto: 'La póliza de responsabilidad civil suele ser requisito para obtener y mantener permisos de la Comisión Nacional de Energía.',
+          },
+          {
+            titulo: 'Regulaciones ASEA',
+            texto: 'La Agencia de Seguridad, Energía y Ambiente supervisa la seguridad industrial y la protección ambiental del sector; la póliza se estructura para atender sus disposiciones.',
+          },
+          {
+            titulo: 'Normas Oficiales Mexicanas',
+            texto: 'La cobertura responde a operaciones apegadas a las NOM del sector hidrocarburos; operar fuera de norma es causa de exclusión.',
+          },
+          {
+            titulo: 'Transporte y expendio',
+            texto: 'Respalda la responsabilidad que acompaña al transporte de hidrocarburos y a la venta de combustibles al público.',
+          },
+          { titulo: 'Contratos gaseros', texto: 'El respaldo que suelen exigir grupos gaseros y concesionarios a quienes operan con ellos.' },
         ],
       },
       {
@@ -263,7 +278,7 @@ export const SEGUROS: readonly Seguro[] = [
     icono: 'droplets',
     resumen:
       'Remediación, contención y restauración ante derrames, fugas y contaminación de suelo o agua en operaciones energéticas.',
-    temas: ['Remediación', 'Contaminación Gradual', 'Claims-Made'],
+    temas: ['Remediación', 'Contaminación gradual', 'Base reclamación (claims-made)'],
     imagen: {
       // TODO: sustituir por una imagen de derrame o suelo contaminado cuando esté disponible.
       src: imgIndustria,
@@ -344,7 +359,7 @@ export const SEGUROS: readonly Seguro[] = [
         tipo: 'datos',
         id: 'condiciones',
         titulo: 'Límites y deducibles de referencia',
-        intro: 'Condiciones publicadas en nuestro sitio anterior. Los valores definitivos se fijan en la póliza.',
+        intro: 'Valores de referencia. Los definitivos se fijan en tu póliza, según tu operación.',
         // TODO: confirmar límite y deducibles vigentes.
         items: [
           { etiqueta: 'Límite de cobertura', valor: 'USD 2,000,000', detalle: 'Por evento y en el agregado.' },
@@ -441,7 +456,7 @@ export const SEGUROS: readonly Seguro[] = [
     icono: 'heart-pulse',
     resumen:
       'Cobertura médica para trabajadores expuestos a riesgos industriales, incluidos accidentes en instalaciones de gas, transporte y operaciones de campo.',
-    temas: ['Accidentes Laborales', 'Hospitalización', 'Rehabilitación'],
+    temas: ['Accidentes laborales', 'Hospitalización', 'Rehabilitación'],
     imagen: {
       // TODO: imagen propia para Gastos Médicos Mayores (hoy reutiliza una foto de personal en planta).
       src: imgPersonal,
@@ -477,6 +492,7 @@ export const SEGUROS: readonly Seguro[] = [
       { titulo: 'Personal de estaciones de servicio y carburación' },
       { titulo: 'Cuadrillas de operaciones de campo' },
     ],
+    dirigidoTitulo: 'Pensado para este personal',
     notaDirigido: 'Aplica a todo el personal operativo de la empresa.',
     escenarios: [
       {
@@ -515,7 +531,7 @@ export const SEGUROS: readonly Seguro[] = [
           // TODO: confirmar tiempo de emisión (3–7 días hábiles en el sitio anterior).
           { etiqueta: 'Emisión', valor: '3 a 7 días hábiles' },
           // TODO: suma asegurada, deducible y coaseguro (no existen en el sitio anterior).
-          { etiqueta: 'Suma asegurada', valor: '[Por definir]', detalle: 'Se define en la propuesta según tu plantilla.' },
+          { etiqueta: 'Suma asegurada', valor: 'A la medida', detalle: 'Se define en la propuesta según tu plantilla.' },
         ],
       },
     ],
