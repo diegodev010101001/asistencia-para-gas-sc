@@ -14,12 +14,13 @@ Todas las rutas se generan estáticas (SSG).
 
 | Comando | Qué hace |
 |---|---|
-| `npm run dev` | Servidor de desarrollo (Turbopack). |
+| `npm run dev` | Servidor de desarrollo (webpack: funciona aunque Windows bloquee el binario nativo de SWC). |
+| `npm run dev:turbo` | Servidor de desarrollo con Turbopack (más rápido; requiere el binario nativo de SWC). |
 | `npm run build` | Build de producción (Turbopack). Es lo que ejecuta Vercel. |
 | `npm start` | Sirve el build de producción. |
 | `npm run lint` | ESLint (config oficial de Next: core-web-vitals + typescript). |
 | `npm run typecheck` | `tsc --noEmit`. |
-| `npm run dev:webpack` / `npm run build:webpack` | Variante con webpack para equipos donde Windows bloquea el binario nativo de SWC («An Application Control policy has blocked this file»). |
+| `npm run build:webpack` | Build con webpack para equipos donde Windows bloquea el binario nativo de SWC («An Application Control policy has blocked this file», p. ej. con Smart App Control activado). |
 
 ## Estructura
 
