@@ -1,0 +1,75 @@
+/* Centinela a 100svh: cuando sale por arriba, ya pasó el primer pantallazo. */
+.sentinel {
+  position: absolute;
+  top: 100svh;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.dock {
+  position: fixed;
+  right: max(var(--gutter), env(safe-area-inset-right));
+  bottom: max(var(--space-s), env(safe-area-inset-bottom));
+  z-index: var(--z-floating);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs);
+  border: 1px solid var(--color-line-inverse);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-ink);
+  box-shadow: var(--shadow-3);
+  opacity: 0;
+  transform: translateY(calc(100% + var(--space-l)));
+  transition:
+    opacity var(--dur-base) var(--ease-out-quart),
+    transform var(--dur-slow) var(--ease-out-expo);
+}
+
+.dock[data-visible] {
+  opacity: 1;
+  transform: none;
+}
+
+.whatsapp,
+.quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 2.75rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out-quart);
+}
+
+.whatsapp {
+  width: 2.75rem;
+  color: var(--color-text-inverse);
+}
+
+.quote {
+  padding-inline: var(--space-s) var(--space-m);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (hover: hover) {
+  .whatsapp:hover,
+  .quote:hover {
+    transform: scale(1.04);
+  }
+}
+
+.whatsapp:active,
+.quote:active {
+  transform: scale(0.97);
+}

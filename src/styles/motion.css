@@ -1,0 +1,23 @@
+/* ==========================================================================
+   Revelado al hacer scroll (lo activa MotionObserver).
+   Solo opacidad y transform. Seguridad:
+   - El estado oculto solo existe cuando el observador ya está activo
+     (html[data-motion]); sin JavaScript todo queda visible.
+   - Al activarse, lo que ya está en pantalla se marca como revelado en el
+     mismo frame, así no hay parpadeo.
+   - Con movimiento reducido no se oculta nada.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-motion] [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  :root[data-motion] [data-reveal] {
+    transition:
+      opacity var(--dur-slower) var(--ease-out-quart),
+      transform var(--dur-slower) var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * var(--stagger));
+  }
+}

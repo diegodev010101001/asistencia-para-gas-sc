@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { ViewTransition } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -21,15 +22,17 @@ function SeguroCard({ seguro, index }: { seguro: Seguro; index: number }) {
           </span>
         </div>
 
-        <div className={styles.media}>
-          <Image
-            src={imagen.src}
-            alt=""
-            sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw"
-            placeholder="blur"
-            className={styles.image}
-          />
-        </div>
+        <ViewTransition name={`seguro-media-${slug}`} share="morph" default="none">
+          <div className={styles.media}>
+            <Image
+              src={imagen.src}
+              alt=""
+              sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw"
+              placeholder="blur"
+              className={styles.image}
+            />
+          </div>
+        </ViewTransition>
 
         <h3 className={styles.title}>{nombre}</h3>
         <p className={styles.summary}>{resumen}</p>

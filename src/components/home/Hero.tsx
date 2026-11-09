@@ -1,3 +1,4 @@
+import { PointerLight } from '@/components/motion/PointerLight';
 import { ButtonLink } from '@/components/ui/Button';
 import { Figure } from '@/components/ui/Figure';
 import { QUOTE_HREF } from '@/data/navigation';
@@ -11,6 +12,7 @@ export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title" id="inicio">
       <div className={styles.grid} aria-hidden="true" />
+      <PointerLight />
 
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>

@@ -45,7 +45,9 @@
 
 .card {
   --mx: 50%;
-  --my: 0%;
+  --my: 0px;
+  --rx: 0deg;
+  --ry: 0deg;
   position: relative;
   display: grid;
   grid-template-rows: auto auto auto 1fr auto auto;
@@ -58,7 +60,32 @@
   color: inherit;
   overflow: hidden;
   isolation: isolate;
+  /* Inclinación leve (≤3°) que sigue al cursor; MotionObserver fija --rx / --ry. */
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+/* Spotlight: un círculo de luz que se traslada (transform) bajo el cursor. */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -11rem;
+  left: -11rem;
+  z-index: -1;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-accent-soft) 0%, transparent 65%);
+  transform: translate(var(--mx), var(--my));
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out-quart);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover::before {
+    opacity: 1;
+  }
 }
 
 /* Borde de acento que se traza en hover (scaleX). */

@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
+import { ViewTransition } from 'react';
 
 import { ContactSection } from '@/components/home/ContactSection';
 import { FaqSection } from '@/components/home/FaqSection';
+import { DirectionalTransition } from '@/components/motion/DirectionalTransition';
+import { ReadingProgress } from '@/components/motion/ReadingProgress';
 import { SeguroHero } from '@/components/seguro/SeguroHero';
 import {
   AudienceSection,
@@ -30,26 +33,28 @@ export default async function SeguroPage({ params }: { params: Promise<{ slug: s
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <>
-      <SeguroHero seguro={seguro} />
-      <IntroSection seguro={seguro} index="01" />
-      <CoverageSection seguro={seguro} index="02" />
-      <AudienceSection seguro={seguro} index="03" />
-      <ScenariosSection seguro={seguro} index="04" />
-      <ExtraSections seguro={seguro} startIndex={5} />
-      <FaqSection
-        items={seguro.faqs}
-        index={pad(5 + extrasCount)}
-        title={`Preguntas sobre ${seguro.nombreCorto.toLowerCase()}`}
-        lead={`Dudas frecuentes sobre el ${seguro.nombre.toLowerCase()}.`}
-        group={`faq-${seguro.slug}`}
-      />
-      <ContactSection
-        index={pad(6 + extrasCount)}
-        defaultSeguro={seguro.slug}
-        title={`Cotiza tu ${seguro.nombre.toLowerCase()}`}
-      />
-      <OtherSeguros seguros={otherSeguros(seguro.slug)} />
-    </>
+    <DirectionalTransition>
+      {/* Navegación lateral entre seguros (misma ruta, otro slug): crossfade sin dirección. */}
+      <ViewTransition key={seguro.slug} name="seguro-content" share="auto" enter="auto" default="none">
+        <div>
+          <ReadingProgress />
+          <SeguroHero seguro={seguro} />
+          <IntroSection seguro={seguro} index="01" />
+          <CoverageSection seguro={seguro} index="02" />
+          <AudienceSection seguro={seguro} index="03" />
+          <ScenariosSection seguro={seguro} index="04" />
+          <ExtraSections seguro={seguro} startIndex={5} />
+          <FaqSection
+            items={seguro.faqs}
+            index={pad(5 + extrasCount)}
+            title={`Preguntas sobre ${seguro.nombreCorto.toLowerCase()}`}
+            lead={`Dudas frecuentes sobre el ${seguro.nombre.toLowerCase()}.`}
+            group={`faq-${seguro.slug}`}
+          />
+          <ContactSection index={pad(6 + extrasCount)} defaultSeguro={seguro.slug} title={`Cotiza tu ${seguro.nombre.toLowerCase()}`} />
+          <OtherSeguros seguros={otherSeguros(seguro.slug)} />
+        </div>
+      </ViewTransition>
+    </DirectionalTransition>
   );
 }

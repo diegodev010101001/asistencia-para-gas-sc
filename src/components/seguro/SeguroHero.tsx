@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ViewTransition } from 'react';
 
 import { ButtonLink } from '@/components/ui/Button';
 import { SeguroIcon } from '@/components/ui/SeguroIcon';
@@ -16,7 +17,7 @@ const INDEX = [
 ] as const;
 
 export function SeguroHero({ seguro }: { seguro: Seguro }) {
-  const { code, nombre, nombreCorto, hero, temas, imagen, icono } = seguro;
+  const { slug, code, nombre, nombreCorto, hero, temas, imagen, icono } = seguro;
 
   return (
     <section className={styles.hero} aria-labelledby="seguro-title">
@@ -53,18 +54,20 @@ export function SeguroHero({ seguro }: { seguro: Seguro }) {
           </div>
         </div>
 
-        <div className={styles.media}>
-          <Image
-            src={imagen.src}
-            alt={imagen.alt}
-            sizes="(min-width: 64em) 40vw, 100vw"
-            placeholder="blur"
-            preload
-            fetchPriority="high"
-            className={styles.image}
-          />
-          <span className={styles.corners} aria-hidden="true" />
-        </div>
+        <ViewTransition name={`seguro-media-${slug}`} share="morph" default="none">
+          <div className={styles.media}>
+            <Image
+              src={imagen.src}
+              alt={imagen.alt}
+              sizes="(min-width: 64em) 40vw, 100vw"
+              placeholder="blur"
+              preload
+              fetchPriority="high"
+              className={styles.image}
+            />
+            <span className={styles.corners} aria-hidden="true" />
+          </div>
+        </ViewTransition>
       </div>
 
       <nav aria-label="Contenido de la ficha" className={`container ${styles.index}`}>

@@ -1,0 +1,40 @@
+.track {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  height: 2px;
+  pointer-events: none;
+}
+
+.bar {
+  height: 100%;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: scroll()) {
+  .bar {
+    animation: progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* La barra comunica posición, no movimiento: se mantiene con reduced-motion
+   (base.css acorta las animaciones, pero las ligadas al scroll no dependen del tiempo). */
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation-duration: auto !important;
+  }
+}

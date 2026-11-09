@@ -24,7 +24,7 @@ export function SiteHeader() {
           <ul role="list" className={styles.navList}>
             {NAV_ITEMS.map(({ href, label, section }) => (
               <li key={href}>
-                <Link href={href} className={styles.navLink} data-section={section}>
+                <Link href={href} className={styles.navLink} data-section={section} transitionTypes={['nav-back']}>
                   {label}
                 </Link>
               </li>

@@ -1,0 +1,24 @@
+/* Círculo centrado en el puntero: se posiciona solo con transform. */
+.light {
+  position: absolute;
+  top: -20rem;
+  left: -20rem;
+  z-index: -1;
+  width: 40rem;
+  height: 40rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-accent-soft) 0%,
+    color-mix(in srgb, var(--color-paper-raised) 70%, transparent) 35%,
+    transparent 68%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-slow) var(--ease-out-quart);
+  will-change: transform;
+}
+
+.light[data-active] {
+  opacity: 1;
+}
