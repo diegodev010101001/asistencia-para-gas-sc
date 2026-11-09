@@ -158,7 +158,9 @@ Una paleta de papel y tinta casi neutra (tono cálido en el papel, frío en la t
 ### Named Rules
 **The One Signal Rule.** El naranja es la única voz de color. Se reserva para la acción principal, la señal activa y la posición (índice, foco). Nunca se introduce un segundo acento.
 
-**The Contrast Floor Rule.** Texto naranja de menos de 18.66 px (o 14 px bold) solo sobre `paper` o `paper-raised`; sobre `paper-sunken` se usa `signal-orange-deep`.
+**The Contrast Floor Rule.** Texto naranja de menos de 18.66 px (o 14 px bold) solo sobre `paper` o `paper-raised`; sobre `paper-sunken` se usa `signal-orange-deep`. En código: el texto de acento usa `--color-accent-text`, que las superficies hundidas cambian solas al tono profundo.
+
+**The Shape Over Hue Rule.** Los estados de contenido (cubierto / excluido, incluido / no incluido) se distinguen por relleno y forma (sólido frente a contorno, ✓ frente a ✕), nunca por el naranja de acción ni por un color nuevo.
 
 ## Typography
 
@@ -216,7 +218,7 @@ Esquinas casi rectas y técnicas: 2 px en chips, 4 px en botones y campos, 8 px 
 ### Cards / Containers
 - **Ficha de seguro:** `paper-raised`, 8 px, borde `line-strong`; en hover se traza una franja superior naranja (scaleX), la imagen hace zoom leve y aparece la sombra de hover. Con puntero fino: luz que sigue al cursor e inclinación ≤3°.
 - **Hoja de datos:** borde de tinta de 1 px, filas etiqueta/valor separadas por líneas finas.
-- **Escenario:** tarjeta `ink-raised` sobre sección de tinta, con insignia «Cubierto» (sólida) o «Excluido» (contorno).
+- **Escenario:** tarjeta `ink-raised` sobre sección de tinta, con insignia «Cubierto» (papel sólido) o «Excluido» (contorno); sin naranja.
 
 ### Inputs / Fields
 - **Style:** `paper-raised`, contorno `line-strong`, 4 px, 48 px de alto, texto de 16 px (sin zoom en iOS).
@@ -232,7 +234,7 @@ Arco de 270° abierto a la derecha con aguja horizontal naranja (lee como una «
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar `signal-orange` solo para acción principal, señal activa y foco.
+- **Do** usar `signal-orange` solo para acción principal, señal activa y foco; los íconos decorativos van en tinta.
 - **Do** presentar datos comparables como ficha: filas con líneas finas y etiquetas Label.
 - **Do** desaturar todas las fotografías y enmarcarlas con marcas de esquina.
 - **Do** animar solo transform y opacity, con ease-out-expo, entre 180 y 720 ms, y dar una alternativa con `prefers-reduced-motion`.

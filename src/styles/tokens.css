@@ -29,6 +29,10 @@
   --color-accent-contrast: #ffffff;
   --color-accent-soft: color-mix(in srgb, var(--color-accent) 9%, transparent);
   --color-accent-on-ink: #f0743d;  /* acento legible sobre tinta (5.6:1) */
+  /* Acento para texto pequeño (índices, números activos). Sobre papel es el
+     acento normal; las superficies paper-sunken lo cambian a accent-hover
+     (5.4:1), porque el naranja normal ahí solo da 4.2:1. */
+  --color-accent-text: var(--color-accent);
 
   /* ─── Color: estados semánticos (solo formulario) ────────────────────── */
   --color-danger: #b42318;

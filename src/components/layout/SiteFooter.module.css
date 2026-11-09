@@ -71,7 +71,7 @@
   font-stretch: var(--stretch-semi);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--color-accent-on-ink);
+  color: var(--color-text-inverse-muted);
 }
 
 .list {

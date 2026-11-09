@@ -4,6 +4,7 @@
 }
 
 .sunken {
+  --color-accent-text: var(--color-accent-hover);
   background-color: var(--color-paper-sunken);
   border-top: 0;
 }
@@ -173,13 +174,13 @@
 }
 
 .badgeYes {
-  background-color: var(--color-accent);
-  color: var(--color-accent-contrast);
+  background-color: var(--color-ink);
+  color: var(--color-text-inverse);
 }
 
 .badgeNo {
-  background-color: var(--color-ink);
-  color: var(--color-text-inverse);
+  border: 1.5px solid var(--color-ink);
+  color: var(--color-ink);
 }
 
 .points {
@@ -205,7 +206,7 @@
 
 .pointYes {
   margin-top: 0.2rem;
-  color: var(--color-accent);
+  color: var(--color-ink);
 }
 
 .pointNo {
@@ -256,7 +257,7 @@
   font-size: var(--step--2);
   font-weight: 600;
   letter-spacing: var(--tracking-label);
-  color: var(--color-accent);
+  color: var(--color-text-muted);
 }
 
 .audienceItem strong {
@@ -335,7 +336,7 @@
 }
 
 .scenario[data-result='cubierto'] .result {
-  background-color: var(--color-accent-on-ink);
+  background-color: var(--color-paper);
   color: var(--color-ink);
 }
 
@@ -419,10 +420,6 @@
   border-top: 2px solid var(--color-ink);
 }
 
-.step:first-child {
-  border-top-color: var(--color-accent);
-}
-
 .stepNum {
   font-family: var(--ff-display);
   font-size: var(--step-3);
@@ -484,7 +481,7 @@
 }
 
 .compareCol[data-side='bueno'] .compareTitle svg {
-  color: var(--color-accent);
+  color: var(--color-ink);
 }
 
 .compareCol ul {
@@ -501,6 +498,7 @@
 
 /* ─── Otros seguros ───────────────────────────────────────────────────── */
 .others {
+  --color-accent-text: var(--color-accent-hover);
   padding-block: var(--space-2xl);
   background-color: var(--color-paper-sunken);
 }
@@ -572,7 +570,7 @@
 
 .otherIcon {
   display: inline-flex;
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .otherName {

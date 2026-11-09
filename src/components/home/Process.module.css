@@ -59,8 +59,7 @@
 }
 
 .step:last-child .tick {
-  border-color: var(--color-accent);
-  background-color: var(--color-accent);
+  background-color: var(--color-ink);
 }
 
 .title {

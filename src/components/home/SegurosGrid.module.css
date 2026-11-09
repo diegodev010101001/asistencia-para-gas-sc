@@ -1,4 +1,5 @@
 .section {
+  --color-accent-text: var(--color-accent-hover);
   padding-block: var(--space-section);
   background-color: var(--color-paper-sunken);
 }
@@ -141,7 +142,7 @@
   height: 2.75rem;
   border: var(--hairline-strong);
   border-radius: var(--radius-pill);
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .media {

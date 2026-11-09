@@ -54,7 +54,7 @@
 }
 
 .item[open] .num {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 @media (hover: hover) {
