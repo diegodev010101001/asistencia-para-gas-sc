@@ -81,6 +81,14 @@
   padding-inline: var(--space-xs);
 }
 
+/* En pantallas angostas el texto puede partirse antes que desbordar la columna. */
+@media (max-width: 29.99em) {
+  .button {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 /* ─── Tamaños ─────────────────────────────────────────────────────────── */
 .l {
   min-height: 3.375rem;

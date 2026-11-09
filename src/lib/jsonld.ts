@@ -18,7 +18,6 @@ export function organizationJsonLd(): JsonLdObject {
   const { contact } = SITE;
   const telephone = definedOrUndefined(contact.phone);
   const email = definedOrUndefined(contact.email);
-  const address = definedOrUndefined(contact.address);
 
   return {
     '@context': 'https://schema.org',
@@ -33,8 +32,14 @@ export function organizationJsonLd(): JsonLdObject {
     knowsAbout: ['Gas LP', 'Hidrocarburos', 'Responsabilidad civil', 'Responsabilidad ambiental', 'Gastos médicos mayores', 'ASEA', 'CNE'],
     telephone,
     email,
-    // TODO: dirección postal completa (PostalAddress) cuando esté disponible.
-    address: address ? { '@type': 'PostalAddress', addressLocality: address, addressCountry: 'MX' } : undefined,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: `${contact.address.street}, ${contact.address.neighborhood}`,
+      postalCode: contact.address.postalCode,
+      addressLocality: contact.address.locality,
+      addressRegion: contact.address.region,
+      addressCountry: 'MX',
+    },
     sameAs: SITE.social.length > 0 ? SITE.social.map((s) => s.href) : undefined,
     contactPoint:
       telephone || email

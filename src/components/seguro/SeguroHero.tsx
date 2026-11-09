@@ -3,7 +3,9 @@ import { ViewTransition } from 'react';
 
 import { ButtonLink } from '@/components/ui/Button';
 import { SeguroIcon } from '@/components/ui/SeguroIcon';
+import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import type { Seguro } from '@/data/seguros';
+import { WHATSAPP_MESSAGES } from '@/data/site';
 
 import { Breadcrumbs } from './Breadcrumbs';
 import styles from './SeguroHero.module.css';
@@ -48,9 +50,7 @@ export function SeguroHero({ seguro }: { seguro: Seguro }) {
             <ButtonLink href="#cotizar" variant="primary" size="l" arrow>
               Cotizar este seguro
             </ButtonLink>
-            <ButtonLink href="#cobertura" variant="secondary" size="l">
-              Ver cobertura
-            </ButtonLink>
+            <WhatsAppButton message={WHATSAPP_MESSAGES.seguro(nombre)} label="Hablar por WhatsApp" size="l" />
           </div>
         </div>
 

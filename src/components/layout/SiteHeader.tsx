@@ -4,6 +4,7 @@ import { Logo } from '@/components/brand/Logo';
 import { ButtonLink } from '@/components/ui/Button';
 import { NAV_ITEMS, QUOTE_HREF } from '@/data/navigation';
 import { SEGUROS } from '@/data/seguros';
+import { WHATSAPP_MESSAGES, whatsappHref } from '@/data/site';
 
 import { MobileMenu } from './MobileMenu';
 import styles from './SiteHeader.module.css';
@@ -38,7 +39,12 @@ export function SiteHeader() {
           <ButtonLink href={QUOTE_HREF} variant="primary" className={styles.cta}>
             Cotizar
           </ButtonLink>
-          <MobileMenu navLinks={NAV_LINKS} seguroLinks={SEGURO_LINKS} quoteHref={QUOTE_HREF} />
+          <MobileMenu
+            navLinks={NAV_LINKS}
+            seguroLinks={SEGURO_LINKS}
+            quoteHref={QUOTE_HREF}
+            whatsappHref={whatsappHref(WHATSAPP_MESSAGES.general)}
+          />
         </div>
       </div>
     </header>

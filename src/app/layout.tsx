@@ -5,7 +5,7 @@ import { ScrollSentinel } from '@/components/layout/ScrollSentinel';
 import { FloatingCta } from '@/components/motion/FloatingCta';
 import { MotionObserver } from '@/components/motion/MotionObserver';
 import { QUOTE_HREF } from '@/data/navigation';
-import { SITE, whatsappHref } from '@/data/site';
+import { SITE, WHATSAPP_MESSAGES, whatsappHref } from '@/data/site';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import skip from '@/components/layout/SkipLink.module.css';
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
         <SiteFooter />
-        <FloatingCta quoteHref={QUOTE_HREF} whatsappHref={whatsappHref('Hola, me gustaría cotizar un seguro para mi operación.')} />
+        <FloatingCta quoteHref={QUOTE_HREF} whatsappHref={whatsappHref(WHATSAPP_MESSAGES.general)} />
         <MotionObserver />
       </body>
     </html>

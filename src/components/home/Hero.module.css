@@ -50,6 +50,7 @@
 }
 
 .copy {
+  min-width: 0;
   display: grid;
   gap: var(--space-m);
   container-type: inline-size;
@@ -274,6 +275,7 @@
 }
 
 .statValue {
+  white-space: nowrap; /* «500» y «+» nunca se separan */
   font-family: var(--ff-display);
   font-size: var(--step-4);
   font-weight: 700;

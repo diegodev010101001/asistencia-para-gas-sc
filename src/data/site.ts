@@ -1,19 +1,27 @@
 /**
- * Datos generales del sitio y de contacto.
- * Los valores entre corchetes son marcadores pendientes: el sitio los muestra
- * como texto y desactiva sus enlaces (tel:, mailto:, wa.me) hasta que se
- * sustituyan por datos reales.
+ * Datos generales del sitio y de contacto (fuente única: contacto, footer,
+ * botones de WhatsApp y JSON-LD salen de aquí).
+ * Un valor entre corchetes («[…]») se trata como marcador pendiente: se muestra
+ * como texto y su enlace (tel:, mailto:, wa.me) queda desactivado.
  */
 
+export interface PostalAddress {
+  street: string;
+  neighborhood: string;
+  postalCode: string;
+  locality: string;
+  /** Abreviatura del estado tal como se muestra («Ags.»). */
+  regionShort: string;
+  region: string;
+}
+
 export interface SiteContact {
-  /** TODO: teléfono con lada, p. ej. "+52 (444) 123 4567". */
+  /** Teléfono tal como se muestra; el enlace tel: se genera solo con los dígitos. */
   phone: string;
-  /** TODO: correo de contacto comercial. */
   email: string;
-  /** TODO: número de WhatsApp en formato internacional, solo dígitos (ej. 524441234567). */
+  /** WhatsApp tal como se muestra; el enlace wa.me se normaliza (ver whatsappHref). */
   whatsapp: string;
-  /** TODO: dirección o ciudad de la oficina. */
-  address: string;
+  address: PostalAddress;
   hours: string;
 }
 
@@ -43,10 +51,17 @@ export const SITE = {
   description:
     'Seguros especializados para la industria del gas LP e hidrocarburos en México: responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas, autotanques y transportistas.',
   contact: {
-    phone: '[TELÉFONO]',
-    email: '[CORREO]',
-    whatsapp: '[WHATSAPP]',
-    address: '[DIRECCIÓN / CIUDAD]',
+    phone: '+52 449 239 3813',
+    email: 'asisgassc@gmail.com',
+    whatsapp: '+52 1 449 106 1582',
+    address: {
+      street: 'Julian Piñon Valenzuela 242 B',
+      neighborhood: 'Los Pocitos',
+      postalCode: '20328',
+      locality: 'Pocitos',
+      regionShort: 'Ags.',
+      region: 'Aguascalientes',
+    },
     hours: 'Lunes a viernes, 9:00 a 18:00 (hora del centro de México)',
   } satisfies SiteContact,
   /** TODO: perfiles reales de redes sociales (en el sitio anterior apuntaban a "#"). */
@@ -71,12 +86,30 @@ export function emailHref(): string | null {
   return isPlaceholder(email) ? null : `mailto:${email}`;
 }
 
+/**
+ * Enlace a WhatsApp. En México, WhatsApp ya no usa el «1» de celular después
+ * del 52: «+52 1 449 106 1582» se convierte en wa.me/524491061582.
+ */
 export function whatsappHref(message?: string): string | null {
   const { whatsapp } = SITE.contact;
   if (isPlaceholder(whatsapp)) return null;
+  let digits = whatsapp.replace(/\D/g, '');
+  if (digits.length === 13 && digits.startsWith('521')) digits = `52${digits.slice(3)}`;
   const text = message ? `?text=${encodeURIComponent(message)}` : '';
-  return `https://wa.me/${whatsapp.replace(/\D/g, '')}${text}`;
+  return `https://wa.me/${digits}${text}`;
 }
+
+/** Dirección en una línea (para listas de contacto). */
+export function addressText(): string {
+  const a = SITE.contact.address;
+  return `${a.street}, ${a.neighborhood}, CP ${a.postalCode} ${a.locality}, ${a.regionShort}`;
+}
+
+/** Mensajes predefinidos para los botones de WhatsApp. */
+export const WHATSAPP_MESSAGES = {
+  general: 'Hola, me gustaría cotizar un seguro para mi operación.',
+  seguro: (nombre: string) => `Hola, me interesa el ${nombre}. ¿Me pueden dar información?`,
+} as const;
 
 /** URL absoluta a partir de una ruta del sitio. */
 export function absoluteUrl(path = '/'): string {

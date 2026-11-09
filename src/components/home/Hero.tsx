@@ -1,8 +1,10 @@
 import { PointerLight } from '@/components/motion/PointerLight';
 import { ButtonLink } from '@/components/ui/Button';
 import { Figure } from '@/components/ui/Figure';
+import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { QUOTE_HREF } from '@/data/navigation';
 import { HERO, STATS } from '@/data/home';
+import { WHATSAPP_MESSAGES } from '@/data/site';
 import { cssVars } from '@/lib/css';
 import imgTanque from '@/assets/tanque.png';
 
@@ -37,9 +39,7 @@ export function Hero() {
             <ButtonLink href={QUOTE_HREF} variant="primary" size="l" arrow>
               Solicitar cotización
             </ButtonLink>
-            <ButtonLink href="/#seguros" variant="secondary" size="l">
-              Ver seguros
-            </ButtonLink>
+            <WhatsAppButton message={WHATSAPP_MESSAGES.general} label="Hablar por WhatsApp" size="l" />
           </div>
         </div>
 

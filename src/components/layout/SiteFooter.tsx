@@ -6,7 +6,7 @@ import { Logo } from '@/components/brand/Logo';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { NAV_ITEMS } from '@/data/navigation';
 import { SEGUROS } from '@/data/seguros';
-import { SITE, emailHref, phoneHref, whatsappHref } from '@/data/site';
+import { SITE, WHATSAPP_MESSAGES, addressText, emailHref, phoneHref, whatsappHref } from '@/data/site';
 
 import styles from './SiteFooter.module.css';
 
@@ -76,9 +76,9 @@ export function SiteFooter() {
           <h2 className={styles.colTitle}>Contacto</h2>
           <ul role="list" className={styles.list}>
             <ContactItem icon={<Phone size={16} strokeWidth={1.75} />} label="Teléfono" value={contact.phone} href={phoneHref()} />
-            <ContactItem icon={<WhatsAppIcon size={16} />} label="WhatsApp" value={contact.whatsapp} href={whatsappHref()} />
+            <ContactItem icon={<WhatsAppIcon size={16} />} label="WhatsApp" value={contact.whatsapp} href={whatsappHref(WHATSAPP_MESSAGES.general)} />
             <ContactItem icon={<Mail size={16} strokeWidth={1.75} />} label="Correo" value={contact.email} href={emailHref()} />
-            <ContactItem icon={<MapPin size={16} strokeWidth={1.75} />} label="Ubicación" value={contact.address} href={null} />
+            <ContactItem icon={<MapPin size={16} strokeWidth={1.75} />} label="Ubicación" value={addressText()} href={null} />
           </ul>
           <p className={styles.hours}>{contact.hours}</p>
         </div>

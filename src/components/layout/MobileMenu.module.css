@@ -140,6 +140,23 @@
 
 .footer {
   display: grid;
+  gap: var(--space-xs);
+}
+
+.whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 3.375rem;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-m);
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 .cta {

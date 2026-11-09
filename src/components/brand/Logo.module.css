@@ -75,6 +75,13 @@
   }
 }
 
+/* Pantallas muy angostas (≤340 px, p. ej. iPhone SE de 1.ª gen.). */
+@media (max-width: 21.25em) {
+  .name {
+    font-size: var(--step--2);
+  }
+}
+
 /* ─── Barrido de la aguja (0 → lectura) al cargar ─────────────────────── */
 .needleAnimated {
   transform-box: view-box;

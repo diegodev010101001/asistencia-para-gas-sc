@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
+
 import styles from './MobileMenu.module.css';
 
 interface MenuLink {
@@ -15,11 +17,13 @@ interface MobileMenuProps {
   navLinks: readonly MenuLink[];
   seguroLinks: readonly MenuLink[];
   quoteHref: string;
+  /** Enlace de WhatsApp ya construido en el servidor (null si no hay número). */
+  whatsappHref: string | null;
 }
 
 const FOCUSABLE = 'a[href], button:not([disabled])';
 
-export function MobileMenu({ navLinks, seguroLinks, quoteHref }: MobileMenuProps) {
+export function MobileMenu({ navLinks, seguroLinks, quoteHref, whatsappHref }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -130,6 +134,13 @@ export function MobileMenu({ navLinks, seguroLinks, quoteHref }: MobileMenuProps
             <Link href={quoteHref} className={styles.cta} onClick={() => close(false)}>
               Solicitar cotización
             </Link>
+            {whatsappHref ? (
+              <a href={whatsappHref} className={styles.whatsapp} target="_blank" rel="noopener noreferrer" onClick={() => close(false)}>
+                <WhatsAppIcon size={18} />
+                Hablar por WhatsApp
+                <span className="visually-hidden"> (se abre en una pestaña nueva)</span>
+              </a>
+            ) : null}
           </div>
         </nav>
       </div>

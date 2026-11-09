@@ -90,7 +90,6 @@ src/
 
 Búscalos con `grep -rn "TODO" src`. Resumen:
 
-- Teléfono, correo, WhatsApp, dirección/ciudad (`src/data/site.ts`).
 - Dominio final (`NEXT_PUBLIC_SITE_URL`).
 - URL del aviso de privacidad y redes sociales (`src/data/site.ts`).
 - Llaves de EmailJS en `.env.local` y en Vercel.

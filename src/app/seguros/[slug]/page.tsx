@@ -18,6 +18,7 @@ import {
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SEGUROS, getSeguro, otherSeguros } from '@/data/seguros';
 import { breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from '@/lib/jsonld';
+import { WHATSAPP_MESSAGES } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 
 /** Solo existen los slugs de src/data/seguros.ts; cualquier otro es 404 estático. */
@@ -77,8 +78,12 @@ export default async function SeguroPage({ params }: { params: Promise<{ slug: s
               title={`Preguntas sobre ${seguro.nombreCorto.toLowerCase()}`}
               lead={`Dudas frecuentes sobre el ${seguro.nombre.toLowerCase()}.`}
               group={`faq-${seguro.slug}`}
+            whatsappMessage={WHATSAPP_MESSAGES.seguro(seguro.nombre)}
             />
-            <ContactSection index={pad(6 + extrasCount)} defaultSeguro={seguro.slug} title={`Cotiza tu ${seguro.nombre.toLowerCase()}`} />
+            <ContactSection
+            index={pad(6 + extrasCount)}
+            defaultSeguro={seguro.slug}
+            whatsappMessage={WHATSAPP_MESSAGES.seguro(seguro.nombre)} title={`Cotiza tu ${seguro.nombre.toLowerCase()}`} />
             <OtherSeguros seguros={otherSeguros(seguro.slug)} />
           </div>
         </ViewTransition>

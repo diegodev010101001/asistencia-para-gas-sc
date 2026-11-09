@@ -109,12 +109,14 @@
   gap: var(--space-xs);
 }
 
-.cta {
+/* Selector compuesto: debe ganar a .button (Button.module.css) sin depender
+   del orden en que se cargan las hojas de estilo. */
+.actions .cta {
   display: none;
 }
 
 @media (min-width: 40em) {
-  .cta {
+  .actions .cta {
     display: inline-flex;
   }
 }
