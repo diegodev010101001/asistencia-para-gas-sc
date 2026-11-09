@@ -2,10 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import { Geist } from 'next/font/google';
 import type { ReactNode } from 'react';
 
-// TEMPORAL (fase 1): estilos y fuente de la versión anterior. Se reemplazan en la fase 2.
-import '@/legacy/styles/global.css';
+import { fontVariables } from '@/lib/fonts';
+import './globals.css';
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' });
+// TEMPORAL: fuente del código heredado (src/legacy). Se elimina en la fase 5.
+const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap', preload: false });
 
 export const metadata: Metadata = {
   title: 'ASISTENCIA PARA GAS SC | Seguros Especializados',
@@ -16,12 +17,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#060709',
+  themeColor: '#f4f2ee',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es-MX" className={geist.variable}>
+    <html lang="es-MX" data-scroll-behavior="smooth" className={`${fontVariables} ${geist.variable}`}>
       <body>{children}</body>
     </html>
   );
