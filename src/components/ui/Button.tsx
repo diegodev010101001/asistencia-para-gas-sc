@@ -28,5 +28,3 @@ export function ButtonLink({ variant, size, arrow = false, className, children, 
     </Link>
   );
 }
-
-export { styles as buttonStyles };

@@ -124,21 +124,21 @@ function QuoteFormInner({
       </p>
 
       <div className={styles.grid}>
-        <Field label="Nombre" required field="nombre" id={id('nombre')} error={errorFor('nombre')} valid={isValid('nombre')} errorId={id('nombre-error')}>
+        <Field label="Nombre" required id={id('nombre')} error={errorFor('nombre')} valid={isValid('nombre')} errorId={id('nombre-error')}>
           <input {...fieldProps('nombre')} type="text" autoComplete="name" maxLength={LIMITS.nombre.max} required className={styles.input} />
         </Field>
 
-        <Field label="Empresa" field="empresa" id={id('empresa')} error={errorFor('empresa')} valid={isValid('empresa')} errorId={id('empresa-error')}>
+        <Field label="Empresa" id={id('empresa')} error={errorFor('empresa')} valid={isValid('empresa')} errorId={id('empresa-error')}>
           <input {...fieldProps('empresa')} type="text" autoComplete="organization" maxLength={LIMITS.empresa.max} className={styles.input} />
         </Field>
 
-        <Field label="Correo electrónico" required field="correo" id={id('correo')} error={errorFor('correo')} valid={isValid('correo')} errorId={id('correo-error')}>
+        <Field label="Correo electrónico" required id={id('correo')} error={errorFor('correo')} valid={isValid('correo')} errorId={id('correo-error')}>
           <input {...fieldProps('correo')} type="email" inputMode="email" autoComplete="email" required className={styles.input} />
         </Field>
 
         <Field
           label="Teléfono"
-          field="telefono"
+         
           id={id('telefono')}
           error={errorFor('telefono')}
           valid={isValid('telefono')}
@@ -148,7 +148,7 @@ function QuoteFormInner({
           <input {...fieldProps('telefono', true)} type="tel" inputMode="tel" autoComplete="tel" className={styles.input} />
         </Field>
 
-        <Field label="Seguro de interés" required field="seguro" id={id('seguro')} error={errorFor('seguro')} valid={isValid('seguro')} errorId={id('seguro-error')}>
+        <Field label="Seguro de interés" required id={id('seguro')} error={errorFor('seguro')} valid={isValid('seguro')} errorId={id('seguro-error')}>
           <select {...fieldProps('seguro')} required className={`${styles.input} ${styles.select}`}>
             <option value="" disabled>
               Selecciona una opción
@@ -161,7 +161,7 @@ function QuoteFormInner({
           </select>
         </Field>
 
-        <Field label="Tipo de operación" required field="operacion" id={id('operacion')} error={errorFor('operacion')} valid={isValid('operacion')} errorId={id('operacion-error')}>
+        <Field label="Tipo de operación" required id={id('operacion')} error={errorFor('operacion')} valid={isValid('operacion')} errorId={id('operacion-error')}>
           <select {...fieldProps('operacion')} required className={`${styles.input} ${styles.select}`}>
             <option value="" disabled>
               Selecciona una opción
@@ -178,7 +178,7 @@ function QuoteFormInner({
           label="Cuéntanos sobre tu operación"
           required
           wide
-          field="mensaje"
+         
           id={id('mensaje')}
           error={errorFor('mensaje')}
           valid={isValid('mensaje')}
@@ -268,7 +268,6 @@ function QuoteFormInner({
 
 interface FieldProps {
   label: string;
-  field: QuoteField;
   id: string;
   errorId: string;
   error?: string;

@@ -16,8 +16,10 @@ export function SiteHeader() {
   return (
     <header className={styles.header} style={{ viewTransitionName: 'site-header' }}>
       <div className={`container ${styles.inner}`}>
-        <Link href="/" className={styles.brand} aria-label="ASISTENCIA PARA GAS SC, ir al inicio" transitionTypes={['nav-back']}>
+        {/* El nombre accesible incluye el texto visible del logo (WCAG 2.5.3) + el destino. */}
+        <Link href="/" className={styles.brand} transitionTypes={['nav-back']}>
           <Logo animated />
+          <span className="visually-hidden"> — ir al inicio</span>
         </Link>
 
         <nav aria-label="Principal" className={styles.nav}>

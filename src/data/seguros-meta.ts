@@ -40,7 +40,3 @@ export const SEGURO_META: Record<SeguroSlug, SeguroMeta> = {
     nombreCorto: 'Gastos Médicos Mayores',
   },
 };
-
-export function isSeguroSlug(value: string): value is SeguroSlug {
-  return (SEGURO_SLUGS as readonly string[]).includes(value);
-}

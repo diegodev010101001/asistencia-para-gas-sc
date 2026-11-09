@@ -37,13 +37,11 @@ function resolveSiteUrl(value: string | undefined): string {
 
 export const SITE = {
   name: 'ASISTENCIA PARA GAS SC',
-  shortName: 'Asistencia para Gas',
   /** TODO: dominio final. En Vercel se define con NEXT_PUBLIC_SITE_URL. */
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: 'es_MX',
   description:
     'Seguros especializados para la industria del gas LP e hidrocarburos en México: responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas, autotanques y transportistas.',
-  tagline: 'Seguros para la industria del gas LP',
   contact: {
     phone: '[TELÉFONO]',
     email: '[CORREO]',

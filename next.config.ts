@@ -10,6 +10,11 @@ const LEGACY_REDIRECTS = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  experimental: {
+    // CSS total ≈ 15 kB gzip: se incrusta en el <head> para eliminar las hojas
+    // que bloquean el render (la mayoría de visitas llegan nuevas desde búsqueda).
+    inlineCss: true,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },

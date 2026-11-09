@@ -16,7 +16,7 @@ import imgQueNoCubre from '@/assets/RC_quenocubrelapoliza.jpg.jpeg';
 import type { Faq } from './faq-general';
 import { SEGURO_META, type SeguroMeta } from './seguros-meta';
 
-export { SEGURO_SLUGS, isSeguroSlug, type SeguroSlug } from './seguros-meta';
+export { SEGURO_SLUGS, type SeguroSlug } from './seguros-meta';
 
 export type SeguroIcon = 'shield' | 'droplets' | 'heart-pulse';
 
