@@ -13,10 +13,12 @@ import {
   QUOTE_FIELDS,
   SEGURO_OPTIONS,
   quoteSchema,
+  readQuote,
   toFieldErrors,
   validateField,
   type QuoteErrors,
   type QuoteField,
+  type QuoteState,
   type QuoteValues,
 } from '@/lib/quote-schema';
 
@@ -31,6 +33,24 @@ interface QuoteFormProps {
 }
 
 const VALID_SEGUROS = new Set<string>(SEGURO_OPTIONS.map((o) => o.value));
+
+const NETWORK_ERROR =
+  'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo; lo que escribiste se conserva.';
+
+/**
+ * Si la red falla (sin conexión, servidor inalcanzable), la llamada a la Server
+ * Action rechaza en el cliente y React propagaría el error hasta romper la
+ * página. Este envoltorio lo convierte en un estado de error recuperable que
+ * conserva lo escrito. La validación, el honeypot, el rate limit y el envío
+ * siguen ocurriendo solo en el servidor.
+ */
+async function submitQuoteSafely(prev: QuoteState, formData: FormData): Promise<QuoteState> {
+  try {
+    return await submitQuote(prev, formData);
+  } catch {
+    return { status: 'error', message: NETWORK_ERROR, values: readQuote(formData) };
+  }
+}
 
 /**
  * Contenedor: tras un envío exitoso, «Enviar otra solicitud» remonta el
@@ -47,7 +67,7 @@ function QuoteFormInner({
   privacyUrl = null,
   onReset,
 }: QuoteFormProps & { onReset: () => void }) {
-  const [state, formAction, isPending] = useActionState(submitQuote, INITIAL_QUOTE_STATE);
+  const [state, formAction, isPending] = useActionState(submitQuoteSafely, INITIAL_QUOTE_STATE);
   // Campos controlados: conservan lo escrito si el envío falla.
   const [values, setValues] = useState<QuoteValues>(() => ({
     ...EMPTY_QUOTE,
@@ -162,7 +182,7 @@ function QuoteFormInner({
         <legend className="visually-hidden">Datos de contacto y de la operación</legend>
         <div className={styles.grid}>
           <Field label="Nombre" required {...fieldState('nombre')}>
-            <input {...fieldProps('nombre')} type="text" autoComplete="name" maxLength={LIMITS.nombre.max} required className={styles.input} />
+            <input {...fieldProps('nombre')} type="text" autoComplete="name" maxLength={LIMITS.nombre.max} aria-required="true" className={styles.input} />
           </Field>
 
           <Field label="Empresa" {...fieldState('empresa')}>
@@ -176,7 +196,7 @@ function QuoteFormInner({
               inputMode="email"
               autoComplete="email"
               maxLength={LIMITS.email.max}
-              required
+              aria-required="true"
               className={styles.input}
             />
           </Field>
@@ -188,13 +208,13 @@ function QuoteFormInner({
               inputMode="tel"
               autoComplete="tel-national"
               maxLength={LIMITS.telefono.max}
-              required
+              aria-required="true"
               className={styles.input}
             />
           </Field>
 
           <Field label="Seguro de interés" required {...fieldState('seguro')}>
-            <select {...fieldProps('seguro')} required className={`${styles.input} ${styles.select}`}>
+            <select {...fieldProps('seguro')} aria-required="true" className={`${styles.input} ${styles.select}`}>
               <option value="" disabled>
                 Selecciona una opción
               </option>
@@ -207,7 +227,7 @@ function QuoteFormInner({
           </Field>
 
           <Field label="Tipo de operación" required {...fieldState('operacion')}>
-            <select {...fieldProps('operacion')} required className={`${styles.input} ${styles.select}`}>
+            <select {...fieldProps('operacion')} aria-required="true" className={`${styles.input} ${styles.select}`}>
               <option value="" disabled>
                 Selecciona una opción
               </option>
@@ -229,7 +249,7 @@ function QuoteFormInner({
             }}
             {...fieldState('mensaje')}
           >
-            <textarea {...fieldProps('mensaje', true)} rows={5} maxLength={LIMITS.mensaje.max} required className={`${styles.input} ${styles.textarea}`} />
+            <textarea {...fieldProps('mensaje', true)} rows={5} maxLength={LIMITS.mensaje.max} aria-required="true" className={`${styles.input} ${styles.textarea}`} />
           </Field>
         </div>
 
@@ -246,6 +266,7 @@ function QuoteFormInner({
             type="checkbox"
             checked={values.privacidad === 'on'}
             onChange={onChange}
+            aria-required="true"
             aria-invalid={errorFor('privacidad') ? true : undefined}
             aria-describedby={errorFor('privacidad') ? id('privacidad-error') : undefined}
             className={styles.checkbox}

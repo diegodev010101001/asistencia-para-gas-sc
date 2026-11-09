@@ -178,10 +178,11 @@
   grid-column: 2;
 }
 
+/* 24 × 24 px: objetivo mínimo AA (WCAG 2.5.8) por sí misma, además de su etiqueta. */
 .checkbox {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-top: 0.15rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0;
   accent-color: var(--color-accent);
 }
 
@@ -293,9 +294,26 @@
   animation: spin 900ms linear infinite;
 }
 
+/* Con movimiento reducido el indicador no gira: pulsa en opacidad, así sigue
+   comunicando «en curso» sin desplazamiento. */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: pulse 1.2s ease-in-out infinite alternate;
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.35;
   }
 }
 

@@ -159,13 +159,9 @@ strong {
   text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* Movimiento reducido: sin un «kill» global. Cada animación tiene su propia
+   alternativa: las entradas con movimiento están dentro de
+   (prefers-reduced-motion: no-preference); las transiciones de estado usan
+   los tokens --dur-*, que tokens.css reduce a ~0 (el estado cambia, sin
+   desplazamiento); y los indicadores que comunican algo (spinner) cambian a
+   un pulso de opacidad en lugar de detenerse. */

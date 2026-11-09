@@ -65,9 +65,16 @@ export function Hero() {
           {STATS.map(({ value, suffix, label }, i) => (
             <div key={label} className={styles.stat} style={cssVars({ '--i': i })}>
               <dt className={styles.statLabel}>{label}</dt>
+              {/* El número animado es solo visual; el lector de pantalla recibe siempre el valor final. */}
               <dd className={styles.statValue}>
-                <span data-count-to={value}>{value}</span>
-                {suffix}
+                <span aria-hidden="true">
+                  <span data-count-to={value}>{value}</span>
+                  {suffix}
+                </span>
+                <span className="visually-hidden">
+                  {value}
+                  {suffix}
+                </span>
               </dd>
             </div>
           ))}
