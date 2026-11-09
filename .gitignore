@@ -45,3 +45,11 @@ coverage/
 *.njsproj
 *.sln
 *.sw?
+# Impeccable: solo lo temporal. La configuración (.impeccable/config.json,
+# surfaces/, design.json, live/config.json, critique/ignore.md) sí se versiona.
+.impeccable/config.local.json
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/critique/*
+!.impeccable/critique/ignore.md
