@@ -1,0 +1,126 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  height: var(--header-h);
+}
+
+/* Fondo con blur que aparece por opacidad al hacer scroll. */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--color-paper) 84%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out-quart);
+}
+
+/* Línea inferior que «se traza» de izquierda a derecha. */
+.header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background-color: var(--color-line);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+:global(html[data-scrolled]) .header::before {
+  opacity: 1;
+}
+
+:global(html[data-scrolled]) .header::after {
+  transform: scaleX(1);
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  height: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: none;
+  border-radius: var(--radius-s);
+}
+
+/* ─── Navegación de escritorio ────────────────────────────────────────── */
+.nav {
+  display: none;
+}
+
+.navList {
+  display: flex;
+  gap: var(--space-3xs);
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-xs);
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 500;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--color-text-soft);
+}
+
+/* Subrayado: se traza en hover y queda fijo en la sección activa. */
+.navLink::after {
+  content: '';
+  position: absolute;
+  inset: auto var(--space-xs) 10px;
+  height: 2px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .navLink:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+.navLink[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.cta {
+  display: none;
+}
+
+@media (min-width: 40em) {
+  .cta {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 64em) {
+  .nav {
+    display: block;
+  }
+}

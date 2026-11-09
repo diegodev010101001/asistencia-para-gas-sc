@@ -1,0 +1,133 @@
+.footer {
+  background-color: var(--color-ink);
+  color: var(--color-text-inverse);
+  padding-block: var(--space-section) var(--space-l);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-xl) var(--space-l);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40em) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64em) {
+  .grid {
+    grid-template-columns: 1.6fr 1fr 0.8fr 1.1fr;
+  }
+}
+
+.brand {
+  display: grid;
+  align-content: start;
+  gap: var(--space-m);
+}
+
+@media (min-width: 40em) and (max-width: 63.99em) {
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+.about {
+  max-width: 34ch;
+  color: var(--color-text-inverse-muted);
+  font-size: var(--step--1);
+}
+
+.regulators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.regulators li {
+  padding: var(--space-3xs) var(--space-2xs);
+  border: 1px solid var(--color-line-inverse);
+  border-radius: var(--radius-s);
+  font-family: var(--ff-display);
+  font-size: var(--step--2);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-inverse-muted);
+}
+
+.col {
+  display: grid;
+  align-content: start;
+  gap: var(--space-s);
+}
+
+.colTitle {
+  font-size: var(--step--2);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent-on-ink);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-3xs);
+  font-size: var(--step--1);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 85%;
+  background-repeat: no-repeat;
+  background-clip: content-box;
+}
+
+@media (hover: hover) {
+  .link {
+    background-size: 0 1px;
+  }
+
+  .link:hover {
+    background-size: 100% 1px;
+  }
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 2rem;
+  overflow-wrap: anywhere;
+}
+
+.contactIcon {
+  display: inline-flex;
+  color: var(--color-text-inverse-muted);
+}
+
+.hours {
+  font-size: var(--step--1);
+  color: var(--color-text-inverse-muted);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--color-line-inverse);
+  font-size: var(--step--2);
+  color: var(--color-text-inverse-muted);
+}

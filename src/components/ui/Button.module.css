@@ -1,0 +1,95 @@
+.button {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-text);
+  --btn-border: transparent;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 2.875rem; /* objetivo táctil ≥ 44px */
+  padding: 0 var(--space-m);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-m);
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-out-quart);
+}
+
+/* Relleno que se desliza desde abajo en hover (transform, sin repintar el fondo). */
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--btn-fill, transparent);
+  transform: translateY(101%);
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .button:hover::before {
+    transform: translateY(0);
+  }
+
+  .button:hover .arrow {
+    transform: translateX(4px);
+  }
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.arrow {
+  flex: none;
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+/* ─── Variantes ───────────────────────────────────────────────────────── */
+.primary {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-accent-contrast);
+  --btn-fill: var(--color-accent-hover);
+}
+
+.secondary {
+  --btn-border: var(--color-ink);
+  --btn-fill: var(--color-paper-sunken);
+}
+
+.inverse {
+  --btn-bg: var(--color-paper);
+  --btn-fg: var(--color-ink);
+  --btn-fill: var(--color-paper-sunken);
+}
+
+.ghost {
+  --btn-fg: var(--color-text);
+  --btn-fill: var(--color-accent-soft);
+  padding-inline: var(--space-xs);
+}
+
+/* ─── Tamaños ─────────────────────────────────────────────────────────── */
+.l {
+  min-height: 3.375rem;
+  padding-inline: var(--space-l);
+  font-size: var(--step-0);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.6;
+  pointer-events: none;
+}

@@ -1,0 +1,111 @@
+.section {
+  min-height: 100dvh;
+  display: grid;
+  align-items: center;
+  padding-block: calc(var(--header-h) + var(--space-2xl)) var(--space-section);
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+
+.inner {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-m);
+  max-width: calc(var(--container-narrow) + var(--gutter) * 2);
+}
+
+.code {
+  color: var(--color-accent);
+}
+
+.gauge {
+  width: min(14rem, 60vw);
+  padding: var(--space-s);
+  border: var(--hairline-strong);
+  border-radius: var(--radius-l);
+  background-color: var(--color-paper-raised);
+}
+
+.gaugeSvg {
+  width: 100%;
+  fill: var(--color-ink);
+  stroke-linecap: round;
+}
+
+.gaugeArc {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 6;
+}
+
+.gaugeNeedle {
+  stroke: var(--color-accent);
+  stroke-width: 4;
+  transform-box: view-box;
+  transform-origin: 60px 64px;
+  transform: rotate(84deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gaugeNeedle {
+    animation: overshoot 1.8s var(--ease-out-expo) 300ms both;
+  }
+}
+
+/* La aguja sube, se pasa del máximo y queda vibrando fuera de escala. */
+@keyframes overshoot {
+  0% {
+    transform: rotate(-90deg);
+  }
+  60% {
+    transform: rotate(92deg);
+  }
+  75% {
+    transform: rotate(80deg);
+  }
+  88% {
+    transform: rotate(86deg);
+  }
+  100% {
+    transform: rotate(84deg);
+  }
+}
+
+.title {
+  font-size: var(--step-5);
+}
+
+.lead {
+  max-width: 52ch;
+  color: var(--color-text-muted);
+  font-size: var(--step-1);
+}
+
+.actions {
+  margin-top: var(--space-2xs);
+}
+
+.links {
+  display: grid;
+  width: 100%;
+  margin-top: var(--space-l);
+  border-top: var(--hairline);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  border-bottom: var(--hairline);
+  text-decoration: none;
+  color: var(--color-text-soft);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--color-accent);
+  }
+}
