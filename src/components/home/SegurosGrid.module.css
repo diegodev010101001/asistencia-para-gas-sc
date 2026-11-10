@@ -61,9 +61,15 @@
   color: inherit;
   overflow: hidden;
   isolation: isolate;
-  /* Inclinación leve (≤3°) que sigue al cursor; MotionObserver fija --rx / --ry. */
-  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+/* Inclinación leve (≤3°) solo mientras el cursor está encima: MotionObserver
+   fija --rx / --ry y [data-tilt]. En reposo la tarjeta no lleva transform 3D
+   (sin capa propia, el texto se rasteriza nítido); al salir vuelve a «none»
+   con la misma transición. */
+.card[data-tilt] {
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
 }
 
 /* Spotlight: un círculo de luz que se traslada (transform) bajo el cursor. */

@@ -42,7 +42,10 @@ export function Hero() {
           <Figure
             src={imgTanque}
             alt={HERO.imageAlt}
-            sizes="(min-width: 64em) 40vw, (min-width: 40em) 80vw, 100vw"
+            // La foto es 3:2 y se recorta con cover: en escritorio la columna es alta
+            // (~640 px), así que la imagen se dibuja a ~960 px de ancho; en móvil el
+            // recorte 4:3 la amplía ~1.125× sobre el ancho de la columna.
+            sizes="(min-width: 64em) 960px, (min-width: 40em) 90vw, 110vw"
             position="38% 50%"
             preload
             className={styles.figure}

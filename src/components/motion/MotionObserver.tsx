@@ -109,12 +109,14 @@ function setupSpotlight() {
         card.style.setProperty('--my', `${y}px`);
         card.style.setProperty('--ry', `${((x / r.width - 0.5) * 5).toFixed(2)}deg`);
         card.style.setProperty('--rx', `${((0.5 - y / r.height) * 5).toFixed(2)}deg`);
+        card.dataset.tilt = '';
       });
     };
     const onLeave = () => {
       cancelAnimationFrame(frame);
       card.style.setProperty('--rx', '0deg');
       card.style.setProperty('--ry', '0deg');
+      delete card.dataset.tilt;
     };
     card.addEventListener('pointermove', onMove, { passive: true });
     card.addEventListener('pointerleave', onLeave, { passive: true });
@@ -125,6 +127,7 @@ function setupSpotlight() {
       card.removeEventListener('pointermove', onMove);
       card.removeEventListener('pointerleave', onLeave);
       card.removeEventListener('click', onLeave);
+      delete card.dataset.tilt;
     });
   }
   return () => cleanups.forEach((fn) => fn());

@@ -16,9 +16,10 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-slow) var(--ease-out-quart);
-  will-change: transform;
 }
 
+/* La capa se reserva solo mientras la luz sigue al cursor. */
 .light[data-active] {
   opacity: 1;
+  will-change: transform;
 }

@@ -44,7 +44,10 @@ export function SeguroHero({ seguro }: { seguro: Seguro }) {
             <Image
               src={imagen.src}
               alt={imagen.alt}
-              sizes="(min-width: 64em) 40vw, 100vw"
+              // Foto 3:2 recortada con cover en una columna alta: se dibuja a ~960 px en
+              // escritorio. TODO: las fotos actuales miden ~735 px de ancho y se ven
+              // blandas; pedir originales de ≥ 2000 px (este sizes ya las aprovecha).
+              sizes="(min-width: 64em) 960px, 110vw"
               placeholder="blur"
               preload
               fetchPriority="high"

@@ -27,7 +27,7 @@ function SeguroCard({ seguro, index }: { seguro: Seguro; index: number }) {
             <Image
               src={imagen.src}
               alt=""
-              sizes="(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw"
+              sizes="(min-width: 64em) 25vw, (min-width: 40em) 45vw, 100vw"
               placeholder="blur"
               className={styles.image}
             />
