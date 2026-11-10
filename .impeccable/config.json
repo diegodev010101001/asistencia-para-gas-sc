@@ -15,6 +15,16 @@
         ],
         "createdAt": "2026-11-09T23:47:03.325Z",
         "reason": "user confirmed: retícula de plano de la dirección aprobada «Ficha técnica» (DESIGN.md)"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/home/SegurosGrid.module.css",
+          "src/components/seguro/SeguroSections.module.css"
+        ],
+        "createdAt": "2026-11-10T18:26:09.469Z",
+        "reason": "falso positivo: franja superior de 3px que se traza en hover (inset: 0 0 auto), no un borde lateral"
       }
     ]
   }

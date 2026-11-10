@@ -188,6 +188,10 @@ Contenedor de 78 rem con gutter fluido (16 px en móvil, 40 px en escritorio). S
 ### Named Rules
 **The Spec Sheet Rule.** La información comparable (datos, coberturas, pasos) se presenta en filas o columnas con líneas finas, como una ficha; las tarjetas se reservan para objetos navegables (seguros) o casos (escenarios).
 
+**The No Empty Half Rule.** Una composición 7/5 nunca deja la columna derecha vacía: si la ficha no tiene hoja de datos, el alcance ocupa ese lugar. Las listas largas (más de ~6 puntos) se agrupan con subtítulos en rol Label que solo ordenan la lectura.
+
+**The Action First Rule.** En móvil, el formulario de cotización va inmediatamente después del título de su sección; los datos de contacto lo siguen.
+
 ## Elevation & Depth
 
 Plano por defecto, como papel impreso. La estructura la dan las líneas y el cambio de superficie (`paper` → `paper-sunken` → `ink`), no las sombras. Las sombras existen solo como respuesta a un estado.
@@ -231,7 +235,8 @@ Esquinas casi rectas y técnicas: 2 px en chips, 4 px en botones y campos, 8 px 
 - **Error:** borde y fondo suave de `danger`, mensaje con ícono; **válido:** check verde que aparece con escala.
 
 ### Navigation
-- Header fijo de 68 px; en reposo transparente; al hacer scroll aparece un fondo de papel con desenfoque y una línea inferior que se traza. Enlaces Archivo 500 ancho 112 % con subrayado naranja que se traza en hover y marca la sección activa. Debajo de 64em, menú de pantalla completa con entrada escalonada.
+- Header fijo de 68 px; en reposo transparente; al hacer scroll aparece un fondo de papel opaco y una línea inferior que se traza. Enlaces Archivo 500 ancho 112 % con subrayado naranja que se traza en hover y marca la sección activa. Debajo de 64em, menú de pantalla completa con entrada escalonada.
+- Índice de la ficha: barra de papel fija bajo el header durante toda la página, abierta con la regla de 2 px en tinta (la barra de progreso de lectura corre sobre ella). La sección que se lee pasa a tinta con subrayado naranja de 2 px, sin cambio de peso; en móvil la lista se desplaza para mantener visible el activo. Las anclas compensan header + índice con `scroll-padding-top`.
 
 ### Logo «Manómetro»
 Arco de 270° abierto a la derecha con aguja horizontal naranja (lee como una «G»); la aguja barre al cargar. Variantes default, mono e inverse.

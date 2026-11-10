@@ -9,25 +9,46 @@
   gap: var(--space-xl);
 }
 
+/* Móvil: título → formulario → datos de contacto (la acción principal no
+   queda debajo de cinco filas de datos). Escritorio: título y datos a la
+   izquierda, formulario a la derecha ocupando ambas filas. */
 @media (min-width: 64em) {
   .inner {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'head form'
+      'details form';
     column-gap: var(--space-2xl);
+    row-gap: var(--space-l);
     align-items: start;
+  }
+
+  .head {
+    grid-area: head;
+  }
+
+  .details {
+    grid-area: details;
+  }
+
+  .formCard {
+    grid-area: form;
   }
 }
 
-.aside {
+.head,
+.details {
   min-width: 0;
 }
 
 /* Selectores compuestos: ganan a .button sin depender del orden de carga. */
-.aside .waButton {
+.details .waButton {
   margin-bottom: var(--space-l);
 }
 
 @media (max-width: 29.99em) {
-  .aside .waButton {
+  .details .waButton {
     width: 100%;
     white-space: normal;
     text-align: center;
@@ -92,7 +113,7 @@ a.rowValue {
   border-radius: var(--radius-l);
   background-color: var(--color-paper);
   color: var(--color-text);
-  scroll-margin-top: calc(var(--header-h) + var(--space-m));
+  /* El desfase del header lo da scroll-padding-top en html (y el índice en las fichas). */
 }
 
 .formTitle {

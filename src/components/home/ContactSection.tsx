@@ -54,8 +54,17 @@ export function ContactSection({
   return (
     <section className={`on-ink ${styles.section}`} id="contacto" aria-labelledby="contacto-title">
       <div className={`container ${styles.inner}`}>
-        <div className={styles.aside}>
+        <div className={styles.head}>
           <SectionHeader index={index} title={title} lead={lead} id="contacto-title" tone="inverse" />
+        </div>
+
+        {/* En móvil el formulario va antes de los datos de contacto; en escritorio, a la derecha. */}
+        <div className={styles.formCard} id="cotizar">
+          <h3 className={styles.formTitle}>Datos para tu cotización</h3>
+          <QuoteForm defaultSeguro={defaultSeguro} whatsappHref={wa} privacyUrl={SITE.privacyUrl} />
+        </div>
+
+        <div className={styles.details}>
           <WhatsAppButton message={whatsappMessage} label="Hablar por WhatsApp" variant="inverse" size="l" className={styles.waButton} />
           <ul role="list" className={styles.info}>
             <InfoRow icon={<WhatsAppIcon size={18} />} label="WhatsApp" value={contact.whatsapp} href={wa} />
@@ -64,11 +73,6 @@ export function ContactSection({
             <InfoRow icon={<MapPin size={18} strokeWidth={1.5} />} label="Ubicación" value={addressText()} />
             <InfoRow icon={<Clock size={18} strokeWidth={1.5} />} label="Horario" value={contact.hours} />
           </ul>
-        </div>
-
-        <div className={styles.formCard} id="cotizar">
-          <h3 className={styles.formTitle}>Datos para tu cotización</h3>
-          <QuoteForm defaultSeguro={defaultSeguro} whatsappHref={wa} privacyUrl={SITE.privacyUrl} />
         </div>
       </div>
     </section>

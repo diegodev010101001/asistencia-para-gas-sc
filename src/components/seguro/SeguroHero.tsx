@@ -9,24 +9,8 @@ import { WHATSAPP_MESSAGES } from '@/data/site';
 import { Breadcrumbs } from './Breadcrumbs';
 import styles from './SeguroHero.module.css';
 
-const pad = (n: number) => String(n).padStart(2, '0');
-
-/** Índice de la ficha con los mismos números que llevan sus secciones. */
-function buildIndex(seguro: Seguro) {
-  const extras = seguro.extras.filter((e) => e.tipo !== 'datos').length;
-  return [
-    { href: '#cobertura', label: 'Cobertura', num: pad(2) },
-    { href: '#dirigido', label: 'A quién va dirigido', num: pad(3) },
-    { href: '#escenarios', label: 'Escenarios', num: pad(4) },
-    { href: '#preguntas', label: 'Preguntas', num: pad(5 + extras) },
-    { href: '#cotizar', label: 'Cotizar', num: pad(6 + extras) },
-  ];
-}
-
 export function SeguroHero({ seguro }: { seguro: Seguro }) {
   const { slug, code, nombre, nombreCorto, hero, temas, imagen } = seguro;
-  const index = buildIndex(seguro);
-
   return (
     <section className={styles.hero} aria-labelledby="seguro-title">
       <div className={styles.grid} aria-hidden="true" />
@@ -71,20 +55,6 @@ export function SeguroHero({ seguro }: { seguro: Seguro }) {
         </ViewTransition>
       </div>
 
-      <nav aria-label="Contenido de la ficha" className={`container ${styles.index}`}>
-        <ol className={styles.indexList}>
-          {index.map(({ href, label, num }) => (
-            <li key={href}>
-              <a href={href} className={styles.indexLink}>
-                <span className={styles.indexNum} aria-hidden="true">
-                  {num}
-                </span>
-                {label}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
     </section>
   );
 }

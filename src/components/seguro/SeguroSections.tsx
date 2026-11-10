@@ -4,7 +4,7 @@ import { ArrowUpRight, Check, X } from 'lucide-react';
 import { Figure } from '@/components/ui/Figure';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SeguroIcon } from '@/components/ui/SeguroIcon';
-import type { BloqueExtra, Seguro } from '@/data/seguros';
+import type { BloqueExtra, Punto, Seguro } from '@/data/seguros';
 import { cssVars } from '@/lib/css';
 
 import styles from './SeguroSections.module.css';
@@ -16,6 +16,19 @@ const pad = (n: number) => String(n).padStart(2, '0');
 /* ─── Qué es + hoja de datos ──────────────────────────────────────────── */
 export function IntroSection({ seguro, index }: { seguro: Seguro; index: string }) {
   const datos = seguro.extras.filter((e): e is DatosBlock => e.tipo === 'datos');
+  // Sin hoja de datos, el alcance ocupa la columna derecha: la ficha no deja media página vacía.
+  const alcanceAside = datos.length === 0;
+
+  const alcance = seguro.alcance ? (
+    <div className={styles.alcance} data-reveal>
+      <h3 className="label">Protege frente a daños a</h3>
+      <ul role="list" className={styles.alcanceList}>
+        {seguro.alcance.map((a) => (
+          <li key={a}>{a}</li>
+        ))}
+      </ul>
+    </div>
+  ) : null;
 
   return (
     <section className={styles.section} aria-labelledby="intro-title">
@@ -29,16 +42,7 @@ export function IntroSection({ seguro, index }: { seguro: Seguro; index: string 
               </p>
             ))}
           </div>
-          {seguro.alcance ? (
-            <div className={styles.alcance} data-reveal>
-              <h3 className="label">Protege frente a daños a</h3>
-              <ul role="list" className={styles.alcanceList}>
-                {seguro.alcance.map((a) => (
-                  <li key={a}>{a}</li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+          {alcanceAside ? null : alcance}
         </div>
 
         {datos.length > 0 ? (
@@ -47,6 +51,8 @@ export function IntroSection({ seguro, index }: { seguro: Seguro; index: string 
               <DatosSheet key={d.id} block={d} />
             ))}
           </aside>
+        ) : alcance ? (
+          <div className={styles.sheets}>{alcance}</div>
         ) : null}
       </div>
     </section>
@@ -75,6 +81,42 @@ function DatosSheet({ block }: { block: DatosBlock }) {
 }
 
 /* ─── Qué cubre / qué no cubre ────────────────────────────────────────── */
+/** Agrupa puntos consecutivos con el mismo `grupo`; sin grupos queda una sola lista. */
+function groupPoints(points: readonly Punto[]) {
+  const groups: { titulo?: string; items: Punto[] }[] = [];
+  for (const p of points) {
+    const last = groups.at(-1);
+    if (last && last.titulo === p.grupo) last.items.push(p);
+    else groups.push({ titulo: p.grupo, items: [p] });
+  }
+  return groups;
+}
+
+function PointGroups({ points, kind }: { points: readonly Punto[]; kind: 'yes' | 'no' }) {
+  const Icon = kind === 'yes' ? Check : X;
+  let n = 0;
+  return (
+    <div className={styles.groups}>
+      {groupPoints(points).map(({ titulo, items }) => (
+        <div key={titulo ?? 'todos'} className={styles.group}>
+          {titulo ? <h4 className={`label ${styles.groupTitle}`}>{titulo}</h4> : null}
+          <ul role="list" className={styles.points}>
+            {items.map(({ titulo: t, texto }) => (
+              <li key={t} className={styles.point} data-reveal style={cssVars({ '--i': n++ })}>
+                <Icon size={18} strokeWidth={2} className={kind === 'yes' ? styles.pointYes : styles.pointNo} aria-hidden="true" />
+                <div>
+                  <strong>{t}</strong>
+                  {texto ? <p>{texto}</p> : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function CoverageSection({ seguro, index }: { seguro: Seguro; index: string }) {
   return (
     <section className={`${styles.section} ${styles.sunken}`} id="cobertura" aria-labelledby="cobertura-title">
@@ -94,17 +136,7 @@ export function CoverageSection({ seguro, index }: { seguro: Seguro; index: stri
               </span>
               Qué cubre
             </h3>
-            <ul role="list" className={styles.points}>
-              {seguro.cubre.map(({ titulo, texto }, i) => (
-                <li key={titulo} className={styles.point} data-reveal style={cssVars({ '--i': i })}>
-                  <Check size={18} strokeWidth={2} className={styles.pointYes} aria-hidden="true" />
-                  <div>
-                    <strong>{titulo}</strong>
-                    {texto ? <p>{texto}</p> : null}
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <PointGroups points={seguro.cubre} kind="yes" />
           </div>
 
           <div className={styles.coverCol}>
@@ -114,17 +146,7 @@ export function CoverageSection({ seguro, index }: { seguro: Seguro; index: stri
               </span>
               Qué no cubre
             </h3>
-            <ul role="list" className={styles.points}>
-              {seguro.noCubre.map(({ titulo, texto }, i) => (
-                <li key={titulo} className={styles.point} data-reveal style={cssVars({ '--i': i })}>
-                  <X size={18} strokeWidth={2} className={styles.pointNo} aria-hidden="true" />
-                  <div>
-                    <strong>{titulo}</strong>
-                    {texto ? <p>{texto}</p> : null}
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <PointGroups points={seguro.noCubre} kind="no" />
             {seguro.noCubreImagen ? (
               <Figure
                 src={seguro.noCubreImagen.src}

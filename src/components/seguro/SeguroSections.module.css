@@ -57,6 +57,17 @@
 }
 
 /* Filas de ficha: texto de lectura con una marca cuadrada de tinta. */
+/* En la columna lateral (fichas sin hoja de datos) va a una sola columna. */
+.sheets .alcance {
+  margin-top: 0;
+}
+
+@media (min-width: 64em) {
+  .sheets .alcanceList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .alcanceList li {
   display: flex;
   align-items: baseline;
@@ -201,6 +212,20 @@
   color: var(--color-ink);
 }
 
+.groups {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.group {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.groupTitle {
+  color: var(--color-text-muted);
+}
+
 .points {
   display: grid;
 }
@@ -238,7 +263,8 @@
 
 .notice {
   padding: var(--space-s);
-  border-left: 3px solid var(--color-ink);
+  border: var(--hairline-strong);
+  border-radius: var(--radius-m);
   background-color: var(--color-paper-raised);
   font-size: var(--step--1);
   color: var(--color-text-soft);

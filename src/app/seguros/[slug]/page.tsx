@@ -6,6 +6,7 @@ import { ContactSection } from '@/components/home/ContactSection';
 import { FaqSection } from '@/components/home/FaqSection';
 import { DirectionalTransition } from '@/components/motion/DirectionalTransition';
 import { ReadingProgress } from '@/components/motion/ReadingProgress';
+import { FichaIndex } from '@/components/seguro/FichaIndex';
 import { SeguroHero } from '@/components/seguro/SeguroHero';
 import {
   AudienceSection,
@@ -67,6 +68,7 @@ export default async function SeguroPage({ params }: { params: Promise<{ slug: s
           <div>
             <ReadingProgress />
             <SeguroHero seguro={seguro} />
+            <FichaIndex seguro={seguro} />
             <IntroSection seguro={seguro} index="01" />
             <CoverageSection seguro={seguro} index="02" />
             <AudienceSection seguro={seguro} index="03" />

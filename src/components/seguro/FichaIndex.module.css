@@ -1,0 +1,81 @@
+/* ─── Índice de la ficha ──────────────────────────────────────────────── */
+/* Barra de papel opaca, fija bajo el header durante toda la ficha. La regla
+   de 2 px en tinta abre la ficha como en el resto de listas técnicas; la
+   barra de progreso de lectura (fija en top: header-h) corre sobre ella. */
+.index {
+  --index-h: 3.25rem;
+  position: sticky;
+  top: var(--header-h);
+  z-index: var(--z-raised);
+  background-color: var(--color-paper);
+  border-bottom: var(--hairline);
+}
+
+/* Las anclas aterrizan debajo del header y del índice. */
+:global(html):has(.index) {
+  scroll-padding-top: calc(var(--header-h) + 3.25rem + 3px + var(--space-m));
+}
+
+.list {
+  display: flex;
+  gap: var(--space-m);
+  overflow-x: auto;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--color-ink);
+  scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: var(--index-h);
+  font-family: var(--ff-display);
+  font-size: var(--step--1);
+  font-weight: 500;
+  font-stretch: var(--stretch-semi);
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--color-text-soft);
+  transition: color var(--dur-fast) var(--ease-out-quart);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0.6rem;
+  height: 1px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+/* Sección que se está leyendo: tinta y subrayado de señal (posición). */
+/* Sin cambio de peso: el ancho de cada enlace no varía y la lista no salta. */
+.link[aria-current] {
+  color: var(--color-ink);
+}
+
+.link[aria-current]::after {
+  height: 2px;
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.num {
+  font-size: var(--step--2);
+  color: var(--color-accent-text);
+  font-variant-numeric: tabular-nums;
+}

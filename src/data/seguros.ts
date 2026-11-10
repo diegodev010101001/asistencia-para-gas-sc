@@ -28,6 +28,8 @@ export interface SeguroImage {
 export interface Punto {
   titulo: string;
   texto?: string;
+  /** Agrupa puntos consecutivos bajo un subtítulo (listas largas de cobertura). */
+  grupo?: string;
 }
 
 export interface Escenario {
@@ -105,15 +107,15 @@ export const SEGUROS: readonly Seguro[] = [
       'Además de resguardar el patrimonio ante reclamaciones, suele ser una condición para obtener y mantener vigentes permisos y concesiones ante la CNE y la ASEA, y fortalece la confianza de clientes, socios y proveedores.',
     ],
     cubre: [
-      { titulo: 'RC de operación', texto: 'Daños derivados de las actividades normales del negocio.' },
-      { titulo: 'RC por carga y descarga', texto: 'Accidentes durante maniobras, tanto en instalaciones fijas como en operaciones móviles de autotanques y pipas.' },
-      { titulo: 'RC por transporte', texto: 'Daños ocasionados por la carga transportada.' },
-      { titulo: 'Contaminación súbita y accidental', texto: 'Eventos ambientales repentinos derivados de la operación.' },
-      { titulo: 'RC vehicular en exceso', texto: 'Cobertura complementaria para flotillas.' },
-      { titulo: 'RC cruzada', texto: 'Daños que se causan entre sí empresas relacionadas aseguradas en la misma póliza.' },
-      { titulo: 'RC arrendatario', texto: 'Daños a inmuebles arrendados.' },
-      { titulo: 'Trabajos terminados', texto: 'Daños derivados de trabajos ya ejecutados.' },
-      { titulo: 'Defensa jurídica y fianzas', texto: 'Gastos de defensa legal y pago de fianzas relacionadas con reclamaciones cubiertas.' },
+      { titulo: 'RC de operación', texto: 'Daños derivados de las actividades normales del negocio.', grupo: 'En la operación' },
+      { titulo: 'RC por carga y descarga', texto: 'Accidentes durante maniobras, tanto en instalaciones fijas como en operaciones móviles de autotanques y pipas.', grupo: 'En la operación' },
+      { titulo: 'RC por transporte', texto: 'Daños ocasionados por la carga transportada.', grupo: 'En la operación' },
+      { titulo: 'RC vehicular en exceso', texto: 'Cobertura complementaria para flotillas.', grupo: 'En la operación' },
+      { titulo: 'Contaminación súbita y accidental', texto: 'Eventos ambientales repentinos derivados de la operación.', grupo: 'Situaciones particulares' },
+      { titulo: 'RC cruzada', texto: 'Daños que se causan entre sí empresas relacionadas aseguradas en la misma póliza.', grupo: 'Situaciones particulares' },
+      { titulo: 'RC arrendatario', texto: 'Daños a inmuebles arrendados.', grupo: 'Situaciones particulares' },
+      { titulo: 'Trabajos terminados', texto: 'Daños derivados de trabajos ya ejecutados.', grupo: 'Situaciones particulares' },
+      { titulo: 'Defensa jurídica y fianzas', texto: 'Gastos de defensa legal y pago de fianzas relacionadas con reclamaciones cubiertas.', grupo: 'Gastos legales' },
     ],
     alcance: [
       'Lesiones corporales a terceros',
@@ -124,15 +126,16 @@ export const SEGUROS: readonly Seguro[] = [
       'Productos transportados',
     ],
     noCubre: [
-      { titulo: 'Contaminación gradual', texto: 'Procesos lentos y progresivos. Se cubren con el seguro de Responsabilidad Ambiental.' },
-      { titulo: 'Actos intencionales', texto: 'Daños causados deliberadamente.' },
-      { titulo: 'Guerra o terrorismo', texto: 'Conflictos armados y actos de terrorismo.' },
-      { titulo: 'Responsabilidad profesional', texto: 'Errores en asesoría o servicios especializados.' },
-      { titulo: 'Negligencia grave', texto: 'Daños por descuido grave comprobado o por fallas provocadas a propósito.' },
-      { titulo: 'Daños cibernéticos', texto: 'Ataques informáticos o fallas digitales.' },
-      { titulo: 'Multas administrativas', texto: 'Sanciones impuestas por autoridades regulatorias.' },
-      { titulo: 'Operaciones fuera del giro', texto: 'Actividades no declaradas en la póliza.' },
-      { titulo: 'Incumplimiento deliberado de normas', texto: 'Violación intencional de regulaciones.' },
+      // Grupos: solo ordenan la lectura; no cambian el contenido de cada exclusión.
+      { titulo: 'Contaminación gradual', texto: 'Procesos lentos y progresivos. Se cubren con el seguro de Responsabilidad Ambiental.', grupo: 'Fuera de lo contratado' },
+      { titulo: 'Operaciones fuera del giro', texto: 'Actividades no declaradas en la póliza.', grupo: 'Fuera de lo contratado' },
+      { titulo: 'Responsabilidad profesional', texto: 'Errores en asesoría o servicios especializados.', grupo: 'Fuera de lo contratado' },
+      { titulo: 'Actos intencionales', texto: 'Daños causados deliberadamente.', grupo: 'Conducta del asegurado' },
+      { titulo: 'Negligencia grave', texto: 'Daños por descuido grave comprobado o por fallas provocadas a propósito.', grupo: 'Conducta del asegurado' },
+      { titulo: 'Incumplimiento deliberado de normas', texto: 'Violación intencional de regulaciones.', grupo: 'Conducta del asegurado' },
+      { titulo: 'Guerra o terrorismo', texto: 'Conflictos armados y actos de terrorismo.', grupo: 'Otros riesgos' },
+      { titulo: 'Daños cibernéticos', texto: 'Ataques informáticos o fallas digitales.', grupo: 'Otros riesgos' },
+      { titulo: 'Multas administrativas', texto: 'Sanciones impuestas por autoridades regulatorias.', grupo: 'Otros riesgos' },
     ],
     noCubreImagen: {
       src: imgQueNoCubre,

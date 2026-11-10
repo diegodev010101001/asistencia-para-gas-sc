@@ -11,6 +11,7 @@ import { useEffect } from 'react';
  *  - [data-count-to]   contador animado al entrar en pantalla.
  *  - [data-spotlight]  luz que sigue al cursor + inclinación leve (≤3°).
  *  - [data-section]    enlace del header marcado como sección activa.
+ *  - [data-spy]        enlace del índice de la ficha marcado como sección activa.
  *
  * Respeta prefers-reduced-motion y solo usa transform/opacity.
  * Se vuelve a ejecutar en cada cambio de ruta.
@@ -161,11 +162,58 @@ function setupActiveSection(pathname: string) {
   };
 }
 
+/**
+ * Índice fijo de la ficha: marca la sección que se está leyendo. Si la banda
+ * de lectura cae en una sección que no está en el índice, ninguno se marca.
+ * En móvil la lista se desplaza en horizontal para mantener visible el activo.
+ */
+function setupIndexSpy() {
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('a[data-spy]')];
+  if (links.length === 0) return () => {};
+
+  const targets = links.map((l) => {
+    const el = document.getElementById(l.dataset.spy ?? '');
+    return el?.closest('section') ?? el;
+  });
+  const visible = new Set<Element>();
+
+  const update = () => {
+    const active = targets.findIndex((t) => t !== null && visible.has(t));
+    links.forEach((l, i) => {
+      if (i === active) l.setAttribute('aria-current', 'location');
+      else l.removeAttribute('aria-current');
+    });
+    const link = links[active];
+    const list = link?.closest('ol');
+    if (link && list && list.scrollWidth > list.clientWidth) {
+      const left = link.offsetLeft - (list.clientWidth - link.offsetWidth) / 2;
+      list.scrollTo({ left, behavior: reducedMotion() ? 'auto' : 'smooth' });
+    }
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      update();
+    },
+    // Banda de lectura en el tercio superior, justo debajo del header y el índice.
+    { rootMargin: '-30% 0px -65% 0px' },
+  );
+  for (const t of targets) if (t) observer.observe(t);
+  return () => {
+    observer.disconnect();
+    links.forEach((l) => l.removeAttribute('aria-current'));
+  };
+}
+
 export function MotionObserver() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const cleanups = [setupReveal(), setupCounters(), setupSpotlight(), setupActiveSection(pathname)];
+    const cleanups = [setupReveal(), setupCounters(), setupSpotlight(), setupActiveSection(pathname), setupIndexSpy()];
     return () => cleanups.forEach((fn) => fn());
   }, [pathname]);
 
