@@ -36,9 +36,6 @@ export function About() {
           <ol role="list" className={styles.reasonList}>
             {REASONS.map(({ title, text }, i) => (
               <li key={title} className={styles.reason} data-reveal style={cssVars({ '--i': i })}>
-                <span className={styles.reasonNum} aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 <h4 className={styles.reasonTitle}>{title}</h4>
                 <p className={styles.reasonText}>{text}</p>
               </li>

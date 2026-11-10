@@ -8,7 +8,7 @@
 
 .summary {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: var(--space-s);
   min-height: 4rem;
@@ -19,16 +19,6 @@
 
 .summary::-webkit-details-marker {
   display: none;
-}
-
-.num {
-  font-family: var(--ff-display);
-  font-size: var(--step--2);
-  font-weight: 600;
-  font-stretch: var(--stretch-semi);
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-muted);
-  font-variant-numeric: tabular-nums;
 }
 
 .question {
@@ -53,7 +43,8 @@
   transform: rotate(45deg);
 }
 
-.item[open] .num {
+.item[open] .icon {
+  border-color: var(--color-accent);
   color: var(--color-accent-text);
 }
 
@@ -69,7 +60,6 @@
 
 .answer {
   padding: 0 0 var(--space-m);
-  padding-left: calc(var(--space-s) + 2ch);
   max-width: 68ch;
   color: var(--color-text-soft);
 }

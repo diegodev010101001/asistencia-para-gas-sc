@@ -32,7 +32,7 @@ export function IntroSection({ seguro, index }: { seguro: Seguro; index: string 
           {seguro.alcance ? (
             <div className={styles.alcance} data-reveal>
               <h3 className="label">Protege frente a daños a</h3>
-              <ul role="list" className={styles.chips}>
+              <ul role="list" className={styles.alcanceList}>
                 {seguro.alcance.map((a) => (
                   <li key={a}>{a}</li>
                 ))}
@@ -152,9 +152,6 @@ export function AudienceSection({ seguro, index }: { seguro: Seguro; index: stri
         <ul role="list" className={styles.audience}>
           {seguro.dirigidoA.map(({ titulo, texto }, i) => (
             <li key={titulo} className={styles.audienceItem} data-reveal style={cssVars({ '--i': i })}>
-              <span className={styles.audienceNum} aria-hidden="true">
-                {pad(i + 1)}
-              </span>
               <strong>{titulo}</strong>
               {texto ? <span className={styles.audienceTag}>{texto}</span> : null}
             </li>
@@ -183,9 +180,6 @@ export function ScenariosSection({ seguro, index }: { seguro: Seguro; index: str
           {seguro.escenarios.map(({ titulo, situacion, respuesta, resultado }, i) => (
             <li key={titulo} className={styles.scenario} data-result={resultado} data-reveal style={cssVars({ '--i': i })}>
               <div className={styles.scenarioHead}>
-                <span className={styles.scenarioNum} aria-hidden="true">
-                  {pad(i + 1)}
-                </span>
                 <span className={styles.result}>
                   {resultado === 'cubierto' ? <Check size={14} strokeWidth={2.5} aria-hidden="true" /> : <X size={14} strokeWidth={2.5} aria-hidden="true" />}
                   {resultado === 'cubierto' ? 'Cubierto' : 'Excluido'}

@@ -21,9 +21,6 @@ export function Accordion({ items, name }: AccordionProps) {
       {items.map(({ question, answer }, i) => (
         <details key={question} name={name} className={styles.item} data-reveal style={cssVars({ '--i': i })}>
           <summary className={styles.summary}>
-            <span className={styles.num} aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
-            </span>
             <span className={styles.question}>{question}</span>
             <span className={styles.icon} aria-hidden="true">
               <Plus size={20} strokeWidth={1.5} />

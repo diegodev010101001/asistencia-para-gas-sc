@@ -44,17 +44,35 @@
   margin-top: var(--space-l);
 }
 
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xs);
+.alcanceList {
+  display: grid;
+  border-top: 2px solid var(--color-ink);
 }
 
-.chips li {
-  padding: 0.35rem 0.7rem;
-  border: var(--hairline-strong);
-  border-radius: var(--radius-pill);
-  font-size: var(--step--1);
+@media (min-width: 40em) {
+  .alcanceList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-m);
+  }
+}
+
+/* Filas de ficha: texto de lectura con una marca cuadrada de tinta. */
+.alcanceList li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  padding-block: var(--space-2xs);
+  border-bottom: var(--hairline);
+  color: var(--color-text-soft);
+}
+
+.alcanceList li::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  translate: 0 -0.15em;
+  background-color: var(--color-ink);
 }
 
 .sheets {
@@ -252,14 +270,6 @@
   border-bottom: var(--hairline);
 }
 
-.audienceNum {
-  font-family: var(--ff-display);
-  font-size: var(--step--2);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-muted);
-}
-
 .audienceItem strong {
   font-family: var(--ff-display);
   font-size: var(--step-1);
@@ -311,14 +321,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.scenarioNum {
-  font-family: var(--ff-display);
-  font-size: var(--step--2);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-inverse-muted);
 }
 
 .result {

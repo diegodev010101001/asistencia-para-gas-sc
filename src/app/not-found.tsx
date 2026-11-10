@@ -17,19 +17,19 @@ export default function NotFound() {
     <DirectionalTransition>
       <section className={styles.section} aria-labelledby="nf-title">
         <div className={`container ${styles.inner}`}>
-          <p className="label">
-            <span className={styles.code}>Error 404</span> — Lectura fuera de rango
-          </p>
-
-          <div className={styles.gauge} aria-hidden="true">
-            <svg viewBox="0 0 120 70" className={styles.gaugeSvg}>
+          <figure className={styles.gauge}>
+            <svg viewBox="0 0 120 70" className={styles.gaugeSvg} aria-hidden="true">
               <path d="M10 64a50 50 0 0 1 100 0" className={styles.gaugeArc} />
               <g className={styles.gaugeNeedle}>
                 <path d="M60 64 L60 22" />
               </g>
               <circle cx="60" cy="64" r="4" />
             </svg>
-          </div>
+            <figcaption className={styles.readout}>
+              <span className={styles.code}>404</span>
+              <span>Fuera de rango</span>
+            </figcaption>
+          </figure>
 
           <h1 id="nf-title" className={`display ${styles.title}`}>
             Esta página no existe

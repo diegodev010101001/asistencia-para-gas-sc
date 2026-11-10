@@ -18,11 +18,6 @@ export function Hero() {
 
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
-          <p className={`label ${styles.label}`}>
-            <span className={styles.dot} aria-hidden="true" />
-            {HERO.label}
-          </p>
-
           <h1 id="hero-title" className={`display ${styles.title}`}>
             {HERO.titleLines.map((line, i) => (
               <span key={line} className={styles.line}>

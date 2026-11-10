@@ -331,8 +331,8 @@
       "name": "Etiqueta técnica",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Rol Label: códigos de ficha y etiquetas de sección.",
-      "html": "<span class=\"ds-label\"><b>02</b> — Cobertura</span>",
+      "description": "Rol Label: códigos de ficha y línea de especificaciones (sin caja).",
+      "html": "<span class=\"ds-label\"><b>Ficha 01</b> · RC de operación · Transporte</span>",
       "css": ".ds-label{display:inline-flex;gap:.5rem;font-family:var(--ff-display);font-size:.75rem;font-weight:600;font-stretch:112%;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted,#5b6066)}.ds-label b{color:var(--color-accent,#c2410c)}"
     },
     {

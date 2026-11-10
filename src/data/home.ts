@@ -17,7 +17,6 @@ export const STATS: readonly Stat[] = [
 ];
 
 export const HERO = {
-  label: 'Seguros para gas LP e hidrocarburos',
   titleLines: ['Seguros para', 'la industria', 'del gas LP'],
   // Posicionamiento confirmado (PRODUCT.md): agente/intermediario, no aseguradora.
   lead: 'Somos agentes de seguros especializados en gas LP: analizamos tu operación y colocamos tu póliza con la aseguradora. Para plantas, autotanques y transportistas.',

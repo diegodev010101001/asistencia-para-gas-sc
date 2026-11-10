@@ -56,17 +56,6 @@
   container-type: inline-size;
 }
 
-.label {
-  color: var(--color-text-soft);
-}
-
-.dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-accent);
-}
-
 /* ─── Titular por líneas con máscara ──────────────────────────────────── */
 /* El titular se ajusta al ancho de su columna: cada línea cabe sin partirse
    (la línea más larga tiene 12 caracteres en ancho expandido). */
@@ -95,13 +84,8 @@
   }
 
   .lead,
-  .actions,
-  .label {
+  .actions {
     animation: fade-up var(--dur-slower) var(--ease-out-expo) both;
-  }
-
-  .label {
-    animation-delay: 40ms;
   }
 
   .lead {
@@ -219,7 +203,7 @@
 
 .badgeText {
   display: block;
-  font-size: var(--step--2);
+  font-size: var(--step--1);
   color: var(--color-text-inverse-muted);
 }
 

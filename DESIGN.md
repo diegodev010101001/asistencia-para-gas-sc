@@ -47,7 +47,7 @@ typography:
     lineHeight: 1.6
   label:
     fontFamily: "Archivo, 'Arial Narrow', system-ui, sans-serif"
-    fontSize: "clamp(0.72rem, 0.7rem + 0.08vw, 0.78rem)"
+    fontSize: "clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem)"
     fontWeight: 600
     letterSpacing: "0.14em"
     fontVariation: "font-stretch 112%; text-transform uppercase"
@@ -212,8 +212,13 @@ Esquinas casi rectas y técnicas: 2 px en chips, 4 px en botones y campos, 8 px 
 - **Hover / Focus:** un relleno más profundo sube desde abajo (transform, 280 ms ease-out-expo); la flecha avanza 4 px; `:active` escala a 0.98; foco con contorno naranja de 2 px y separación de 3 px.
 - **Secondary:** contorno de tinta, relleno `paper-sunken` en hover. **Inverse:** papel sobre tinta. **Ghost:** sin borde, relleno de acento suave.
 
-### Chips
-- **Style:** contorno `line-strong`, fondo `paper-raised`, esquina de 2 px, texto 12–14 px. Son informativos, no interactivos.
+### Chips y metadatos
+- **Style:** el chip con contorno (`line-strong`, esquina de 2 px) queda solo para las siglas regulatorias del footer. Los temas de un seguro no llevan caja: son una línea de especificaciones en rol Label (separada por puntos en el hero de la ficha, apilada en las tarjetas), para no parecer botones dentro de un enlace.
+- **Listas de alcance:** filas de ficha con regla de 2 px en tinta, líneas finas y una marca cuadrada de tinta; texto de lectura en minúscula de oración.
+
+**The Readable Floor Rule.** Ninguna etiqueta baja de 12 px (`--step--2`) y ningún texto secundario en minúscula baja de 14 px (`--step--1`), tampoco a 360 px.
+
+**The Meaningful Number Rule.** Los números solo aparecen cuando la secuencia informa: pasos de un proceso, secciones de la ficha que su índice enlaza y códigos «Ficha 0X». Razones, público, escenarios y preguntas no se numeran.
 
 ### Cards / Containers
 - **Ficha de seguro:** `paper-raised`, 8 px, borde `line-strong`; en hover se traza una franja superior naranja (scaleX), la imagen hace zoom leve y aparece la sombra de hover. Con puntero fino: luz que sigue al cursor e inclinación ≤3°.

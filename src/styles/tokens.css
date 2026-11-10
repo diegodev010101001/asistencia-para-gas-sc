@@ -55,8 +55,9 @@
   --stretch-expanded: 125%;
 
   /* Escala fluida 360px → 1440px (ratio ~1.2 → ~1.333) */
-  --step--2: clamp(0.72rem, 0.7rem + 0.08vw, 0.78rem);
-  --step--1: clamp(0.83rem, 0.81rem + 0.1vw, 0.9rem);
+  /* Mínimos legibles: etiquetas ≥12px, texto secundario ≥14px. */
+  --step--2: clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem);
+  --step--1: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
   --step-0: clamp(1rem, 0.96rem + 0.19vw, 1.125rem);
   --step-1: clamp(1.2rem, 1.11rem + 0.42vw, 1.5rem);
   --step-2: clamp(1.44rem, 1.27rem + 0.78vw, 2rem);
