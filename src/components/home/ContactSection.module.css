@@ -61,6 +61,7 @@
 }
 
 .row {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: var(--space-s);
@@ -100,8 +101,26 @@ a.rowValue {
   text-decoration-color: var(--color-line-inverse);
 }
 
+/* El enlace cubre toda la fila (≥ 44 px de alto): tocar el ícono o la
+   etiqueta también abre WhatsApp, el teléfono o el correo. */
+a.rowValue::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+a.rowValue:focus-visible {
+  outline: none;
+}
+
+.row:has(a.rowValue:focus-visible) {
+  outline: 2px solid var(--color-accent-on-ink);
+  outline-offset: 2px;
+  border-radius: var(--radius-s);
+}
+
 @media (hover: hover) {
-  a.rowValue:hover {
+  .row:has(a.rowValue):hover a.rowValue {
     text-decoration-color: currentColor;
   }
 }

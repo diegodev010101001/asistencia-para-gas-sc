@@ -81,19 +81,25 @@
   padding-inline: var(--space-xs);
 }
 
-/* En pantallas angostas el texto puede partirse antes que desbordar la columna. */
-@media (max-width: 29.99em) {
-  .button {
-    white-space: normal;
-    text-align: center;
-  }
-}
-
 /* ─── Tamaños ─────────────────────────────────────────────────────────── */
 .l {
   min-height: 3.375rem;
   padding-inline: var(--space-l);
   font-size: var(--step-0);
+}
+
+/* Pantallas angostas (botones a todo el ancho): menos relleno lateral y
+   Archivo a ancho normal, para que «Hablar por WhatsApp» y similares quepan
+   en una línea desde 320 px. Partir el texto queda solo como respaldo para
+   que nunca desborde la columna. Va después de los tamaños para ganarles. */
+@media (max-width: 29.99em) {
+  .button {
+    padding-inline: var(--space-s);
+    font-stretch: var(--stretch-normal);
+    white-space: normal;
+    text-align: center;
+    text-wrap: balance;
+  }
 }
 
 .button:disabled,

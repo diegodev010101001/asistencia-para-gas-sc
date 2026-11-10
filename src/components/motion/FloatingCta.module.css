@@ -33,6 +33,14 @@
   transform: none;
 }
 
+/* En escritorio el header fijo ya ofrece «Cotizar» siempre a la vista; el dock
+   duplicaba la acción y tapaba texto en la esquina inferior derecha. */
+@media (min-width: 64em) {
+  .dock {
+    display: none;
+  }
+}
+
 .whatsapp,
 .quote {
   display: inline-flex;

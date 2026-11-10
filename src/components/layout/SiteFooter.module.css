@@ -92,6 +92,18 @@
   background-clip: content-box;
 }
 
+/* Con puntero táctil, cada enlace mide 44 px; el subrayado sigue pegado al texto. */
+@media (pointer: coarse) {
+  .link,
+  .contactItem {
+    min-height: 2.75rem;
+  }
+
+  .link {
+    background-position: 0 calc(50% + 0.7em);
+  }
+}
+
 @media (hover: hover) {
   .link {
     background-size: 0 1px;

@@ -236,7 +236,9 @@ Esquinas casi rectas y técnicas: 2 px en chips, 4 px en botones y campos, 8 px 
 
 ### Navigation
 - Header fijo de 68 px; en reposo transparente; al hacer scroll aparece un fondo de papel opaco y una línea inferior que se traza. Enlaces Archivo 500 ancho 112 % con subrayado naranja que se traza en hover y marca la sección activa. Debajo de 64em, menú de pantalla completa con entrada escalonada.
-- Índice de la ficha: barra de papel fija bajo el header durante toda la página, abierta con la regla de 2 px en tinta (la barra de progreso de lectura corre sobre ella). La sección que se lee pasa a tinta con subrayado naranja de 2 px, sin cambio de peso; en móvil la lista se desplaza para mantener visible el activo. Las anclas compensan header + índice con `scroll-padding-top`.
+- Dock flotante (WhatsApp + Cotizar, tinta en pastilla): solo debajo de 64em, después del primer pantallazo y oculto cuando el contacto está a la vista. En escritorio el header ya ofrece «Cotizar».
+- Objetivos táctiles: ≥ 44 px. Las filas de contacto son enteras el enlace; los enlaces del footer miden 44 px con puntero táctil. Debajo de 30em los botones van a todo el ancho con 16 px de relleno y Archivo a ancho normal, para que las etiquetas quepan en una línea.
+- Índice de la ficha: barra de papel fija bajo el header durante toda la página, abierta con la regla de 2 px en tinta (la barra de progreso de lectura corre sobre ella). La sección que se lee pasa a tinta con subrayado naranja de 2 px, sin cambio de peso; en móvil la lista se desplaza para mantener visible el activo y el borde con contenido oculto se desvanece. Las anclas compensan header + índice con `scroll-padding-top`.
 
 ### Logo «Manómetro»
 Arco de 270° abierto a la derecha con aguja horizontal naranja (lee como una «G»); la aguja barre al cargar. Variantes default, mono e inverse.

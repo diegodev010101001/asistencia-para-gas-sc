@@ -24,7 +24,7 @@ function buildIndex(seguro: Seguro) {
 export function FichaIndex({ seguro }: { seguro: Seguro }) {
   return (
     <nav aria-label="Contenido de la ficha" className={styles.index}>
-      <div className="container">
+      <div className={`container ${styles.inner}`}>
         <ol className={styles.list}>
           {buildIndex(seguro).map(({ id, label, num }) => (
             <li key={id}>

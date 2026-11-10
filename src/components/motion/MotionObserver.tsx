@@ -203,8 +203,26 @@ function setupIndexSpy() {
     { rootMargin: '-30% 0px -65% 0px' },
   );
   for (const t of targets) if (t) observer.observe(t);
+
+  // Señal de desbordamiento: qué lados de la lista tienen contenido oculto.
+  const list = links[0]?.closest('ol');
+  const markOverflow = () => {
+    if (!list) return;
+    const max = list.scrollWidth - list.clientWidth;
+    const start = list.scrollLeft > 4;
+    const end = list.scrollLeft < max - 4;
+    const more = start && end ? 'both' : start ? 'start' : end ? 'end' : null;
+    if (more) list.dataset.more = more;
+    else delete list.dataset.more;
+  };
+  markOverflow();
+  list?.addEventListener('scroll', markOverflow, { passive: true });
+  window.addEventListener('resize', markOverflow, { passive: true });
+
   return () => {
     observer.disconnect();
+    list?.removeEventListener('scroll', markOverflow);
+    window.removeEventListener('resize', markOverflow);
     links.forEach((l) => l.removeAttribute('aria-current'));
   };
 }

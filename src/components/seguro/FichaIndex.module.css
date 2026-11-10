@@ -16,18 +16,39 @@
   scroll-padding-top: calc(var(--header-h) + 3.25rem + 3px + var(--space-m));
 }
 
+/* La regla vive en el contenedor: la máscara de desbordamiento de la lista no la desvanece. */
+.inner::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: var(--color-ink);
+}
+
 .list {
   display: flex;
   gap: var(--space-m);
   overflow-x: auto;
   padding: 0;
   list-style: none;
-  border-top: 2px solid var(--color-ink);
   scrollbar-width: none;
 }
 
 .list::-webkit-scrollbar {
   display: none;
+}
+
+/* Cuando la lista se desborda (móvil), el borde por donde queda contenido se
+   desvanece: indica que hay más sin mostrar una barra de scroll. */
+.list[data-more='end'] {
+  mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+}
+
+.list[data-more='start'] {
+  mask-image: linear-gradient(to left, #000 calc(100% - 3rem), transparent);
+}
+
+.list[data-more='both'] {
+  mask-image: linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
 }
 
 .link {
