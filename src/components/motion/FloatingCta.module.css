@@ -33,14 +33,6 @@
   transform: none;
 }
 
-/* En escritorio el header fijo ya ofrece «Cotizar» siempre a la vista; el dock
-   duplicaba la acción y tapaba texto en la esquina inferior derecha. */
-@media (min-width: 64em) {
-  .dock {
-    display: none;
-  }
-}
-
 .whatsapp,
 .quote {
   display: inline-flex;
@@ -80,4 +72,14 @@
 .whatsapp:active,
 .quote:active {
   transform: scale(0.97);
+}
+
+/* Al final del archivo: debe ganar al display: inline-flex de .quote. */
+/* Desde 40em el header fijo ya muestra «Cotizar»: el dock queda solo con el
+   círculo de WhatsApp (sin duplicar la acción y tapando lo mínimo), así
+   WhatsApp sigue a un toque en cualquier página y tamaño. */
+@media (min-width: 40em) {
+  .quote {
+    display: none;
+  }
 }
