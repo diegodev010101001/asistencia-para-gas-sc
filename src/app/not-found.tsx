@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 import { DirectionalTransition } from '@/components/motion/DirectionalTransition';
 import { ButtonLink } from '@/components/ui/Button';
+import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { SEGUROS } from '@/data/seguros';
+import { WHATSAPP_MESSAGES } from '@/data/site';
 
 import styles from './not-found.module.css';
 
@@ -35,20 +38,23 @@ export default function NotFound() {
             Esta página no existe
           </h1>
           <p className={styles.lead}>
-            La dirección que buscas cambió o nunca existió. Puedes volver al inicio o ir directo a uno de nuestros seguros.
+            La dirección que buscas cambió o nunca existió. Puedes volver al inicio, ir directo a uno de nuestros seguros o
+            preguntarnos por WhatsApp.
           </p>
 
           <div className={styles.actions}>
             <ButtonLink href="/" variant="primary" arrow transitionTypes={['nav-back']}>
               Volver al inicio
             </ButtonLink>
+            <WhatsAppButton message={WHATSAPP_MESSAGES.general} label="Preguntar por WhatsApp" />
           </div>
 
           <ul role="list" className={styles.links}>
             {SEGUROS.map(({ slug, nombre }) => (
               <li key={slug}>
                 <Link href={`/seguros/${slug}`} className={styles.link} transitionTypes={['nav-forward']}>
-                  {nombre}
+                  <span>{nombre}</span>
+                  <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" className={styles.linkArrow} />
                 </Link>
               </li>
             ))}

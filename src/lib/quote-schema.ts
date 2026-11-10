@@ -138,9 +138,22 @@ export function readQuote(formData: FormData): QuoteValues {
   return values;
 }
 
+/** Comprobante que la Server Action devuelve tras un envío correcto (ya validado). */
+export interface QuoteReceipt {
+  seguro: string;
+  operacion: string;
+  email: string;
+  telefono: string;
+}
+
+/** 10 dígitos → «449 239 3813», para leerlo de un vistazo en el comprobante. */
+export function formatMxPhone(digits: string): string {
+  return /^\d{10}$/.test(digits) ? `${digits.slice(0, 3)} ${digits.slice(3, 6)} ${digits.slice(6)}` : digits;
+}
+
 export type QuoteState =
   | { status: 'idle' }
-  | { status: 'success'; message: string }
+  | { status: 'success'; message: string; receipt?: QuoteReceipt }
   | { status: 'invalid'; message: string; errors: QuoteErrors; values: QuoteValues }
   | { status: 'error'; message: string; values: QuoteValues };
 

@@ -40,15 +40,15 @@
 /* Cuando la lista se desborda (móvil), el borde por donde queda contenido se
    desvanece: indica que hay más sin mostrar una barra de scroll. */
 .list[data-more='end'] {
-  mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(to right, var(--color-ink) calc(100% - 3rem), transparent);
 }
 
 .list[data-more='start'] {
-  mask-image: linear-gradient(to left, #000 calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(to left, var(--color-ink) calc(100% - 3rem), transparent);
 }
 
 .list[data-more='both'] {
-  mask-image: linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(to right, transparent, var(--color-ink) 3rem, var(--color-ink) calc(100% - 3rem), transparent);
 }
 
 .link {

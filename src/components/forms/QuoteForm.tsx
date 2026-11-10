@@ -4,6 +4,8 @@ import { startTransition, useActionState, useEffect, useId, useRef, useState, ty
 import { AlertCircle, ArrowRight, Check, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 import { submitQuote } from '@/app/actions/submit-quote';
+import { buttonClass } from '@/components/ui/Button';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import {
   EMPTY_QUOTE,
   HONEYPOT_FIELD,
@@ -18,6 +20,7 @@ import {
   validateField,
   type QuoteErrors,
   type QuoteField,
+  type QuoteReceipt,
   type QuoteState,
   type QuoteValues,
 } from '@/lib/quote-schema';
@@ -135,16 +138,7 @@ function QuoteFormInner({
   }
 
   if (state.status === 'success') {
-    return (
-      <div className={styles.success} role="status" aria-live="polite">
-        <CheckCircle2 size={36} strokeWidth={1.5} aria-hidden="true" className={styles.successIcon} />
-        <h3 className={styles.successTitle}>Solicitud enviada</h3>
-        <p>{state.message}</p>
-        <button type="button" className={styles.linkButton} onClick={onReset}>
-          Enviar otra solicitud
-        </button>
-      </div>
-    );
+    return <QuoteSuccess message={state.message} receipt={state.receipt} whatsappHref={whatsappHref} onReset={onReset} />;
   }
 
   const id = (name: string) => `${uid}-${name}`;
@@ -333,6 +327,89 @@ function QuoteFormInner({
         )}
       </button>
     </form>
+  );
+}
+
+/**
+ * Comprobante de la solicitud, con forma de ficha: qué se pidió, a dónde
+ * respondemos y qué sigue. El foco pasa al título porque el formulario
+ * desaparece (sin esto, el teclado quedaría en el <body>).
+ */
+function QuoteSuccess({
+  message,
+  receipt,
+  whatsappHref,
+  onReset,
+}: {
+  message: string;
+  receipt?: QuoteReceipt;
+  whatsappHref: string | null;
+  onReset: () => void;
+}) {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => titleRef.current?.focus(), []);
+
+  return (
+    <div className={styles.success} role="status" aria-live="polite">
+      <div className={styles.successHead}>
+        <CheckCircle2 size={28} strokeWidth={1.75} aria-hidden="true" className={styles.successIcon} />
+        <h3 ref={titleRef} tabIndex={-1} className={styles.successTitle}>
+          Solicitud recibida
+        </h3>
+      </div>
+      <p className={styles.successLead}>{message}</p>
+
+      {receipt ? (
+        <dl className={styles.receipt}>
+          <div className={styles.receiptRow}>
+            <dt>Seguro</dt>
+            <dd>{receipt.seguro}</dd>
+          </div>
+          <div className={styles.receiptRow}>
+            <dt>Operación</dt>
+            <dd>{receipt.operacion}</dd>
+          </div>
+          <div className={styles.receiptRow}>
+            <dt>Contacto</dt>
+            <dd>
+              <EmailText email={receipt.email} />
+              <span>{receipt.telefono}</span>
+            </dd>
+          </div>
+        </dl>
+      ) : null}
+
+      <p className={styles.successNext}>
+        <strong>Qué sigue:</strong> revisamos tu operación y te enviamos una propuesta personalizada y sin costo. Si quieres
+        agregar algo (flota, capacidad, ubicación), escríbenos por WhatsApp.
+      </p>
+
+      <div className={styles.successActions}>
+        {whatsappHref ? (
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className={buttonClass('secondary')}>
+            <WhatsAppIcon size={18} />
+            <span>Escribir por WhatsApp</span>
+            <span className="visually-hidden"> (se abre en una pestaña nueva)</span>
+          </a>
+        ) : null}
+        <button type="button" className={styles.linkButton} onClick={onReset}>
+          Enviar otra solicitud
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Correo con punto de corte después de la @: en pantallas angostas se parte ahí, no a mitad de palabra. */
+function EmailText({ email }: { email: string }) {
+  const at = email.indexOf('@');
+  if (at < 0) return <span>{email}</span>;
+  return (
+    <span>
+      {email.slice(0, at + 1)}
+      <wbr />
+      {email.slice(at + 1)}
+    </span>
   );
 }
 

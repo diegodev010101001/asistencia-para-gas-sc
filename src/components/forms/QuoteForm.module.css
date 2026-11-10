@@ -317,14 +317,13 @@
   }
 }
 
+/* ─── Comprobante de la solicitud ─────────────────────────────────────── */
+/* Una ficha: lo que se pidió en filas etiqueta/valor, como la hoja de datos.
+   Va directo dentro de la tarjeta del formulario, sin marco propio (una
+   tarjeta dentro de otra); el estado lo comunican el ícono y el título. */
 .success {
   display: grid;
-  justify-items: start;
-  gap: var(--space-s);
-  padding: var(--space-l);
-  border: 1px solid var(--color-success);
-  border-radius: var(--radius-l);
-  background-color: var(--color-success-soft);
+  gap: var(--space-m);
   animation: success-in var(--dur-slow) var(--ease-out-expo) both;
 }
 
@@ -339,12 +338,96 @@
   }
 }
 
+.successHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
 .successIcon {
+  flex: none;
   color: var(--color-success);
 }
 
 .successTitle {
   font-size: var(--step-2);
+  font-stretch: var(--stretch-semi);
+}
+
+/* Recibe el foco por programa (el formulario desaparece); no es interactivo,
+   así que no se pinta un anillo que lo haga parecer botón. */
+.successTitle:focus {
+  outline: none;
+}
+
+.successLead {
+  color: var(--color-text-soft);
+}
+
+.receipt {
+  display: grid;
+  border-top: 2px solid var(--color-ink);
+}
+
+.receiptRow {
+  display: grid;
+  gap: var(--space-3xs);
+  padding-block: var(--space-xs);
+  border-bottom: var(--hairline);
+}
+
+@media (min-width: 30em) {
+  .receiptRow {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: var(--space-s);
+    align-items: baseline;
+  }
+}
+
+.receiptRow dt {
+  font-family: var(--ff-display);
+  font-size: var(--step--2);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.receiptRow dd {
+  display: grid;
+  font-weight: 600;
+  /* El correo se parte primero después de la @ (<wbr>); «anywhere» solo
+     actúa si aun así una parte no cabe en la columna. */
+  overflow-wrap: anywhere;
+}
+
+/* Las filas se asientan una tras otra: el comprobante se «llena» al aparecer. */
+@media (prefers-reduced-motion: no-preference) {
+  .receiptRow {
+    animation: success-in var(--dur-slow) var(--ease-out-expo) both;
+  }
+
+  .receiptRow:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  .receiptRow:nth-child(3) {
+    animation-delay: 160ms;
+  }
+}
+
+.successNext {
+  max-width: 60ch;
+  font-size: var(--step--1);
+  color: var(--color-text-soft);
+}
+
+.successActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-m);
 }
 
 .linkButton {

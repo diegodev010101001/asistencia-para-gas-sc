@@ -1,6 +1,14 @@
 'use server';
 
-import { HONEYPOT_FIELD, quoteSchema, readQuote, toFieldErrors, type QuoteState } from '@/lib/quote-schema';
+import {
+  HONEYPOT_FIELD,
+  formatMxPhone,
+  quoteSchema,
+  readQuote,
+  seguroNombre,
+  toFieldErrors,
+  type QuoteState,
+} from '@/lib/quote-schema';
 import { sendQuoteEmail } from '@/lib/server/emailjs';
 import { checkRateLimit, getClientIp } from '@/lib/server/rate-limit';
 
@@ -46,5 +54,15 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     return { status: 'error', message: GENERIC_ERROR, values };
   }
 
-  return { status: 'success', message: 'Recibimos tu solicitud. Te contactaremos en menos de 48 horas hábiles.' };
+  // Comprobante con lo que se validó y envió: funciona también sin JavaScript.
+  return {
+    status: 'success',
+    message: 'Recibimos tu solicitud. Te contactaremos en menos de 48 horas hábiles.',
+    receipt: {
+      seguro: seguroNombre(parsed.data.seguro),
+      operacion: parsed.data.operacion,
+      email: parsed.data.email,
+      telefono: formatMxPhone(parsed.data.telefono),
+    },
+  };
 }
