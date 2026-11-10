@@ -89,6 +89,11 @@
   --container-narrow: 46rem;
   --header-h: 4.25rem;
 
+  /* ─── Controles (botones y campos) ───────────────────────────────────── */
+  --control-h: 2.875rem;      /* botón normal · objetivo táctil ≥ 44px */
+  --control-h-l: 3.375rem;    /* botón grande y envío del formulario */
+  --field-h: 3rem;            /* inputs y selects */
+
   /* ─── Radios (técnicos, contenidos) ──────────────────────────────────── */
   --radius-s: 2px;
   --radius-m: 4px;
@@ -124,6 +129,43 @@
   --z-header: 100;
   --z-overlay: 200;
   --z-skip: 300;
+}
+
+/* ─── Escritorio (≥ 1024px): escala compacta ───────────────────────────
+   Con la escala fluida de arriba el sitio se veía demasiado grande al 100 %
+   de zoom (lo cómodo era 80–90 %). Desde 64em todo baja ~12–15 % sobre los
+   mismos tokens, y el titular del hero ~18 %. Por debajo de 64em (móvil y
+   tableta) no cambia nada. Las curvas siguen siendo fluidas: 1024 → 1920px.
+   Los pisos de legibilidad se respetan (12px etiquetas, 14px secundario,
+   16px cuerpo) y los controles no bajan de 44px (iPad horizontal ≥ 1024px). */
+@media (min-width: 64em) {
+  :root {
+    --step--2: 0.75rem;
+    --step--1: 0.875rem;
+    --step-0: clamp(1rem, 0.9rem + 0.12vw, 1.0625rem);
+    --step-1: clamp(1.125rem, 0.8rem + 0.6vw, 1.3125rem);
+    --step-2: clamp(1.5rem, 1rem + 0.8vw, 1.75rem);
+    --step-3: clamp(1.875rem, 1.1rem + 1.25vw, 2.25rem);
+    --step-4: clamp(2.25rem, 1.2rem + 1.8vw, 2.75rem);
+    --step-5: clamp(3rem, 1.6rem + 2.6vw, 4rem);
+    --step-6: clamp(2.75rem, 1.2rem + 2.4vw, 3.5rem);
+
+    --space-s: 0.875rem;
+    --space-m: 1.25rem;
+    --space-l: 1.75rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 3.5rem;
+    --space-3xl: 5rem;
+
+    --space-section: clamp(5.5rem, 2rem + 5vw, 7rem);
+    --gutter: clamp(1.5rem, 0.5rem + 1.6vw, 2.25rem);
+    --container-max: 72rem;
+    --header-h: 3.75rem;
+
+    --control-h: 2.75rem;
+    --control-h-l: 3rem;
+    --field-h: 2.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

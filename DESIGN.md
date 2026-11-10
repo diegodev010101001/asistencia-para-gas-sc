@@ -183,7 +183,7 @@ Una paleta de papel y tinta casi neutra (tono cálido en el papel, frío en la t
 
 ## Layout
 
-Contenedor de 78 rem con gutter fluido (16 px en móvil, 40 px en escritorio). Secciones con ritmo vertical fluido (`section`, 64–128 px). Las composiciones son de dos columnas asimétricas en escritorio (7/5) y una columna en móvil; las listas técnicas usan rejillas de 2–4 columnas separadas por líneas finas en lugar de tarjetas. Breakpoints: 40em (tableta), 64em (escritorio). La navegación pasa a menú de pantalla completa debajo de 64em.
+Contenedor de 78 rem con gutter fluido (16 px en móvil); desde 64em la escala de escritorio lo reduce a 72 rem (gutter 24–36 px). Secciones con ritmo vertical fluido (`section`, 64–128 px; 88–112 px desde 64em). Las composiciones son de dos columnas asimétricas en escritorio (7/5) y una columna en móvil; las listas técnicas usan rejillas de 2–4 columnas separadas por líneas finas en lugar de tarjetas. Breakpoints: 40em (tableta), 64em (escritorio). La navegación pasa a menú de pantalla completa debajo de 64em.
 
 ### Named Rules
 **The Spec Sheet Rule.** La información comparable (datos, coberturas, pasos) se presenta en filas o columnas con líneas finas, como una ficha; las tarjetas se reservan para objetos navegables (seguros) o casos (escenarios).
@@ -235,7 +235,7 @@ Esquinas casi rectas y técnicas: 2 px en chips, 4 px en botones y campos, 8 px 
 - **Error:** borde y fondo suave de `danger`, mensaje con ícono; **válido:** check verde que aparece con escala.
 
 ### Navigation
-- Header fijo de 68 px; en reposo transparente; al hacer scroll aparece un fondo de papel opaco y una línea inferior que se traza. Enlaces Archivo 500 ancho 112 % con subrayado naranja que se traza en hover y marca la sección activa. Debajo de 64em, menú de pantalla completa con entrada escalonada.
+- Header fijo de 68 px (60 px desde 64em); en reposo transparente; al hacer scroll aparece un fondo de papel opaco y una línea inferior que se traza. Enlaces Archivo 500 ancho 112 % con subrayado naranja que se traza en hover y marca la sección activa. Debajo de 64em, menú de pantalla completa con entrada escalonada.
 - Dock flotante (tinta en pastilla): aparece después del primer pantallazo y se oculta cuando el contacto está a la vista. En móvil lleva WhatsApp + Cotizar; desde 40em, donde el header ya muestra «Cotizar», solo el círculo de WhatsApp.
 - Objetivos táctiles: ≥ 44 px. Las filas de contacto son enteras el enlace; los enlaces del footer miden 44 px con puntero táctil. Debajo de 30em los botones van a todo el ancho con 16 px de relleno y Archivo a ancho normal, para que las etiquetas quepan en una línea.
 - Índice de la ficha: barra de papel fija bajo el header durante toda la página, abierta con la regla de 2 px en tinta (la barra de progreso de lectura corre sobre ella). La sección que se lee pasa a tinta con subrayado naranja de 2 px, sin cambio de peso; en móvil la lista se desplaza para mantener visible el activo y el borde con contenido oculto se desvanece. Las anclas compensan header + índice con `scroll-padding-top`.
