@@ -11,7 +11,7 @@ export function About() {
     <section className={styles.section} id="nosotros" aria-labelledby="about-title">
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
-          <SectionHeader index="01" label={ABOUT.label} title={ABOUT.title} id="about-title" />
+          <SectionHeader title={ABOUT.title} id="about-title" />
           {ABOUT.paragraphs.map((p, i) => (
             <p key={i} className={styles.paragraph} data-reveal style={cssVars({ '--i': i + 2 })}>
               {p}

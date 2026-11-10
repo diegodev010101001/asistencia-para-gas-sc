@@ -40,8 +40,8 @@ export default function HomePage() {
         <About />
         <SegurosGrid />
         <Process />
-        <FaqSection items={FAQ_GENERAL} index="04" group="faq-general" />
-        <ContactSection index="05" />
+        <FaqSection items={FAQ_GENERAL} group="faq-general" />
+        <ContactSection />
       </DirectionalTransition>
     </>
   );

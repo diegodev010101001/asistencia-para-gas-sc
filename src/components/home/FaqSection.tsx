@@ -31,7 +31,7 @@ export function FaqSection({
     <section className={styles.section} id="preguntas" aria-labelledby="faq-title">
       <div className={`container ${styles.inner}`}>
         <div className={styles.aside}>
-          <SectionHeader index={index} label="Preguntas" title={title} lead={lead} id="faq-title" />
+          <SectionHeader index={index} title={title} lead={lead} id="faq-title" />
           <div className={styles.more} data-reveal>
             <p>¿Tienes otra pregunta?</p>
             <div className={styles.moreActions}>

@@ -5,9 +5,12 @@ import { cssVars } from '@/lib/css';
 import styles from './SectionHeader.module.css';
 
 interface SectionHeaderProps {
-  /** Número de sección («02»). */
+  /**
+   * Número de sección («02»), solo donde el orden aporta información (las
+   * fichas de seguro, cuyo índice lo repite). Va dentro del propio título,
+   * no como etiqueta encima: el título se sostiene solo.
+   */
   index?: string;
-  label: string;
   title: ReactNode;
   lead?: ReactNode;
   id?: string;
@@ -17,28 +20,19 @@ interface SectionHeaderProps {
   tone?: 'default' | 'inverse';
 }
 
-export function SectionHeader({
-  index,
-  label,
-  title,
-  lead,
-  id,
-  as: Heading = 'h2',
-  align = 'start',
-  tone = 'default',
-}: SectionHeaderProps) {
+export function SectionHeader({ index, title, lead, id, as: Heading = 'h2', align = 'start', tone = 'default' }: SectionHeaderProps) {
   return (
     <header className={[styles.header, styles[align], styles[tone]].join(' ')}>
-      <p className={`label ${styles.label}`} data-reveal>
-        {index ? <span className={styles.index}>{index}</span> : null}
-        <span className={styles.rule} aria-hidden="true" />
-        {label}
-      </p>
-      <Heading id={id} className={styles.title} data-reveal style={cssVars({ '--i': 1 })}>
+      <Heading id={id} className={styles.title} data-reveal>
+        {index ? (
+          <span className={styles.index} aria-hidden="true">
+            {index}
+          </span>
+        ) : null}
         {title}
       </Heading>
       {lead ? (
-        <p className={styles.lead} data-reveal style={cssVars({ '--i': 2 })}>
+        <p className={styles.lead} data-reveal style={cssVars({ '--i': 1 })}>
           {lead}
         </p>
       ) : null}

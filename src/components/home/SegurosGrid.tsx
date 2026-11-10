@@ -57,8 +57,6 @@ export function SegurosGrid() {
     <section className={styles.section} id="seguros" aria-labelledby="seguros-title">
       <div className="container">
         <SectionHeader
-          index="02"
-          label="Nuestros seguros"
           title="Coberturas para cada riesgo del sector energético"
           lead="Tres soluciones complementarias que protegen a las personas, el patrimonio y el medio ambiente en toda la operación."
           id="seguros-title"

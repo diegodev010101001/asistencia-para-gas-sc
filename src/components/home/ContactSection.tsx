@@ -55,7 +55,7 @@ export function ContactSection({
     <section className={`on-ink ${styles.section}`} id="contacto" aria-labelledby="contacto-title">
       <div className={`container ${styles.inner}`}>
         <div className={styles.aside}>
-          <SectionHeader index={index} label={CONTACT_SECTION.label} title={title} lead={lead} id="contacto-title" tone="inverse" />
+          <SectionHeader index={index} title={title} lead={lead} id="contacto-title" tone="inverse" />
           <WhatsAppButton message={whatsappMessage} label="Hablar por WhatsApp" variant="inverse" size="l" className={styles.waButton} />
           <ul role="list" className={styles.info}>
             <InfoRow icon={<WhatsAppIcon size={18} />} label="WhatsApp" value={contact.whatsapp} href={wa} />

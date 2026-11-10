@@ -27,7 +27,6 @@ export const HERO = {
 } as const;
 
 export const ABOUT = {
-  label: 'Quiénes somos',
   title: 'Protegemos lo que mueve a México',
   paragraphs: [
     'ASISTENCIA PARA GAS SC es un agente de seguros dedicado a la cadena del gas LP e hidrocarburos: plantas de almacenamiento, autotanques, transporte y comercialización. No emitimos pólizas: analizamos tu operación, cotizamos y colocamos la póliza con aseguradoras.',
@@ -86,7 +85,6 @@ export const PROCESS: readonly ProcessStep[] = [
 ];
 
 export const CONTACT_SECTION = {
-  label: 'Cotización',
   title: 'Solicita tu cotización sin costo',
   lead: 'Cuéntanos sobre tu operación y te enviamos una propuesta personalizada en menos de 48 horas hábiles.',
 } as const;

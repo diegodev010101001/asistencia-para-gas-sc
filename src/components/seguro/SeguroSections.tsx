@@ -21,7 +21,7 @@ export function IntroSection({ seguro, index }: { seguro: Seguro; index: string 
     <section className={styles.section} aria-labelledby="intro-title">
       <div className={`container ${styles.split}`}>
         <div>
-          <SectionHeader index={index} label="Qué es" title={`El ${seguro.nombre.toLowerCase()}, en breve`} id="intro-title" />
+          <SectionHeader index={index} title={`El ${seguro.nombre.toLowerCase()}, en breve`} id="intro-title" />
           <div className={styles.prose}>
             {seguro.descripcion.map((p, i) => (
               <p key={i} data-reveal style={cssVars({ '--i': i })}>
@@ -81,7 +81,6 @@ export function CoverageSection({ seguro, index }: { seguro: Seguro; index: stri
       <div className="container">
         <SectionHeader
           index={index}
-          label="Cobertura"
           title="Qué cubre y qué no cubre"
           lead="Lo que responde la póliza y las exclusiones que conviene conocer antes de contratar."
           id="cobertura-title"
@@ -149,7 +148,7 @@ export function AudienceSection({ seguro, index }: { seguro: Seguro; index: stri
   return (
     <section className={styles.section} id="dirigido" aria-labelledby="dirigido-title">
       <div className="container">
-        <SectionHeader index={index} label="A quién va dirigido" title={seguro.dirigidoTitulo ?? 'Pensado para estas operaciones'} id="dirigido-title" />
+        <SectionHeader index={index} title={seguro.dirigidoTitulo ?? 'Pensado para estas operaciones'} id="dirigido-title" />
         <ul role="list" className={styles.audience}>
           {seguro.dirigidoA.map(({ titulo, texto }, i) => (
             <li key={titulo} className={styles.audienceItem} data-reveal style={cssVars({ '--i': i })}>
@@ -174,7 +173,6 @@ export function ScenariosSection({ seguro, index }: { seguro: Seguro; index: str
       <div className="container">
         <SectionHeader
           index={index}
-          label="Escenarios de riesgo"
           title="Cómo responde la póliza en situaciones del sector"
           lead="Casos ilustrativos basados en las coberturas y exclusiones de este seguro."
           id="escenarios-title"
@@ -215,7 +213,7 @@ export function ExtraSections({ seguro, startIndex }: { seguro: Seguro; startInd
       {blocks.map((block, i) => (
         <section key={block.id} className={styles.section} id={block.id} aria-labelledby={`${block.id}-title`}>
           <div className="container">
-            <SectionHeader index={pad(startIndex + i)} label={labelFor(block)} title={block.titulo} lead={block.intro} id={`${block.id}-title`} />
+            <SectionHeader index={pad(startIndex + i)} title={block.titulo} lead={block.intro} id={`${block.id}-title`} />
             <ExtraBody block={block} />
           </div>
         </section>
@@ -224,16 +222,6 @@ export function ExtraSections({ seguro, startIndex }: { seguro: Seguro; startInd
   );
 }
 
-function labelFor(block: BloqueExtra) {
-  switch (block.tipo) {
-    case 'pasos':
-      return 'Procedimiento';
-    case 'comparacion':
-      return 'Enfoque';
-    default:
-      return 'Requisitos';
-  }
-}
 
 function ExtraBody({ block }: { block: BloqueExtra }) {
   switch (block.tipo) {

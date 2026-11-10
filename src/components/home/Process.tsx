@@ -9,8 +9,6 @@ export function Process() {
     <section className={styles.section} id="proceso" aria-labelledby="proceso-title">
       <div className="container">
         <SectionHeader
-          index="03"
-          label="Cómo cotizar"
           title="De tu operación a tu póliza, en cuatro pasos"
           lead="Sin costo y sin compromiso. Cada propuesta parte de un análisis de tu exposición real."
           id="proceso-title"

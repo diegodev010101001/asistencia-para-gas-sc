@@ -4,27 +4,26 @@
   margin-bottom: var(--space-xl);
 }
 
-.label {
-  gap: var(--space-xs);
-}
-
-.index {
-  color: var(--color-accent-text);
-}
-
-.rule {
-  display: inline-block;
-  width: 2rem;
-  height: 1px;
-  background-color: currentColor;
-}
-
 .title {
   max-width: 22ch;
   font-size: var(--step-4);
   font-weight: 650;
   font-stretch: var(--stretch-semi);
   line-height: 1.05;
+}
+
+/* Número de sección dentro del título, alineado a la altura de las mayúsculas,
+   como la referencia de un apartado en una ficha técnica. */
+.index {
+  display: inline-block;
+  margin-right: 0.55em;
+  font-size: max(0.75rem, 0.34em);
+  font-weight: 600;
+  font-stretch: var(--stretch-semi);
+  letter-spacing: var(--tracking-label);
+  font-variant-numeric: tabular-nums;
+  vertical-align: text-top;
+  color: var(--color-accent-text);
 }
 
 .lead {
@@ -41,20 +40,12 @@
     align-items: end;
   }
 
-  .split .label {
-    grid-column: 1 / -1;
-  }
-
   .split .lead {
     justify-self: end;
   }
 }
 
 /* ─── Sobre fondo de tinta ────────────────────────────────────────────── */
-.inverse .label {
-  color: var(--color-text-inverse-muted);
-}
-
 .inverse .index {
   color: var(--color-accent-on-ink);
 }

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { ViewTransition } from 'react';
 
 import { ButtonLink } from '@/components/ui/Button';
-import { SeguroIcon } from '@/components/ui/SeguroIcon';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import type { Seguro } from '@/data/seguros';
 import { WHATSAPP_MESSAGES } from '@/data/site';
@@ -10,16 +9,23 @@ import { WHATSAPP_MESSAGES } from '@/data/site';
 import { Breadcrumbs } from './Breadcrumbs';
 import styles from './SeguroHero.module.css';
 
-const INDEX = [
-  { href: '#cobertura', label: 'Cobertura' },
-  { href: '#dirigido', label: 'A quién va dirigido' },
-  { href: '#escenarios', label: 'Escenarios' },
-  { href: '#preguntas', label: 'Preguntas' },
-  { href: '#cotizar', label: 'Cotizar' },
-] as const;
+const pad = (n: number) => String(n).padStart(2, '0');
+
+/** Índice de la ficha con los mismos números que llevan sus secciones. */
+function buildIndex(seguro: Seguro) {
+  const extras = seguro.extras.filter((e) => e.tipo !== 'datos').length;
+  return [
+    { href: '#cobertura', label: 'Cobertura', num: pad(2) },
+    { href: '#dirigido', label: 'A quién va dirigido', num: pad(3) },
+    { href: '#escenarios', label: 'Escenarios', num: pad(4) },
+    { href: '#preguntas', label: 'Preguntas', num: pad(5 + extras) },
+    { href: '#cotizar', label: 'Cotizar', num: pad(6 + extras) },
+  ];
+}
 
 export function SeguroHero({ seguro }: { seguro: Seguro }) {
-  const { slug, code, nombre, nombreCorto, hero, temas, imagen, icono } = seguro;
+  const { slug, code, nombre, nombreCorto, hero, temas, imagen } = seguro;
+  const index = buildIndex(seguro);
 
   return (
     <section className={styles.hero} aria-labelledby="seguro-title">
@@ -28,19 +34,14 @@ export function SeguroHero({ seguro }: { seguro: Seguro }) {
         <div className={styles.copy}>
           <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Seguros', href: '/#seguros' }, { label: nombreCorto }]} />
 
-          <p className={`label ${styles.label}`}>
-            <span className={styles.icon}>
-              <SeguroIcon name={icono} size={18} />
-            </span>
-            Ficha {code} — {nombre}
-          </p>
-
           <h1 id="seguro-title" className={`display ${styles.title}`}>
             {hero.titulo}
           </h1>
           <p className={styles.lead}>{hero.subtitulo}</p>
 
-          <ul role="list" className={styles.temas} aria-label="Temas principales">
+          {/* Línea de especificaciones: código de la ficha y temas, sin cajas que parezcan botones. */}
+          <ul role="list" className={styles.temas} aria-label="Ficha y temas principales">
+            <li className={styles.code}>Ficha {code}</li>
             {temas.map((t) => (
               <li key={t}>{t}</li>
             ))}
@@ -72,11 +73,11 @@ export function SeguroHero({ seguro }: { seguro: Seguro }) {
 
       <nav aria-label="Contenido de la ficha" className={`container ${styles.index}`}>
         <ol className={styles.indexList}>
-          {INDEX.map(({ href, label }, i) => (
+          {index.map(({ href, label, num }) => (
             <li key={href}>
               <a href={href} className={styles.indexLink}>
                 <span className={styles.indexNum} aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
+                  {num}
                 </span>
                 {label}
               </a>
