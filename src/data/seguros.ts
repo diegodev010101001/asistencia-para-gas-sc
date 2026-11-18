@@ -74,6 +74,8 @@ export interface Seguro extends SeguroMeta {
   dirigidoTitulo?: string;
   notaDirigido?: string;
   escenarios: readonly Escenario[];
+  /** Una tarjeta sola en la última fila de escenarios ocupa la fila completa (solo GMM). */
+  escenariosLlenarFila?: boolean;
   extras: readonly BloqueExtra[];
   faqs: readonly Faq[];
   seo: { title: string; description: string; keywords: readonly string[] };
@@ -543,6 +545,7 @@ export const SEGUROS: readonly Seguro[] = [
         resultado: 'excluido',
       },
     ],
+    escenariosLlenarFila: true,
     extras: [
       {
         tipo: 'datos',

@@ -198,7 +198,7 @@ export function ScenariosSection({ seguro, index }: { seguro: Seguro; index: str
           tone="inverse"
           align="split"
         />
-        <ol role="list" className={styles.scenarios}>
+        <ol role="list" className={styles.scenarios} data-fill-last={seguro.escenariosLlenarFila || undefined}>
           {seguro.escenarios.map(({ titulo, situacion, respuesta, resultado }, i) => (
             <li key={titulo} className={styles.scenario} data-result={resultado} data-reveal style={cssVars({ '--i': i })}>
               <div className={styles.scenarioHead}>

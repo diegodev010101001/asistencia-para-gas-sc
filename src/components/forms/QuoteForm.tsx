@@ -5,6 +5,7 @@ import { AlertCircle, ArrowRight, Check, CheckCircle2, LoaderCircle } from 'luci
 
 import { submitQuote } from '@/app/actions/submit-quote';
 import { buttonClass } from '@/components/ui/Button';
+import { EmailText } from '@/components/ui/EmailText';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import {
   EMPTY_QUOTE,
@@ -397,19 +398,6 @@ function QuoteSuccess({
         </button>
       </div>
     </div>
-  );
-}
-
-/** Correo con punto de corte después de la @: en pantallas angostas se parte ahí, no a mitad de palabra. */
-function EmailText({ email }: { email: string }) {
-  const at = email.indexOf('@');
-  if (at < 0) return <span>{email}</span>;
-  return (
-    <span>
-      {email.slice(0, at + 1)}
-      <wbr />
-      {email.slice(at + 1)}
-    </span>
   );
 }
 

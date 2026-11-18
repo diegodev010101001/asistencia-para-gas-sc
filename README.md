@@ -91,7 +91,6 @@ src/
 
 Búscalos con `grep -rn "TODO" src`. Resumen:
 
-- Dominio final (`NEXT_PUBLIC_SITE_URL`).
 - URL del aviso de privacidad y redes sociales (`src/data/site.ts`).
 - Llaves de EmailJS en `.env.local` y en Vercel.
 - Confirmar cifras heredadas: límite USD 2,000,000; deducibles USD 30,000 / 10 % mín. USD 15,000;

@@ -333,16 +333,17 @@
   }
 }
 
-/* Una tarjeta sola en la última fila ocupa la fila completa para que la
-   rejilla se vea cerrada (p. ej. 7 escenarios: 3 + 3 + 1 → la última a lo ancho). */
+/* Solo donde el seguro lo pide (data-fill-last, hoy GMM): una tarjeta sola en
+   la última fila ocupa la fila completa (7 escenarios: 3 + 3 + 1 → la última a
+   lo ancho). Las demás rejillas quedan como siempre. */
 @media (min-width: 40em) and (max-width: 63.99em) {
-  .scenario:last-child:nth-child(2n + 1) {
+  .scenarios[data-fill-last] > .scenario:last-child:nth-child(2n + 1) {
     grid-column: 1 / -1;
   }
 }
 
 @media (min-width: 64em) {
-  .scenario:last-child:nth-child(3n + 1) {
+  .scenarios[data-fill-last] > .scenario:last-child:nth-child(3n + 1) {
     grid-column: 1 / -1;
   }
 }

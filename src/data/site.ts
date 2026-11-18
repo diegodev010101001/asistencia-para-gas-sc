@@ -30,7 +30,8 @@ export interface SocialLink {
   href: string;
 }
 
-const FALLBACK_URL = 'https://DOMINIO.com';
+/** Dominio oficial. En Vercel también se define con NEXT_PUBLIC_SITE_URL. */
+const FALLBACK_URL = 'https://www.asistenciaparagas.com';
 
 /**
  * Aliado estratégico en seguros: los seguros se ofrecen mediante su alianza.
@@ -41,7 +42,7 @@ export const INSURANCE_PARTNER = {
   url: 'https://www.consegurobroker.com/',
 } as const;
 
-/** Acepta solo una URL absoluta válida; vacía o mal formada → dominio provisional. */
+/** Acepta solo una URL absoluta válida; vacía o mal formada → dominio oficial. */
 function resolveSiteUrl(value: string | undefined): string {
   const candidate = value?.trim();
   if (!candidate) return FALLBACK_URL;
@@ -54,14 +55,14 @@ function resolveSiteUrl(value: string | undefined): string {
 
 export const SITE = {
   name: 'ASISTENCIA PARA GAS SC',
-  /** TODO: dominio final. En Vercel se define con NEXT_PUBLIC_SITE_URL. */
+  /** Base de canonical, Open Graph, sitemap y JSON-LD (NEXT_PUBLIC_SITE_URL). */
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: 'es_MX',
   description:
     `Asociación dedicada al sector de hidrocarburos y la industria energética en México. Con nuestro aliado ${INSURANCE_PARTNER.name} acercamos seguros de responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para el gas LP.`,
   contact: {
     phone: '+52 449 239 3813',
-    email: 'asisgassc@gmail.com',
+    email: 'contacto@asistenciaparagas.com',
     whatsapp: '+52 1 449 106 1582',
     address: {
       street: 'Julian Piñon Valenzuela 242 B',

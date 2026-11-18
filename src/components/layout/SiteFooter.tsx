@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 import { Logo } from '@/components/brand/Logo';
+import { EmailText } from '@/components/ui/EmailText';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { NAV_ITEMS } from '@/data/navigation';
 import { SEGUROS } from '@/data/seguros';
@@ -12,7 +13,7 @@ import styles from './SiteFooter.module.css';
 
 const YEAR = new Date().getFullYear();
 
-function ContactItem({ icon, label, value, href }: { icon: ReactNode; label: string; value: string; href: string | null }) {
+function ContactItem({ icon, label, value, href }: { icon: ReactNode; label: string; value: ReactNode; href: string | null }) {
   return (
     <li className={styles.contactItem}>
       <span className={styles.contactIcon} aria-hidden="true">
@@ -77,7 +78,7 @@ export function SiteFooter() {
           <ul role="list" className={styles.list}>
             <ContactItem icon={<Phone size={16} strokeWidth={1.75} />} label="Teléfono" value={contact.phone} href={phoneHref()} />
             <ContactItem icon={<WhatsAppIcon size={16} />} label="WhatsApp" value={contact.whatsapp} href={whatsappHref(WHATSAPP_MESSAGES.general)} />
-            <ContactItem icon={<Mail size={16} strokeWidth={1.75} />} label="Correo" value={contact.email} href={emailHref()} />
+            <ContactItem icon={<Mail size={16} strokeWidth={1.75} />} label="Correo" value={<EmailText email={contact.email} />} href={emailHref()} />
             <ContactItem icon={<MapPin size={16} strokeWidth={1.75} />} label="Ubicación" value={addressText()} href={null} />
           </ul>
           <p className={styles.hours}>{contact.hours}</p>

@@ -14,7 +14,7 @@ import './globals.css';
 
 /** Metadatos base. Cada página completa los suyos con buildMetadata (src/lib/seo.ts). */
 export const metadata: Metadata = {
-  // TODO: dominio final (NEXT_PUBLIC_SITE_URL en Vercel). Base de canonical, OG y sitemap.
+  // Dominio desde NEXT_PUBLIC_SITE_URL (https://www.asistenciaparagas.com). Base de canonical, OG y sitemap.
   metadataBase: new URL(SITE.url),
   title: {
     default: `${SITE.name} | Seguros para la industria del gas LP`,
