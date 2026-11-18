@@ -12,11 +12,14 @@ export function About() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
           <SectionHeader title={ABOUT.title} id="about-title" />
-          {ABOUT.paragraphs.map((p, i) => (
+          {ABOUT.paragraphs.map((parts, i) => (
             <p key={i} className={styles.paragraph} data-reveal style={cssVars({ '--i': i + 2 })}>
-              {p}
+              {parts.map((part, j) => (typeof part === 'string' ? part : <strong key={j}>{part.strong}</strong>))}
             </p>
           ))}
+          <p className={styles.paragraph} data-reveal style={cssVars({ '--i': ABOUT.paragraphs.length + 2 })}>
+            <strong>{ABOUT.closing}</strong>
+          </p>
         </div>
 
         <div className={styles.media} data-reveal>

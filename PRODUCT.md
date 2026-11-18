@@ -23,7 +23,7 @@ Sitio comercial de ASISTENCIA PARA GAS SC. Explica tres seguros especializados p
 
 ## Positioning
 
-ASISTENCIA PARA GAS SC es un **agente o intermediario de seguros**: asesora, cotiza y coloca pólizas con aseguradoras; no emite pólizas propias. Se especializa exclusivamente en la cadena del gas LP e hidrocarburos (almacenamiento, distribución, transporte, carga y descarga, expendio) y atiende operaciones en **todo México** desde su oficina en Pocitos, Aguascalientes.
+ASISTENCIA PARA GAS SC es una **asociación** dedicada a impulsar y proporcionar soluciones y servicios especializados para el sector de hidrocarburos y la industria energética en México. **No es agente de seguros**: los seguros se ofrecen mediante su alianza estratégica con **CON SEGURO BROKER** (siempre en mayúsculas), firma especializada en intermediación de seguros; la póliza la emite la compañía aseguradora. Se especializa exclusivamente en la cadena del gas LP e hidrocarburos (almacenamiento, distribución, transporte, carga y descarga, expendio) y atiende operaciones en **todo México** desde su oficina en Pocitos, Aguascalientes.
 
 ## Operating Context
 
@@ -38,7 +38,7 @@ ASISTENCIA PARA GAS SC es un **agente o intermediario de seguros**: asesora, cot
 - Formulario: Server Action con `@emailjs/nodejs`, validación zod compartida cliente/servidor, honeypot y rate limit por IP. Las llaves nunca llegan al cliente.
 - Idioma: español de México (`es-MX`).
 - Contacto (`src/data/site.ts`): WhatsApp +52 1 449 106 1582, teléfono +52 449 239 3813, asisgassc@gmail.com, Julian Piñon Valenzuela 242 B, Los Pocitos, CP 20328 Pocitos, Ags.
-- **Decisiones abiertas** (no inventar mientras sigan abiertas): dominio final; URL del aviso de privacidad; redes sociales; nombres de las aseguradoras con las que coloca; suma asegurada de Gastos Médicos Mayores.
+- **Decisiones abiertas** (no inventar mientras sigan abiertas): dominio final; URL del aviso de privacidad; redes sociales; datos de CON SEGURO BROKER (sitio web, domicilio, registro); nombres de las aseguradoras; suma asegurada de Gastos Médicos Mayores y si el plan cubre enfermedades además de accidentes laborales.
 
 ## Brand Commitments
 

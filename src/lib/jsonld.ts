@@ -21,7 +21,10 @@ export function organizationJsonLd(): JsonLdObject {
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'InsuranceAgency',
+    // Asociación del sector, no agente de seguros: los seguros se ofrecen
+    // mediante su aliado (SITE.description). Organization admite todas las
+    // propiedades de abajo y sigue siendo válido como provider de cada Service.
+    '@type': 'Organization',
     '@id': ORG_ID,
     name: SITE.name,
     url: absoluteUrl('/'),

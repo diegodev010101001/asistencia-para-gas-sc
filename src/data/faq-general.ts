@@ -1,3 +1,5 @@
+import { INSURANCE_PARTNER, SITE } from './site';
+
 export interface Faq {
   question: string;
   answer: string;
@@ -6,10 +8,13 @@ export interface Faq {
 /** Preguntas frecuentes generales (inicio). Respuestas del sitio anterior, con redacción revisada. */
 export const FAQ_GENERAL: readonly Faq[] = [
   {
-    // Posicionamiento confirmado por el cliente (PRODUCT.md).
+    // Posicionamiento confirmado por el cliente (PRODUCT.md): asociación + aliado en seguros.
     question: '¿Ustedes son la aseguradora?',
-    answer:
-      'No. Somos agentes de seguros: analizamos tu operación, cotizamos y colocamos la póliza con aseguradoras. La póliza la emite la aseguradora; nosotros te asesoramos para que la cobertura responda a tu operación real.',
+    answer: `No. ${SITE.name} es una asociación dedicada a impulsar soluciones y servicios especializados para el sector de hidrocarburos y la industria energética en México. Los seguros se ofrecen a través de nuestra alianza estratégica con ${INSURANCE_PARTNER}, firma especializada en intermediación de seguros; la póliza la emite la compañía aseguradora.`,
+  },
+  {
+    question: `¿Cuál es la relación con ${INSURANCE_PARTNER}?`,
+    answer: `Es nuestro aliado estratégico en seguros. Nosotros aportamos el conocimiento del sector y la vinculación con empresas, operadores y profesionales de la industria; ${INSURANCE_PARTNER}, como firma especializada en intermediación de seguros, acerca las soluciones de aseguramiento diseñadas para las necesidades de la industria de hidrocarburos.`,
   },
   {
     question: '¿Qué tipo de empresas pueden contratar estos seguros?',

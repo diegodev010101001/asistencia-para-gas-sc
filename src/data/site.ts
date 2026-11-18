@@ -32,6 +32,13 @@ export interface SocialLink {
 
 const FALLBACK_URL = 'https://DOMINIO.com';
 
+/**
+ * Aliado estratégico en seguros. Se escribe siempre así, en mayúsculas.
+ * TODO: sitio web, domicilio y registro de CON SEGURO BROKER (no los tenemos;
+ * no publicar ninguno hasta que el cliente los confirme).
+ */
+export const INSURANCE_PARTNER = 'CON SEGURO BROKER';
+
 /** Acepta solo una URL absoluta válida; vacía o mal formada → dominio provisional. */
 function resolveSiteUrl(value: string | undefined): string {
   const candidate = value?.trim();
@@ -49,7 +56,7 @@ export const SITE = {
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: 'es_MX',
   description:
-    'Agentes de seguros especializados en la industria del gas LP e hidrocarburos en México: responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para plantas, autotanques y transportistas.',
+    `Asociación dedicada al sector de hidrocarburos y la industria energética en México. Con nuestro aliado ${INSURANCE_PARTNER} acercamos seguros de responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para el gas LP.`,
   contact: {
     phone: '+52 449 239 3813',
     email: 'asisgassc@gmail.com',
