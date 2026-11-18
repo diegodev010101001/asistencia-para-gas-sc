@@ -1,3 +1,6 @@
+import { ArrowUpRight } from 'lucide-react';
+
+import { buttonClass } from '@/components/ui/Button';
 import { Figure } from '@/components/ui/Figure';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ABOUT, REASONS } from '@/data/home';
@@ -14,21 +17,42 @@ export function About() {
           <SectionHeader title={ABOUT.title} id="about-title" />
           {ABOUT.paragraphs.map((parts, i) => (
             <p key={i} className={styles.paragraph} data-reveal style={cssVars({ '--i': i + 2 })}>
-              {parts.map((part, j) => (typeof part === 'string' ? part : <strong key={j}>{part.strong}</strong>))}
+              {parts.map((part, j) => {
+                if (typeof part === 'string') return part;
+                const strong = <strong key={j}>{part.strong}</strong>;
+                return 'href' in part ? (
+                  <a key={j} href={part.href} target="_blank" rel="noopener noreferrer">
+                    {strong}
+                    <span className="visually-hidden"> (se abre en una pestaña nueva)</span>
+                  </a>
+                ) : (
+                  strong
+                );
+              })}
             </p>
           ))}
           <p className={styles.paragraph} data-reveal style={cssVars({ '--i': ABOUT.paragraphs.length + 2 })}>
             <strong>{ABOUT.closing}</strong>
           </p>
+          <div className={styles.alliance} data-reveal style={cssVars({ '--i': ABOUT.paragraphs.length + 3 })}>
+            <p className="label">{ABOUT.alliance.text}</p>
+            <a href={ABOUT.alliance.href} target="_blank" rel="noopener noreferrer" className={buttonClass('secondary')}>
+              <span>{ABOUT.alliance.cta}</span>
+              <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true" />
+              <span className="visually-hidden"> (se abre en una pestaña nueva)</span>
+            </a>
+          </div>
         </div>
 
         <div className={styles.media} data-reveal>
           <Figure
             src={imgTuberias}
             alt={ABOUT.imageAlt}
-            sizes="(min-width: 64em) 36vw, 100vw"
-            ratio="3 / 4"
+            // Desde 64em la foto toma la altura de la columna de texto y se recorta
+            // con cover (~1.6× la altura de antes), así que necesita más resolución.
+            sizes="(min-width: 64em) 60vw, 100vw"
             caption="Infraestructura de gas LP"
+            className={styles.figure}
           />
         </div>
 

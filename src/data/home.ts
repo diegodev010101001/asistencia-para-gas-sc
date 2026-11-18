@@ -19,15 +19,15 @@ export const STATS: readonly Stat[] = [
 
 export const HERO = {
   titleLines: ['Seguros para', 'la industria', 'del gas LP'],
-  // Posicionamiento (PRODUCT.md): asociación del sector; los seguros, mediante CON SEGURO BROKER.
-  lead: `Somos una asociación dedicada al sector de hidrocarburos. Con nuestro aliado ${INSURANCE_PARTNER} acercamos seguros para plantas, autotanques y transportistas de gas LP.`,
+  // Posicionamiento (PRODUCT.md): asociación del sector; los seguros, mediante su aliado Conseguro Broker.
+  lead: `Somos una asociación dedicada al sector de hidrocarburos. Con nuestro aliado ${INSURANCE_PARTNER.name} acercamos seguros para plantas, autotanques y transportistas de gas LP.`,
   // Dato verificable en lugar de una afirmación genérica de cumplimiento.
   compliance: { title: 'Todo México', text: 'Oficina en Aguascalientes' },
   imageAlt: 'Tanque horizontal de almacenamiento de gas LP con escalera y plataforma de servicio en una planta',
 } as const;
 
-/** Fragmento de texto; `{ strong }` se muestra en negritas. */
-export type Inline = string | { strong: string };
+/** Fragmento de texto; `{ strong }` se muestra en negritas y, con `href`, como enlace externo. */
+export type Inline = string | { strong: string; href?: string };
 
 /** «Protegemos lo que mueve a México»: redacción del cliente, sin cambios. */
 export const ABOUT = {
@@ -42,13 +42,19 @@ export const ABOUT = {
     ],
     [
       'Como parte de nuestra propuesta de valor, mantenemos una alianza estratégica con ',
-      { strong: INSURANCE_PARTNER },
+      { strong: INSURANCE_PARTNER.name, href: INSURANCE_PARTNER.url },
       ', firma especializada en intermediación de seguros, para acercar soluciones de aseguramiento diseñadas para las necesidades específicas de la industria de hidrocarburos.',
     ],
     [
       'Nuestro objetivo es ofrecer un respaldo integral que combine conocimiento del sector, servicios especializados y soluciones de protección patrimonial, responsabilidad civil y responsabilidad ambiental.',
     ],
   ] satisfies readonly (readonly Inline[])[],
+  /** Bloque «Alianza estratégica» con enlace al sitio del aliado. */
+  alliance: {
+    text: `Alianza estratégica con ${INSURANCE_PARTNER.name}`,
+    cta: `Conocer a ${INSURANCE_PARTNER.name}`,
+    href: INSURANCE_PARTNER.url,
+  },
   /** Frase de cierre, destacada. */
   closing:
     'Conectamos a la industria con soluciones que protegen su operación, fortalecen su patrimonio y contribuyen a la continuidad de sus negocios.',

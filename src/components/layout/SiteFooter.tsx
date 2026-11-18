@@ -6,7 +6,7 @@ import { Logo } from '@/components/brand/Logo';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { NAV_ITEMS } from '@/data/navigation';
 import { SEGUROS } from '@/data/seguros';
-import { SITE, WHATSAPP_MESSAGES, addressText, emailHref, phoneHref, whatsappHref } from '@/data/site';
+import { INSURANCE_PARTNER, SITE, WHATSAPP_MESSAGES, addressText, emailHref, phoneHref, whatsappHref } from '@/data/site';
 
 import styles from './SiteFooter.module.css';
 
@@ -87,6 +87,13 @@ export function SiteFooter() {
       <div className={`container ${styles.bottom}`}>
         <p>
           © {YEAR} {SITE.name}. Todos los derechos reservados.
+        </p>
+        <p>
+          En alianza estratégica con{' '}
+          <a href={INSURANCE_PARTNER.url} target="_blank" rel="noopener noreferrer" className={styles.link}>
+            {INSURANCE_PARTNER.name}
+            <span className="visually-hidden"> (se abre en una pestaña nueva)</span>
+          </a>
         </p>
         {/* TODO: el enlace aparece en cuanto exista SITE.privacyUrl. */}
         {SITE.privacyUrl ? (

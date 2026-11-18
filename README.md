@@ -2,7 +2,7 @@
 
 Sitio de ASISTENCIA PARA GAS SC, asociación del sector de hidrocarburos en México. Los seguros
 (Responsabilidad Civil, Responsabilidad Ambiental y Gastos Médicos Mayores) se ofrecen mediante su
-aliado CON SEGURO BROKER (nombre en `INSURANCE_PARTNER`, `src/data/site.ts`).
+aliado Conseguro Broker (nombre y enlace en `INSURANCE_PARTNER`, `src/data/site.ts`).
 
 **Stack:** Next.js 16 (App Router) · React 19.3 · TypeScript strict · CSS Modules con design tokens · lucide-react.
 Todas las rutas se generan estáticas (SSG).
@@ -96,6 +96,5 @@ Búscalos con `grep -rn "TODO" src`. Resumen:
 - Llaves de EmailJS en `.env.local` y en Vercel.
 - Confirmar cifras heredadas: límite USD 2,000,000; deducibles USD 30,000 / 10 % mín. USD 15,000;
   aviso de siniestro 24–72 h; emisión 3–7 días hábiles; respuesta en 48 h hábiles.
-- Suma asegurada de Gastos Médicos Mayores, y si el plan cubre enfermedades además de accidentes laborales.
-- Datos de CON SEGURO BROKER (sitio web, domicilio, registro), si se van a publicar.
+- Suma asegurada de Gastos Médicos Mayores.
 - Imágenes propias para Responsabilidad Ambiental (derrame o suelo contaminado) y Gastos Médicos Mayores.

@@ -33,11 +33,13 @@ export interface SocialLink {
 const FALLBACK_URL = 'https://DOMINIO.com';
 
 /**
- * Aliado estratégico en seguros. Se escribe siempre así, en mayúsculas.
- * TODO: sitio web, domicilio y registro de CON SEGURO BROKER (no los tenemos;
- * no publicar ninguno hasta que el cliente los confirme).
+ * Aliado estratégico en seguros: los seguros se ofrecen mediante su alianza.
+ * Solo se publican el nombre comercial y el enlace a su sitio.
  */
-export const INSURANCE_PARTNER = 'CON SEGURO BROKER';
+export const INSURANCE_PARTNER = {
+  name: 'Conseguro Broker',
+  url: 'https://www.consegurobroker.com/',
+} as const;
 
 /** Acepta solo una URL absoluta válida; vacía o mal formada → dominio provisional. */
 function resolveSiteUrl(value: string | undefined): string {
@@ -56,7 +58,7 @@ export const SITE = {
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: 'es_MX',
   description:
-    `Asociación dedicada al sector de hidrocarburos y la industria energética en México. Con nuestro aliado ${INSURANCE_PARTNER} acercamos seguros de responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para el gas LP.`,
+    `Asociación dedicada al sector de hidrocarburos y la industria energética en México. Con nuestro aliado ${INSURANCE_PARTNER.name} acercamos seguros de responsabilidad civil, responsabilidad ambiental y gastos médicos mayores para el gas LP.`,
   contact: {
     phone: '+52 449 239 3813',
     email: 'asisgassc@gmail.com',
