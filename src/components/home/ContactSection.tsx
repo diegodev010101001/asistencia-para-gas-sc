@@ -2,6 +2,7 @@ import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 import { QuoteForm } from '@/components/forms/QuoteForm';
+import { EmailText } from '@/components/ui/EmailText';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
@@ -20,7 +21,7 @@ interface ContactSectionProps {
   whatsappMessage?: string;
 }
 
-function InfoRow({ icon, label, value, href }: { icon: ReactNode; label: string; value: string; href?: string | null }) {
+function InfoRow({ icon, label, value, href }: { icon: ReactNode; label: string; value: ReactNode; href?: string | null }) {
   return (
     <li className={styles.row}>
       <span className={styles.rowIcon} aria-hidden="true">
@@ -69,7 +70,7 @@ export function ContactSection({
           <ul role="list" className={styles.info}>
             <InfoRow icon={<WhatsAppIcon size={18} />} label="WhatsApp" value={contact.whatsapp} href={wa} />
             <InfoRow icon={<Phone size={18} strokeWidth={1.5} />} label="Teléfono" value={contact.phone} href={phoneHref()} />
-            <InfoRow icon={<Mail size={18} strokeWidth={1.5} />} label="Correo" value={contact.email} href={emailHref()} />
+            <InfoRow icon={<Mail size={18} strokeWidth={1.5} />} label="Correo" value={<EmailText email={contact.email} />} href={emailHref()} />
             <InfoRow icon={<MapPin size={18} strokeWidth={1.5} />} label="Ubicación" value={addressText()} />
             <InfoRow icon={<Clock size={18} strokeWidth={1.5} />} label="Horario" value={contact.hours} />
           </ul>

@@ -45,10 +45,44 @@
   align-self: start;
 }
 
+/* Recorte 3:4 de la foto (antes, prop ratio de Figure). */
+.figure > :first-child {
+  aspect-ratio: 3 / 4;
+}
+
 @media (max-width: 63.99em) {
   .media {
     max-width: 30rem;
   }
+}
+
+/* Escritorio: la foto ocupa la altura de la columna de texto para que las dos
+   columnas terminen a la par; la imagen se recorta con object-fit: cover. */
+@media (min-width: 64em) {
+  .media {
+    align-self: stretch;
+  }
+
+  .figure {
+    height: 100%;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .figure > :first-child {
+    aspect-ratio: auto;
+  }
+}
+
+/* ─── Alianza estratégica ─────────────────────────────────────────────── */
+.alliance {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s) var(--space-m);
+  margin-top: var(--space-2xs);
+  padding-top: var(--space-m);
+  border-top: var(--hairline);
 }
 
 /* ─── Por qué elegirnos ───────────────────────────────────────────────── */

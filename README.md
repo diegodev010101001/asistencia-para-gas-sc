@@ -1,7 +1,8 @@
 # ASISTENCIA PARA GAS SC — sitio web
 
-Sitio de seguros para la industria del gas LP e hidrocarburos en México:
-Responsabilidad Civil, Responsabilidad Ambiental y Gastos Médicos Mayores.
+Sitio de ASISTENCIA PARA GAS SC, asociación del sector de hidrocarburos en México. Los seguros
+(Responsabilidad Civil, Responsabilidad Ambiental y Gastos Médicos Mayores) se ofrecen mediante su
+aliado Conseguro Broker (nombre y enlace en `INSURANCE_PARTNER`, `src/data/site.ts`).
 
 **Stack:** Next.js 16 (App Router) · React 19.3 · TypeScript strict · CSS Modules con design tokens · lucide-react.
 Todas las rutas se generan estáticas (SSG).
@@ -90,7 +91,6 @@ src/
 
 Búscalos con `grep -rn "TODO" src`. Resumen:
 
-- Dominio final (`NEXT_PUBLIC_SITE_URL`).
 - URL del aviso de privacidad y redes sociales (`src/data/site.ts`).
 - Llaves de EmailJS en `.env.local` y en Vercel.
 - Confirmar cifras heredadas: límite USD 2,000,000; deducibles USD 30,000 / 10 % mín. USD 15,000;

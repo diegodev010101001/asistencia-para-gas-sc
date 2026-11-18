@@ -1,7 +1,9 @@
 .footer {
   background-color: var(--color-ink);
   color: var(--color-text-inverse);
-  padding-block: var(--space-section) var(--space-l);
+  /* Abajo se suma la altura del dock flotante (~53px + su separación) para que
+     no tape la última línea del pie al llegar al final de la página. */
+  padding-block: var(--space-section) calc(var(--space-l) + 4rem);
 }
 
 .grid {
@@ -136,6 +138,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  /* El enlace del aliado tiene altura mínima táctil: alinear por la línea de texto. */
+  align-items: baseline;
   gap: var(--space-s);
   margin-top: var(--space-2xl);
   padding-top: var(--space-m);

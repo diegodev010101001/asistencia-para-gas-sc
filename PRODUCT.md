@@ -23,7 +23,7 @@ Sitio comercial de ASISTENCIA PARA GAS SC. Explica tres seguros especializados p
 
 ## Positioning
 
-ASISTENCIA PARA GAS SC es un **agente o intermediario de seguros**: asesora, cotiza y coloca pólizas con aseguradoras; no emite pólizas propias. Se especializa exclusivamente en la cadena del gas LP e hidrocarburos (almacenamiento, distribución, transporte, carga y descarga, expendio) y atiende operaciones en **todo México** desde su oficina en Pocitos, Aguascalientes.
+ASISTENCIA PARA GAS SC es una **asociación** dedicada a impulsar y proporcionar soluciones y servicios especializados para el sector de hidrocarburos y la industria energética en México. **No es agente de seguros**: los seguros se ofrecen mediante su alianza estratégica con **Conseguro Broker** (nombre comercial, escrito así; sitio: https://www.consegurobroker.com/), firma especializada en intermediación de seguros; la póliza la emite la compañía aseguradora. Se especializa exclusivamente en la cadena del gas LP e hidrocarburos (almacenamiento, distribución, transporte, carga y descarga, expendio) y atiende operaciones en **todo México** desde su oficina en Pocitos, Aguascalientes.
 
 ## Operating Context
 
@@ -37,8 +37,8 @@ ASISTENCIA PARA GAS SC es un **agente o intermediario de seguros**: asesora, cot
 - Next.js 16 App Router, todas las rutas estáticas (SSG), con metadatos, JSON-LD y sitemap generados desde los datos.
 - Formulario: Server Action con `@emailjs/nodejs`, validación zod compartida cliente/servidor, honeypot y rate limit por IP. Las llaves nunca llegan al cliente.
 - Idioma: español de México (`es-MX`).
-- Contacto (`src/data/site.ts`): WhatsApp +52 1 449 106 1582, teléfono +52 449 239 3813, asisgassc@gmail.com, Julian Piñon Valenzuela 242 B, Los Pocitos, CP 20328 Pocitos, Ags.
-- **Decisiones abiertas** (no inventar mientras sigan abiertas): dominio final; URL del aviso de privacidad; redes sociales; nombres de las aseguradoras con las que coloca; suma asegurada de Gastos Médicos Mayores.
+- Contacto (`src/data/site.ts`): WhatsApp +52 1 449 106 1582, teléfono +52 449 239 3813, contacto@asistenciaparagas.com, Julian Piñon Valenzuela 242 B, Los Pocitos, CP 20328 Pocitos, Ags.
+- **Decisiones abiertas** (no inventar mientras sigan abiertas): URL del aviso de privacidad; redes sociales; nombres de las aseguradoras; suma asegurada de Gastos Médicos Mayores. De Conseguro Broker solo se publican el nombre y el enlace (nunca razón social, domicilio ni registro).
 
 ## Brand Commitments
 
@@ -52,6 +52,7 @@ ASISTENCIA PARA GAS SC es un **agente o intermediario de seguros**: asesora, cot
 
 - Cifras confirmadas para usar tal cual: **500+ empresas protegidas, 10+ años de experiencia, 3 seguros especializados**.
 - Cifras heredadas del sitio anterior, pendientes de confirmación (marcadas `TODO` en el código): límite USD 2,000,000 por evento; deducibles USD 30,000 (instalaciones fijas) y 10 % con mínimo USD 15,000 (transporte); aviso de siniestro en 24–72 h; emisión en 3–7 días hábiles; respuesta en menos de 48 h hábiles.
+- Gastos Médicos Mayores (confirmado por el cliente): cubre enfermedades y accidentes, también accidentes en la oficina, para todo el personal (operativo y administrativo). No hay datos de periodos de espera, preexistencias ni sumas aseguradas: no inventarlos.
 - Fotografías en `src/assets/`. Responsabilidad Ambiental y Gastos Médicos Mayores no tienen foto propia (pendiente).
 - **No existen** testimonios, nombres de clientes, casos de éxito, certificaciones, premios ni nombres de aseguradoras. No se deben fabricar.
 

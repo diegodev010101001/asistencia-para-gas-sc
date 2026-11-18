@@ -74,6 +74,8 @@ export interface Seguro extends SeguroMeta {
   dirigidoTitulo?: string;
   notaDirigido?: string;
   escenarios: readonly Escenario[];
+  /** Una tarjeta sola en la última fila de escenarios ocupa la fila completa (solo GMM). */
+  escenariosLlenarFila?: boolean;
   extras: readonly BloqueExtra[];
   faqs: readonly Faq[];
   seo: { title: string; description: string; keywords: readonly string[] };
@@ -458,8 +460,8 @@ export const SEGUROS: readonly Seguro[] = [
     ...SEGURO_META['gastos-medicos-mayores'],
     icono: 'heart-pulse',
     resumen:
-      'Cobertura médica para trabajadores expuestos a riesgos industriales, incluidos accidentes en instalaciones de gas, transporte y operaciones de campo.',
-    temas: ['Accidentes laborales', 'Hospitalización', 'Rehabilitación'],
+      'Gastos médicos mayores por enfermedad y accidente para todo el personal: operativo en plantas, transporte y campo, y administrativo en oficina.',
+    temas: ['Accidentes y enfermedades', 'Hospitalización', 'Rehabilitación'],
     imagen: {
       // TODO: imagen propia para Gastos Médicos Mayores (hoy reutiliza una foto de personal en planta).
       src: imgPersonal,
@@ -468,15 +470,15 @@ export const SEGUROS: readonly Seguro[] = [
     hero: {
       titulo: 'Gastos médicos mayores para el personal del sector energético',
       subtitulo:
-        'Protección médica para trabajadores expuestos a riesgos industriales en plantas de gas LP, transporte de hidrocarburos y operaciones de campo.',
+        'Gastos médicos mayores por enfermedad y accidente para todo el personal del sector: operativo en plantas de gas LP, transporte y campo, y administrativo en oficina.',
     },
     descripcion: [
-      'Quienes operan plantas, autotanques y equipos de gas trabajan todos los días en entornos de alto riesgo. Este seguro cubre los gastos médicos derivados de accidentes laborales para que la atención no dependa de la capacidad económica del trabajador ni de la empresa.',
-      'Aplica a todo el personal operativo y contempla desde la atención de urgencia y la hospitalización hasta la rehabilitación.',
+      'Todos los que laboramos en el sector, estemos en un escritorio o en el campo de trabajo, tenemos algún riesgo médico. Quienes operan plantas, autotanques y equipos de gas trabajan a diario en entornos de alto riesgo, y el personal administrativo, en la oficina o en sus visitas a las instalaciones, también puede enfermar o sufrir un accidente. Este seguro cubre los gastos médicos mayores por enfermedad y por accidente para que la atención no dependa de la capacidad económica del trabajador ni de la empresa.',
+      'Aplica a todo el personal de la empresa —operativo y administrativo— y contempla desde la atención de urgencia y la hospitalización hasta la rehabilitación.',
     ],
     cubre: [
-      { titulo: 'Atención médica inmediata', texto: 'Urgencias, hospitalización, cirugías y consultas derivadas de accidentes laborales.' },
-      { titulo: 'Rehabilitación y recuperación', texto: 'Fisioterapia, rehabilitación motriz y terapia especializada posterior al accidente.' },
+      { titulo: 'Atención médica inmediata', texto: 'Urgencias, hospitalización, cirugías y consultas derivadas de una enfermedad o un accidente cubiertos.' },
+      { titulo: 'Rehabilitación y recuperación', texto: 'Fisioterapia, rehabilitación motriz y terapia especializada posterior a una enfermedad, cirugía o accidente.' },
       { titulo: 'Medicamentos y terapias', texto: 'Medicamentos prescritos, estudios de laboratorio, radiografías y tratamientos ambulatorios.' },
       { titulo: 'Traslados y ambulancia', texto: 'Ambulancia terrestre y aérea, y traslados entre centros médicos en emergencias.' },
     ],
@@ -484,7 +486,7 @@ export const SEGUROS: readonly Seguro[] = [
       { titulo: 'Enfermedades preexistentes no declaradas' },
       { titulo: 'Accidentes bajo influencia de alcohol o sustancias' },
       { titulo: 'Lesiones autoinfligidas' },
-      { titulo: 'Tratamientos estéticos o electivos', texto: 'No relacionados con el accidente.' },
+      { titulo: 'Tratamientos estéticos o electivos', texto: 'No relacionados con una enfermedad o un accidente cubiertos.' },
     ],
     notaExclusiones: NOTA_POLIZA,
     dirigidoA: [
@@ -494,9 +496,11 @@ export const SEGUROS: readonly Seguro[] = [
       { titulo: 'Técnicos de instalación y mantenimiento' },
       { titulo: 'Personal de estaciones de servicio y carburación' },
       { titulo: 'Cuadrillas de operaciones de campo' },
+      { titulo: 'Personal administrativo y de oficina' },
+      { titulo: 'Supervisión, gerencia y áreas de apoyo' },
     ],
     dirigidoTitulo: 'Pensado para este personal',
-    notaDirigido: 'Aplica a todo el personal operativo de la empresa.',
+    notaDirigido: 'Aplica a todo el personal de la empresa: operativo en campo y en plantas, y administrativo en oficina.',
     escenarios: [
       {
         titulo: 'Lesión durante una maniobra en planta',
@@ -517,20 +521,39 @@ export const SEGUROS: readonly Seguro[] = [
         resultado: 'cubierto',
       },
       {
+        titulo: 'Caída en la oficina',
+        situacion: 'Una colaboradora del área administrativa se resbala en las escaleras de la oficina y se fractura la muñeca.',
+        respuesta: 'Atención de urgencias, estudios, cirugía si se requiere y rehabilitación posterior.',
+        resultado: 'cubierto',
+      },
+      {
+        titulo: 'Lesión durante una visita a planta',
+        situacion: 'Un supervisor administrativo se lesiona al recorrer la planta durante una auditoría interna.',
+        respuesta: 'Atención de urgencias, hospitalización y medicamentos derivados del accidente.',
+        resultado: 'cubierto',
+      },
+      {
+        titulo: 'Diagnóstico que requiere cirugía',
+        situacion: 'A una persona del área administrativa le diagnostican una enfermedad que requiere cirugía y hospitalización.',
+        respuesta: 'Cirugía, hospitalización, estudios y medicamentos relacionados con la enfermedad.',
+        resultado: 'cubierto',
+      },
+      {
         titulo: 'Accidente bajo influencia de alcohol',
         situacion: 'La lesión ocurre mientras el trabajador está bajo los efectos del alcohol u otras sustancias.',
         respuesta: 'Exclusión de la póliza.',
         resultado: 'excluido',
       },
     ],
+    escenariosLlenarFila: true,
     extras: [
       {
         tipo: 'datos',
         id: 'ficha',
         titulo: 'Ficha de la cobertura',
         items: [
-          { etiqueta: 'Tipo de cobertura', valor: 'Gastos médicos por accidente laboral' },
-          { etiqueta: 'Aplicable a', valor: 'Todo el personal operativo' },
+          { etiqueta: 'Tipo de cobertura', valor: 'Gastos médicos mayores por enfermedad y accidente' },
+          { etiqueta: 'Aplicable a', valor: 'Personal operativo y administrativo' },
           // TODO: confirmar tiempo de emisión (3–7 días hábiles en el sitio anterior).
           { etiqueta: 'Emisión', valor: '3 a 7 días hábiles' },
           // TODO: suma asegurada, deducible y coaseguro (no existen en el sitio anterior).
@@ -542,24 +565,30 @@ export const SEGUROS: readonly Seguro[] = [
       {
         question: '¿Qué gastos cubre el seguro de gastos médicos mayores?',
         answer:
-          'Urgencias, hospitalización, cirugías y consultas derivadas de accidentes laborales; medicamentos, laboratorio y radiografías; ambulancia terrestre y aérea; y rehabilitación posterior al accidente.',
+          'Gastos médicos mayores por enfermedad y por accidente: urgencias, hospitalización, cirugías y consultas; medicamentos, laboratorio y radiografías; ambulancia terrestre y aérea; y rehabilitación.',
+      },
+      {
+        question: '¿Cubre enfermedades o solo accidentes?',
+        answer:
+          'Cubre ambos: gastos médicos mayores por enfermedad y por accidente, incluidos los accidentes que ocurren en la oficina. Las condiciones particulares de la póliza se detallan en la propuesta; solicita tu cotización para conocerlas.',
       },
       {
         question: '¿A quién protege?',
-        answer: 'A todo el personal operativo expuesto a riesgos industriales: plantas, autotanques, transporte, mantenimiento y operaciones de campo.',
+        answer:
+          'A todo el personal de las empresas del sector: al operativo expuesto a riesgos industriales —plantas, autotanques, transporte, mantenimiento y operaciones de campo— y al administrativo y de oficina. Estemos en un escritorio o en campo, todos tenemos algún riesgo médico.',
       },
       {
         question: '¿Cubre accidentes fuera de la planta?',
-        answer: 'Sí. Contempla accidentes en instalaciones de gas, durante el transporte y en operaciones de campo.',
+        answer: 'Sí. Contempla accidentes en instalaciones de gas, durante el transporte, en operaciones de campo y en las oficinas de la empresa.',
       },
       {
         question: '¿Incluye rehabilitación?',
-        answer: 'Sí. Incluye fisioterapia, rehabilitación motriz y terapia especializada para la recuperación posterior al accidente.',
+        answer: 'Sí. Incluye fisioterapia, rehabilitación motriz y terapia especializada para la recuperación posterior a una enfermedad, cirugía o accidente.',
       },
       {
         question: '¿Qué no cubre?',
         answer:
-          'Enfermedades preexistentes no declaradas, accidentes bajo la influencia de alcohol o sustancias, lesiones autoinfligidas y tratamientos estéticos o electivos no relacionados con el accidente.',
+          'Enfermedades preexistentes no declaradas, accidentes bajo la influencia de alcohol o sustancias, lesiones autoinfligidas y tratamientos estéticos o electivos no relacionados con una enfermedad o un accidente cubiertos.',
       },
       {
         question: '¿Cuánto tarda la emisión de la póliza?',
@@ -569,12 +598,14 @@ export const SEGUROS: readonly Seguro[] = [
     seo: {
       title: 'Seguro de Gastos Médicos Mayores para personal de gas LP',
       description:
-        'Gastos médicos mayores para trabajadores de plantas de gas LP, autotanques y transporte de hidrocarburos: urgencias, hospitalización, ambulancia y rehabilitación por accidente laboral.',
+        'Gastos médicos mayores por enfermedad y accidente para todo el personal del sector gas LP: operativo en plantas, autotanques y transporte, y administrativo en oficina.',
       keywords: [
         'gastos médicos mayores trabajadores gas LP',
         'seguro médico para operadores de autotanques',
         'seguro accidentes laborales sector energético',
         'gastos médicos para gaseras',
+        'gastos médicos mayores personal administrativo sector energético',
+        'gastos médicos mayores por enfermedad y accidente',
       ],
     },
     serviceType: 'Seguro de gastos médicos mayores',
